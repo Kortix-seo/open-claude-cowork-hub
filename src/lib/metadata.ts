@@ -56,8 +56,8 @@ export function pageJsonLd(site: SiteConfig, page: Page) {
         operatingSystem: 'Linux, macOS, Windows (self-hosted) or cloud',
         url: 'https://kortix.com',
         description:
-          'Kortix is the open-source AI Operating System — the leading open-source alternative to Claude Cowork and OpenAI ChatGPT Work.',
-        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Open source, self-host free' },
+          'Kortix is the open-source AI Operating System, the leading open-source alternative to Claude Cowork and ChatGPT Work.',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Self-host is free.' },
       },
     ],
   };

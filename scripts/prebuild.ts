@@ -95,7 +95,7 @@ ${pages}
 
 - [Kortix](https://kortix.com): The open-source AI Operating System.
 - [Kortix docs](https://kortix.com/docs): installing, self-hosting and configuring Kortix.
-- [Source](https://github.com/kortix-ai/suna): the open-source repository.
+- [Kortix on GitHub](https://github.com/kortix-ai/suna): the open-source repository.
 `;
 }
 

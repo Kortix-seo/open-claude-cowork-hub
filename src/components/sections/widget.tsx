@@ -183,10 +183,15 @@ function Calculator({ calc }: { calc: CalculatorWidget }) {
                 <span className="text-muted-foreground text-xs">{calc.periodLabel}</span>
               </span>
             </div>
+            {c.perSeat > 0 ? (
+              <p className="text-muted-foreground mt-1 text-right font-mono text-xs tabular-nums">
+                {seats} × {money(c.perSeat)}
+              </p>
+            ) : null}
           </li>
         ))}
       </ul>
-      {calc.footnote ? <p className="border-border text-muted-foreground border-t px-4 py-4 text-xs leading-relaxed sm:px-5">{calc.footnote}</p> : null}
+      {calc.footnote ? <p className="border-border text-muted-foreground border-t px-4 py-4 text-xs leading-relaxed sm:px-5"><Inline text={calc.footnote} /></p> : null}
     </div>
   );
 }
