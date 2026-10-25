@@ -20,7 +20,7 @@ const site: SiteConfig = {
   siteName: 'Open Source Claude Cowork',
   description:
     'An independent handbook of open-source alternatives to Claude Cowork: what you can read, what you can host, and what you can review. It recommends Kortix, the open-source AI Operating System.',
-  updated: '2026-10-24',
+  updated: '2026-10-25',
   lang: 'en',
   accent: '#1e3a8a',
   fonts: 'system',
@@ -2815,247 +2815,246 @@ Run the decision as three questions instead of a feature count. A team that live
       ],
     },
 
-    /* ── claude-cowork-local-llm ──────────────────────────────────────────── */
     {
-      slug: 'claude-cowork-local-llm',
-      navLabel: 'Local LLM',
-      title: 'A local LLM beside Cowork needs an open source model layer',
-      metaDescription: "Claude Cowork runs on Anthropic's models, so a local LLM needs another model layer: an open source one, pointed at an OpenAI-compatible endpoint you serve.",
-      h1: "Claude Cowork with a local LLM? An open source layer decides",
-      lead: "No. Claude Cowork's work runs on Anthropic's models through an Anthropic plan, so a local LLM has nowhere to attach. The model layer decides, and Kortix, the open-source AI Operating System, reads an OpenAI-compatible endpoint you serve.",
+      slug: `claude-cowork-local-llm`,
+      navLabel: `Local LLM`,
+      title: `Claude Cowork with a local LLM: open source makes it a setting`,
+      metaDescription: `Cowork can reach a model behind a gateway your organization runs, and Kortix is the open source stack where the endpoint is a project setting.`,
+      h1: `Claude Cowork with a local LLM: open source owns the endpoint`,
+      lead: `Claude Cowork can reach a model your organization serves, through a managed deployment rather than a user setting. A third-party build points at a gateway you operate. Kortix is the open-source AI Operating System: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers.`,
       sections: [
         {
           type: 'artifact',
-          heading: { title: "Where the endpoint and its key go" },
+          heading: { title: `The custom-endpoint rules, in the model docs' own words` },
           artifact: {
-            file: "docs/project/models",
+            file: `docs/project/models`,
             lang: 'text',
-            source: "https://kortix.com/docs/project/models",
+            source: `https://kortix.com/docs/project/models`,
             lines: [
-              "For a self-hosted or unlisted OpenAI-compatible endpoint, open the **Custom** tab.",
-              "Enter a provider id, a name, the base URL and one or more models (an id and a name each).",
-              "The gateway calls `<base_url>/chat/completions` with the OpenAI chat-completions format.",
-              "The key is optional: Kortix saves it as the project secret `CUSTOM_<ID>_API_KEY` and sends it as a Bearer token.",
-              "Budgets, logs, access rules and routing apply as for any other model.",
-              "A model id is `<id>/<model>`, for example `my-vllm/qwen-3`.",
+              `For a self-hosted or unlisted OpenAI-compatible endpoint, open the **Custom** tab.`,
+              `Enter a provider id, a name, the base URL and one or more models (an id and a name each).`,
+              `The gateway calls \`<base_url>/chat/completions\` with the OpenAI chat-completions format.`,
+              `The key is optional: Kortix saves it as the project secret \`CUSTOM_<ID>_API_KEY\` and sends it as a Bearer token.`,
+              `Both harnesses, OpenCode and pi, can use its models.`,
+              `A model id is \`<id>/<model>\`, for example \`my-vllm/qwen-3\`.`,
+              `The gateway refuses a base URL on a private, loopback or link-local address.`,
+              `On a self-hosted deployment, list the host in the API environment variable \`KORTIX_LLM_CUSTOM_PROVIDER_ALLOW_HOSTS\` (comma-separated) to allow it.`,
             ],
           },
-          caption: "The Custom tab takes a provider id, a base URL and one or more models, and the key is optional.",
+          caption: `Eight lines from \`docs/project/models\`, quoted as they read.`,
         },
         {
           type: 'prose',
-          body: `## Claude Cowork with a local LLM: two layers, one answer
+          body: `## Two layers, and only one of them is the question
 
-A search for "Claude Cowork with a local LLM" bundles two requests, and they fail in different places. The model layer decides which LLM answers each step, whose credential pays for it, and which machine generates the tokens. The agent layer is everything around the model: the harness that plans and calls tools, the connectors and memory, and the review that gates finished work.
+A search for Claude Cowork with a local model bundles two requests. They fail in different places. The model layer decides which LLM answers each step. It decides whose credential pays for it and which machine generates the tokens. The agent layer is everything around that: the harness that plans and calls tools, the connectors and memory, and the review that gates finished work. Anthropic's third-party documentation moves the first layer. It leaves the second where it is.
 
-Cowork is closed on both. Its agent layer is Anthropic's product, and its model layer is Anthropic's models, reached through an Anthropic plan. Local inference is a model-layer request, so no app setting reaches it. On a Claude plan the model is fixed by the plan, and no setting points it elsewhere.
+That split decides how the question gets answered. Cowork on a paid Claude plan keeps both layers inside Anthropic's product. In the third-party mode, Anthropic's agent layer stays. Inference and billing go to a provider the organization configures. A model you serve can sit behind that provider. None of it turns model choice into a switch a person flips in settings.
 
-Two questions sort the platforms that might fit. Can a session's agent take its model from an endpoint you run? Can that choice differ per agent? Then the bill: what it charges on your keys.
+## The managed path, in Anthropic's own words
 
-## Cowork joined Claude, and the work stayed off your hardware
+The third-party page states the routing without hedging. "Claude Desktop on third-party (3P) is a deployment mode of Claude Desktop that routes all model inference through a provider you configure: Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, any compatible gateway you operate, or the Anthropic API directly." The same mode keeps the product intact: "the full Claude Desktop experience (Chat, Cowork, and Code, including file creation, multi-step research, and sub-agent coordination) with inference and billing handled by the provider you choose" ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview), checked October 2026).
 
-Anthropic's change on 16 September 2026 kept every capability where it was, inside Anthropic's product, and only the way in moved. What Cowork could do became available from any conversation, with the context, skills, and connectors you already have ([Anthropic's announcement](https://claude.com/resources/articles/cowork-is-now-claude)). The Cowork product page still answers the name people search. It says Cowork runs on web, desktop, and mobile, the same Claude wherever you work ([the product page](https://claude.com/product/cowork), checked 21 October 2026). Pro, Max, and Team plans carry it automatically.
+Three requirements separate that from a desktop preference. The device runs the 3P build. It detects the mode at launch and can skip Anthropic sign-in once a provider and its credentials are present. The organization configures the device through "your existing MDM (Jamf, Intune, Workspace ONE, Group Policy), a bootstrap server, or the admin console." A profile that MDM delivers cannot be edited on the device. The provider has to exist before any of it applies.
 
-The rollout schedule comes from the same announcement. Pro and Max plans got it first, in the Claude app on web, desktop, and mobile over the coming weeks. Team plans have it in beta behind an owner\u0027s switch, and Enterprise plans where an owner turns it on. On a given day this October, who can open the merged experience depends on the plan and on that switch.
+The gateway option is the one that matters for a local model. A gateway you operate is where your own serving stack plugs in. [Anthropic's gateway page](https://claude.com/docs/third-party/claude-desktop/gateway) sets the contract: "The gateway must implement the Anthropic Messages API," and "POST /v1/messages with streaming and tool use is required." Discovery is optional, so a deployment that skips \`GET /v1/models\` lists model ids explicitly. LiteLLM, Portkey and an in-house proxy are the page's examples. A gateway in front of a model you serve is a translation job: Anthropic Messages on one side, your model's protocol on the other.
 
-Nothing in the merge moved a model onto your hardware. Start a task from your phone and, the product page says, Claude keeps working in the cloud even when your laptop is closed. A local LLM fits none of that.
+## What stays the same in that mode
 
-## Where Cowork's model layer actually runs
+Cowork's execution boundary does not move. The same page describes it: "In Cowork, shell commands run in the hardened Cowork VM; file access is scoped to your allowed folders and web fetches to your egress allowlist." Conversation content follows the configured endpoint instead of Anthropic's service. The app stores it "only on the local machine," and SSH remote sessions add a host that receives and stores it too.
 
-The product page names the placement options: "Use a Claude account or your own cloud provider: Access Claude through Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry" (checked 21 October 2026). Those are homes for the same hosted service on the same models. A cloud you already hold changes whose account the bill lands on. The tokens still come from Anthropic.
+That is the trade a regulated buyer wants, and it explains why the mode exists. Anthropic scopes it to organizations "whose security, regulatory, or contractual requirements prevent them from sending data through Anthropic's first-party products." Its advice points elsewhere for everyone else: standard Claude Desktop with Cowork on a Team or Enterprise plan "is simpler to deploy and releases new features more quickly than Claude Desktop on 3P."
 
-Usage shows the model layer from another side. Agent work draws Claude usage limits, and Anthropic's page warns that "Claude Cowork consumes limits faster than Chat" (checked 21 October 2026). An agent makes many calls per job, so on a hosted plan the price arrives as a burned limit. A local model moves that cost to hardware you already own.
+## On a first-party plan the model is still Anthropic's
 
-## The local half: an Ollama endpoint you serve
+The Cowork product page describes the ordinary case, and it has not changed. "Claude Cowork runs on web, desktop, and mobile and is the same Claude, wherever you work." Close the laptop and it keeps going. Its placement options stay inside Anthropic's estate or your cloud account: "Use a Claude account or your own cloud provider: Access Claude through Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry" ([the product page](https://claude.com/product/cowork), checked October 2026). A Bedrock or Foundry account changes whose bill the tokens land on. It does not put a model on your own hardware in the loop.
 
-Ollama is a runner for open models on your own machine. Its site leads with "access the latest open models with complete privacy locally or in the cloud" ([Ollama](https://ollama.com), checked 21 October 2026). The library carries the current open-weight families. OpenAI's gpt-oss is among them, listed as "designed for powerful reasoning, agentic tasks, and versatile developer use cases" ([the Ollama library](https://ollama.com/library), checked 21 October 2026).
+So the answer has two halves. On a personal or team plan, a local model has no path. No setting on the device creates one. Under a managed 3P deployment, inference follows the provider the organization names. A gateway it runs can front a model it serves.
 
-What makes a local runner attachable is its API shape. Ollama serves an OpenAI-compatible Chat Completions endpoint at http://localhost:11434/v1. Client code written for a hosted provider works against it once the base URL changes ([Ollama's compatibility note](https://ollama.com/blog/openai-compatibility)). In Ollama's own example the key is a placeholder the client requires and ignores, which is the shape a platform has to tolerate.
+## Where the endpoint attaches in Kortix
 
-Two commands prove the endpoint: pull a model with \`ollama pull\`, then post to \`/v1/chat/completions\` with the base URL pointed at the runner. The check takes one command on a machine where Ollama already runs, and no account sits in the middle.
+Kortix keeps the endpoint in project configuration rather than device policy. The Custom tab takes a provider id, a name, a base URL and one or more models, and the key is optional, saved as the project secret \`CUSTOM_<ID>_API_KEY\` ([the Kortix docs](https://kortix.com/docs/project/models)). Requests go through the gateway in the OpenAI chat-completions format. Ollama already serves that shape at \`http://localhost:11434/v1\` ([Ollama's compatibility note](https://ollama.com/blog/openai-compatibility)).
 
-## The platform half: what a model layer must accept
+Reachability is where most local setups break before the first request. A private, loopback or link-local base URL is refused, so \`http://localhost:11434/v1\` fails as written. A self-hosted deployment names the host in \`KORTIX_LLM_CUSTOM_PROVIDER_ALLOW_HOSTS\`. The gateway is the caller: every model request goes through it, and it calls \`<base_url>/chat/completions\`. On Kortix Cloud a loopback URL therefore resolves on the gateway host, not on the laptop and not in the session's sandbox. Serve the model on a host the gateway can reach, or self-host and allow-list the host.
 
-Kortix states its model options in one line: "Any model provider with your own keys. Or the ChatGPT plan you already pay for. Or sign in with your OpenCode Console account for OpenCode Zen and Go."
+Model choice then splits per agent. \`kortix agents model <agent> <model-id>\` pins one agent, \`kortix models default <model-id>\` sets the project default, and a session that names no model walks that chain. A nightly digest can run on the machine in the rack. A research agent can run on a hosted model behind your key. Any model provider with your own keys. Or the ChatGPT plan you already pay for. Or sign in with your OpenCode Console account for OpenCode Zen and Go.
 
-A local endpoint enters through the Custom tab in the model settings, or from the CLI on a linked project with \`kortix providers custom set\`. You give a provider id, a name, the base URL and one or more models, each with an id and a name. The key is optional, and Kortix stores it as the project secret \`CUSTOM_<ID>_API_KEY\` ([the model docs](https://kortix.com/docs/project/models), checked 21 October 2026). The provider id comes first in the model id, so a model named qwen-3 under the provider my-vllm answers as \`my-vllm/qwen-3\`.
+## What each route asks of you
 
-Reachability is the step where local setups break, and the model docs are blunt about it. The gateway refuses a base URL on a private, loopback or link-local address, so \`http://localhost:11434/v1\` is rejected as it stands. On a self-hosted deployment you list the host in the API environment variable \`KORTIX_LLM_CUSTOM_PROVIDER_ALLOW_HOSTS\`, comma-separated, and the endpoint is allowed. On Kortix Cloud the session runs on its own cloud computer, so \`localhost\` there means that machine, not the laptop under your desk. Serve the model on a host the session can reach, or self-host the stack and keep both on one box.
+| | Kortix | Desktop on 3P | Cowork, first-party |
+| --- | --- | --- | --- |
+| Open source | Yes | No | No |
+| Inference | Your key or endpoint | Provider you choose | Claude models |
+| Set up by | A project setting | MDM or admin console | A Claude plan |
+| Model choice | Agent pin, or default | Picker, gateway list | Picker, Claude list |
+| Self-host | Self-host is free | No, managed desktop | No, hosted account |
 
-A custom endpoint runs through the same gateway as every other model. The gateway calls \`<base_url>/chat/completions\` in the OpenAI chat-completions format. Budgets, logs, access rules and routing apply as they do for any other model, and the endpoint itself costs no credits. OpenCode, the harness Kortix runs by default, can use its models.
+The 3P column is the shorter route for an organization that already runs a gateway and a managed fleet. It keeps Anthropic's agent layer. Your endpoint sits behind it. The cost is a deployment project: profiles to push, a gateway to run, a protocol to translate. A company with LiteLLM in front of Bedrock is close to that. A person with a laptop and a model runner is not.
 
-Hosted providers take the documented CLI: \`kortix providers set anthropic\` reads a key from stdin. \`kortix models default <model-id>\` sets the project default, and \`kortix agents model <agent> <model-id>\` pins one agent (checked 21 October 2026). A session that names no model walks that chain from the pin down to the platform default.
+Kortix inverts the unit of configuration. The endpoint is stored with the project and set once for it, where the 3P route is a profile pushed to each device. The cost sits on your side too. A self-hosted instance has no managed models, so every project brings a key or an endpoint. A local model's speed is the hardware's speed, because one job makes many calls. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free.
 
-The per-agent split is the useful part for a local-LLM buyer. The nightly summary job can run on your own box, while a research agent runs on a hosted model behind your own key. Billing follows the keys. Your provider bills a request that runs on your own key or subscription. Kortix charges nothing for the first $1,000 of key usage a month at list price, then 5% of each request's list price, from credits. A ChatGPT subscription and OpenCode Go are never charged ([the model docs](https://kortix.com/docs/project/models), checked 21 October 2026).
+Governance differs by route. Session work reaches \`main\` through a change request. Merge is default-deny for agents. A gateway in front of a local model adds no such gate, and the 3P page puts the review boundary at the sandbox and the egress allowlist.
 
-## What a local model changes, and what it leaves alone
+## Which route fits
 
-An agent makes many model calls to finish one job, so a local model's speed is the hardware's speed, and every step waits on it. The trade you accept is latency and model choice in exchange for a bill that stops at your own hardware.
+An organization whose security review forbids Anthropic's API has a documented answer: the 3P deployment, with Cowork's interface and a gateway it controls. It is a large operational commitment, and Anthropic says as much.
 
-Governance survives the swap. Session work reaches \`main\` through a change request. Merge is default-deny for agents. That gate lives at the platform layer, and a bare local-model setup has no equivalent.
-
-Self-hosting completes the local story. "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free." A self-hosted instance has no managed models, so every project draws on a key you hold or an endpoint you serve (checked 21 October 2026). The [self-hosting guide](https://opensourceclaudecowork.com/self-hosting) covers the install in a couple of commands.
-
-## Choosing a platform when local inference is the constraint
-
-If local inference is the constraint, read a product's model layer before its feature list. Three checks settle it: can an endpoint you run serve a session's agent, can the model differ per agent, and what does the platform charge on your keys. Only after those pass do the agent-layer questions matter: a repo you own, connectors, and a review gate.
-
-Kortix passes all three, which is why it is the recommendation, and its README line covers the rest: "Open source. Read it, fork it, audit it." For the layer-by-layer version of that argument, [What Kortix actually is, layer by layer](https://kortix.com/blog/open-source-ai-management-system) walks all six layers on the Kortix blog.`,
+Some teams want the model choice, the agents, the skills and the memory in one setup they own, and that is the shorter route. Kortix puts a custom OpenAI-compatible endpoint in the project, pins models per agent, and runs both harnesses against the same gateway. Open source. Read it, fork it, audit it. The [desktop comparison](/claude-cowork-vs-openwork) covers the case where the work never leaves one laptop, and the [self-hosting guide](/self-hosting) takes a bare Linux box to a running stack with the model server beside it.`,
         },
         {
           type: 'faq',
-          heading: { title: 'Questions buyers ask about running Cowork on a local model', sub: 'Short answers, with the moving facts dated.' },
+          heading: { title: `Questions buyers ask about a local model`, sub: `Short answers, with the deployment detail that changes each one.` },
           items: [
             {
-              id: 'local',
-              question: "Can Claude Cowork run on a local LLM?",
-              answer:
-                "No. Cowork became a capability of Claude on September 16, 2026, and its work runs on Anthropic's models through an Anthropic plan. No setting points it at a model you serve (the product page, checked 21 October 2026). A local model needs a platform whose model layer accepts your own endpoint.",
+              id: `local-llm`,
+              question: `Can Claude Cowork run on a local LLM?`,
+              answer: `Yes, under a managed third-party deployment. Anthropic's 3P mode routes all of Cowork's inference through a provider the organization configures, including a gateway it operates. It is not a setting a person turns on, and the gateway must implement the Anthropic Messages API.`,
             },
             {
-              id: 'host-claude',
-              question: "Can I host Claude itself on my own server?",
-              answer:
-                "The apps are clients, and the work keeps running in the cloud even when your laptop is closed (the product page, checked 21 October 2026). The closest option is naming a provider account you already hold: Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry. That runs the same hosted service on the same models.",
+              id: `setting`,
+              question: `Is there a local model setting in Claude Cowork?`,
+              answer: `No. The endpoint arrives in managed configuration delivered by MDM, a bootstrap server or the admin console. A profile that MDM delivers cannot be edited on the device. A personal or team plan has no path to a model you serve.`,
             },
             {
-              id: 'point-kortix',
-              question: "What does it take to point Kortix at a local model?",
-              answer:
-                "Start with a running OpenAI-compatible endpoint, such as Ollama's, that the Kortix instance can reach and the gateway will call. Enter it in the Custom tab, or with `kortix providers custom set`; the key is optional. The endpoint goes through the gateway, so budgets, logs, access rules and routing apply (the model docs, checked 21 October 2026).",
+              id: `kortix-endpoint`,
+              question: `What does it take to point Kortix at a local model?`,
+              answer: `A running OpenAI-compatible endpoint the gateway can reach. Then a provider id, base URL and model ids go in the Custom tab or through \`kortix providers custom set\`, with the key optional. A private or loopback host needs \`KORTIX_LLM_CUSTOM_PROVIDER_ALLOW_HOSTS\` on a self-hosted deployment.`,
             },
             {
-              id: 'who-after-merge',
-              question: "Who can use Cowork after the merge?",
-              answer:
-                "The rollout started on Pro and Max plans, in the Claude app on web, desktop, and mobile, after the September 16, 2026 merge. Team plans have it in beta behind an owner\u0027s switch, and Enterprise plans have it where an owner turns it on (the help center, checked 21 October 2026).",
+              id: `sandbox`,
+              question: `Does the Cowork sandbox change when inference moves?`,
+              answer: `No. In the 3P mode, shell commands still run in the hardened Cowork VM, file access stays scoped to your allowed folders, and web fetches follow the egress allowlist. What changes is where prompts, files and tool output are sent.`,
             },
           ],
         },
         {
           type: 'cta',
-          title: 'Point the model layer at your own hardware',
-          sub: 'Start on Kortix Cloud, or self-host the stack and serve the model yourself.',
-          ctas: [TRY_KORTIX, cta('Read the self-hosting guide', 'https://opensourceclaudecowork.com/self-hosting')],
+          title: `Put the endpoint in the project`,
+          sub: `One setting, one gateway, and a change request a person merges before the work lands.`,
+          ctas: [TRY_KORTIX, cta(`Read the self-hosting guide`, `/self-hosting`)],
         },
       ],
     },
 
-    /* ── claude-cowork-for-windows ────────────────────────────────────────── */
     {
-      slug: 'claude-cowork-for-windows',
-      navLabel: 'For Windows',
-      title: 'Windows teams start from a browser, with open source behind it',
-      metaDescription:
-        'Claude Cowork reaches Windows files only through the desktop app. Kortix runs sessions on cloud computers, so a browser is enough.',
-      h1: 'Claude Cowork for Windows: open source, browser-first, nothing to install',
-      lead: 'Claude Cowork runs on Windows, and its local-file reach goes through the Claude Desktop app. Kortix, the open-source AI Operating System, needs no install on a Windows machine. The web app is the client, and every session works on its own cloud computer.',
+      slug: `claude-cowork-for-windows`,
+      navLabel: `For Windows`,
+      title: `Claude Cowork for Windows: open source, and the work leaves the desk`,
+      metaDescription: `Claude Cowork runs on Windows for every paid plan. Kortix is the open source option where each session works on its own cloud computer.`,
+      h1: `Claude Cowork for Windows: open source, with no install at the desk`,
+      lead: `Claude Cowork runs on Windows for every paid plan, and the install is no longer the obstacle. Kortix is the open-source AI Operating System: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers.`,
       sections: [
         {
           type: 'artifact',
-          heading: { title: 'What a Windows team can reach' },
+          heading: { title: `The instruction a Kortix agent starts from` },
           artifact: {
-            file: 'kortix.com/docs',
+            file: `packages/starter/templates/base/agents/kortix.md`,
             lang: 'text',
-            source: 'https://kortix.com/docs',
+            source: `https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/agents/kortix.md`,
             lines: [
-              'Web, desktop and mobile apps | Start and follow sessions, review change requests, and manage projects and accounts.',
-              'CLI | kortix creates projects, runs sessions, and manages agents, secrets, connectors and triggers from a terminal or a script.',
-              'Kortix MCP server | Your MCP client starts sessions, reads files and calls connectors as you, through /v1/mcp on the API.',
-              'Slack, Teams and email | Mention the bot in Slack or Microsoft Teams with a task, and it starts a session.',
-              'Self-hosting | The kortix self-host commands install and run the full stack on your own infrastructure.',
+              `You are hands-on: you read, edit, run, search, fetch, and ship. The`,
+              `session you're in is an isolated sandbox — an ephemeral branch of`,
+              `this repo, your own \`/workspace\` — so you can install, experiment,`,
+              `and recover freely. Only what you commit + push survives.`,
             ],
           },
-          caption: 'Four ways in, and an install that puts the same stack on your own hardware.',
+          caption: `Lines 9 to 12 of \`packages/starter/templates/base/agents/kortix.md\` in the Kortix repo, quoted as they read.`,
         },
         {
           type: 'prose',
-          body: `## Does Claude Cowork run on Windows?
+          body: `## What a paid Claude plan puts on a Windows desk
 
-Yes, three ways. Cowork runs on desktop, with web and mobile in beta ([the product page](https://claude.com/product/cowork), checked October 2026). The Windows desktop build is the Claude Desktop app. It installs from an MSIX package, the installer the download page documents for enterprise deployment ([Download Claude](https://claude.com/download), checked October 2026).
+Claude Cowork runs on Windows, on every paid plan. Anthropic's install guide lists it for Pro, Max, Team and Enterprise in the Claude Desktop app. The floor is Windows 10 or later ([Install Claude Desktop](https://support.claude.com/en/articles/10065433-install-claude-desktop)). The download page carries the detail an IT team asks about first: MSIX installers for Windows, the same enterprise deployment path as the Mac PKG ([Download Claude](https://claude.com/download)).
 
-Anthropic announced one Claude on 16 September 2026, and on Windows the desktop app is still how a session reaches local files. What Cowork did is now available from any conversation, with the context, skills, and connectors an account already has ([the announcement](https://claude.com/blog/cowork-is-now-claude)). Existing Cowork work carries over. The rollout reaches Pro and Max plans first, in the Claude app on web, desktop, and mobile. Team plans have it in beta behind an owner\u0027s switch.
+Web and mobile carry the same sessions. They arrive on Pro, Max and Team plans, in beta on Team, and on Enterprise plans where an owner enables them ([Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile)). A Windows owner can hand over a task at the desk and check on it from a phone. The merge on 16 September 2026 finished that picture. What Cowork could do became available from any conversation, and existing chats, projects, artifacts, connectors and skills came with it ([the announcement](https://claude.com/resources/articles/cowork-is-now-claude)).
 
-## What the desktop app carries on Windows
+The shape of a Windows deployment did not change with the merge. One install per machine, a conversation that follows the account across devices, and local reach that belongs to the machine the app runs on.
 
-Cowork's work runs in an isolated, temporary environment on Anthropic's servers, created for one session and removed when it ends. A task that needs a local file or your own browser goes through the Claude Desktop app. Claude reaches only the folders you connected. If the app is offline, the session cannot reach the machine ([Use Claude Cowork safely](https://support.claude.com/en/articles/13364135-use-claude-cowork-safely), checked October 2026). Any file the session opens that way is processed on Anthropic's servers. A folder shared through the app leaves the machine the moment a task touches it.
+## The desktop app is the only door to local files
 
-The built-in browser covers part of the rest. Cowork opens its own browser in the side panel, separate from your logins and tabs, and it needs no installation. Signing in is where Windows narrows. Importing your own browser's cookies works from Firefox on Windows. The Chrome and Edge imports are macOS-only ([the product page](https://claude.com/product/cowork), checked October 2026). A session can also run in the Claude in Chrome side panel on every paid plan. On Enterprise, an owner has to enable Claude in Chrome and Cowork in the cloud first.
+Every Cowork session runs in the cloud. Anthropic describes an isolated, temporary environment on its servers. It is created for one session, cannot reach a home or company network, and is removed when the session ends ([Use Claude Cowork safely](https://support.claude.com/en/articles/13364135-use-claude-cowork-safely)). Close the laptop and the task keeps going.
 
-## What a Windows machine installs for Kortix
+The computer on the desk stays in the loop for anything that lives on it. A task that needs a connected folder, your own browser or your screen goes through the Claude Desktop app. It reaches the folders you connected, and only while the app is open. Close the app and the session runs on with no path to that machine. A file opened this way is processed on Anthropic's servers, so a document sitting on a Windows desk leaves it the moment a task touches it.
 
-The web app in a browser is a full surface: start and follow sessions, review change requests, and manage projects and accounts. The agent's computer is a separate machine. One isolated sandbox per session. Each session has its own isolated machine and branch. It clones the project repo and does the task there. The operating system at the desk stops being a variable in how the work runs.
+Cowork's built-in browser covers part of the rest, in a side panel separate from your logins and tabs, with nothing to install. Signing in is where Windows narrows. Cookie import works from Firefox on Windows, and the Chrome and Edge imports are macOS only ([the Cowork page](https://claude.com/product/cowork), checked October 2026). Claude in Chrome runs in the side panel on every paid plan, with an Enterprise owner enabling it first.
 
-Windows is where the two diverge most, and the differences are about where the work runs:
+That seam is the one an install cannot close. Ten Windows machines with Cowork on each one hold ten assistants, and the files each assistant can read sit on the desk in front of that machine.
 
-| On Windows | Kortix | Claude Cowork |
-| --- | --- | --- |
-| Desktop app | One universal .dmg for macOS; Linux x86_64 | MSIX installer for Windows |
-| Web app | The full surface, in any browser | Beta |
-| Local files | In the project repo | Through the desktop app only |
-| Browser extension | No Chrome extension exists | Claude in Chrome, all paid plans |
-| Mobile | Not public yet | Beta |
-| Command line | macOS and Linux, WSL on Windows | Claude Code, a separate product |
-| Open source | Yes. The whole platform is open source | No. Proprietary; Anthropic publishes no source |
+## A session that runs on a computer nobody sits at
 
-Two rows decide the choice: how a session reaches local files, and which clients exist. On files, Cowork reaches a Windows machine through its desktop app, while Kortix keeps the working files in a repo each session clones. On clients, no Chrome extension exists for Kortix and the mobile apps are not public yet. The browser is the client a desk and a phone share.
+Kortix puts the working computer somewhere else. Kortix is the open-source AI Operating System, and a project is a git repo with \`kortix.yaml\` at its root. A session clones that repo onto a cloud computer of its own, works on a branch, and commits there. The screen in front of a person is a client and nothing more.
 
-## Start the same session from Teams, Slack, or an API call
+Kortix's starter template opens with the instruction a Kortix agent starts from. The file describes the session as an isolated sandbox, an ephemeral branch of the repo, with its own \`/workspace\`, where only what the agent commits and pushes survives. No operating system at the desk appears in that sentence. One isolated sandbox per session. Each session has its own isolated machine and branch.
 
-A session does not care which surface raised it. Slack and Microsoft Teams are live, so a mention of the bot with a task in a Teams chat starts one. The CLI runs sessions from a terminal, the REST API takes calls under /v1, and an MCP client can start sessions and read files as you. Every surface lands on the same session, with one ID and one branch per run.
+What a Windows machine installs for Kortix is a browser tab, at most:
 
-## Where the work runs, and how it lands
+\`\`\`
+Web, desktop and mobile apps | Start and follow sessions, review change requests, and manage projects and accounts.
+CLI | kortix creates projects, runs sessions, and manages agents, secrets, connectors and triggers from a terminal or a script.
+Slack, Teams and email | Mention the bot in Slack or Microsoft Teams with a task, and it starts a session.
+\`\`\`
 
-Session work reaches \`main\` through a change request. Merge is default-deny for agents. The agent commits to its session branch and a person with the merge permission reviews the diff. The gate applies to every agent in a Windows fleet the same way.
+Source: https://kortix.com/docs
 
-When the work cannot sit in a vendor's cloud at all, the stack moves. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free. The [self-hosting guide](/self-hosting) covers the commands and the questions the first run asks. A browser at a Windows desk reaches a self-hosted stack the same way.
 
-A Cowork session reaches a Windows machine only through the desktop app; a Kortix session runs on a cloud computer of its own, beside a repository the team holds, steered from a browser.
+Those surface lines are quoted from Kortix's docs ([Read the docs](https://kortix.com/docs)). A Teams chat starts a session across a Windows fleet without touching the machines, and the CLI runs through WSL when a script needs a terminal. Review stays with people. Session work reaches \`main\` through a change request. Merge is default-deny for agents.
 
-## Which system fits a Windows team
+## Copilot Cowork is Microsoft's own answer
 
-A team that wants one assistant inside Anthropic's environment gets a finished hosted product, with the desktop app as the toll for local reach. A team that wants the operating system left out of the choice gets Kortix: open source, with the browser as the whole client. The work runs on cloud computers beside a repo the team owns. When a review asks for it, the stack moves into a VPC or an on-prem network. Start from a browser tab today, and add the terminal through WSL when a script needs one.`,
+Microsoft shipped its version of this work in June. Copilot Cowork went generally available on 16 June 2026 inside Microsoft 365 Copilot, billed as a usage-based addition to the Microsoft 365 Copilot subscription ([the announcement](https://www.microsoft.com/en-us/copilot/blog/2026/06/16/copilot-cowork-is-now-generally-available)). Copilot Cowork executes long, multi-tool tasks in Microsoft's cloud, grounded in work data through Work IQ, with files kept out of local storage.
+
+A team that lives in Word, Excel, PowerPoint, Outlook and Teams has a finished product to buy there. The three options separate on where the working computer sits, who holds the configuration, and what a move out would leave behind.
+
+| | Kortix | Claude Cowork | Copilot Cowork |
+| --- | --- | --- | --- |
+| Open source | Yes. Read it, fork it, audit it. | No. Anthropic publishes no source. | No. A licensed Microsoft 365 service. |
+| Where the work runs | Kortix Cloud, your VPC, or your on-prem network | Anthropic's servers; local files through the desktop app | Microsoft's cloud, inside Microsoft 365 |
+| Install on Windows | Nothing; any browser is the client | The Claude Desktop app | Nothing; inside Microsoft 365 Copilot |
+| Local files | In the repo each session clones | Through the desktop app, folders you connected | Not stored locally; work stays in Microsoft 365 |
+| Other clients | CLI, Slack and Teams | Web, mobile and Claude in Chrome | Word, Excel, PowerPoint, Outlook, Teams |
+| Self-host | Self-host is free | Not offered | Not offered |
+
+Two rows carry most of the decision. On files, Cowork and Copilot both keep the source material on their side of the wall, with Cowork reaching a Windows folder through an app on that machine. On configuration, Kortix keeps the rules in the repo, where a reviewer reads a diff.
+
+## Where a Windows fleet gains
+
+A single desk hides the shape of a local install well. The second desk shows it: a folder connected on one machine is not connected on the next, and local reach belongs to the machine the app runs on. The cloud session keeps going with the laptop shut, as Anthropic promises ([the Cowork page](https://claude.com/product/cowork)). What does not travel is the reach into those folders.
+
+Kortix starts from the repo instead. The session clones it, so a new Windows machine needs a browser and a login, and the same job runs the same way on the tenth desk as on the first. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free. A browser at a Windows desk reaches a self-hosted stack the same way, and the [self-hosting guide](/self-hosting) walks the install.
+
+The fit is narrower than the install story suggests. A person working alone in files on one PC gets a finished product from Anthropic with one download. Copilot Cowork is the obvious buy for a company already standardized on Microsoft 365. A team that runs the same jobs across several Windows machines, and wants the work to land through a review it can read, gains from moving the computer off the desk.`,
         },
         {
           type: 'faq',
-          heading: { title: 'Questions Windows buyers ask' },
+          heading: { title: `Questions Windows buyers ask`, sub: `Short answers, with the dates the facts move.` },
           items: [
             {
-              id: 'without-installing',
-              question: 'Can I use Claude Cowork on Windows without installing anything?',
-              answer:
-                'On the web, yes, where Cowork runs in beta. A cloud session starts and runs with no local install. The moment a task needs your files, your browser, or your apps, the Claude Desktop app is the documented path (checked October 2026).',
+              id: `windows`,
+              question: `Does Claude Cowork work on Windows?`,
+              answer: `Yes. Claude Cowork runs in the Claude Desktop app on Windows 10 or later, on every paid plan, and web and mobile carry the same sessions. Local files, browser use and computer use need that app open on the PC.`,
             },
             {
-              id: 'same-as-mac',
-              question: 'Does Cowork behave the same on Windows as on a Mac?',
-              answer:
-                'Nearly, with one browser edge. The built-in browser imports cookies from Firefox on Windows; Chrome and Edge imports are macOS-only. Cowork sessions can also run in the Claude in Chrome side panel on every paid plan. On Enterprise, an owner turns on Claude in Chrome and Cowork in the cloud first.',
+              id: `microsoft`,
+              question: `Is Claude Cowork available on Microsoft?`,
+              answer: `Yes, on Windows. Anthropic ships the Claude Desktop app for Windows and also offers access through a Microsoft Foundry account. Copilot Cowork is Microsoft's separate product inside Microsoft 365 Copilot.`,
             },
             {
-              id: 'kortix-app',
-              question: 'Is there a Kortix app for Windows?',
-              answer:
-                'None is needed. The web app in a browser is the full surface, and every session works on its own cloud computer. The desktop app ships for macOS and Linux, and the terminal is macOS and Linux, WSL on Windows.',
+              id: `equivalent`,
+              question: `What is the Microsoft equivalent of Claude Cowork?`,
+              answer: `Copilot Cowork, the agent inside Microsoft 365 Copilot, generally available since 16 June 2026. It runs long, multi-tool tasks in Microsoft's cloud, grounded in work data through Work IQ.`,
             },
             {
-              id: 'teams',
-              question: 'Can a Windows team start sessions from Microsoft Teams?',
-              answer:
-                'Yes. Slack and Microsoft Teams are live, so a mention of the bot with a task starts a session on the project. Nothing installs on the team\u0027s machines.',
-            },
-            {
-              id: 'merge-effect',
-              question: 'What did the September 2026 merge change for Windows?',
-              answer:'Since 16 September 2026 any conversation in Claude can take on what Cowork did, and existing chats, projects, artifacts, connectors, and skills carry over. On Windows the desktop app stays the path to local files. The rollout still reaches Pro and Max plans first.',
+              id: `claude-ai`,
+              question: `Is claude.ai available for Windows?`,
+              answer: `Yes. claude.ai runs in any browser on Windows, and the Claude Desktop app installs on Windows 10 or later. Cowork sessions appear on both, with local file access only through the desktop app.`,
             },
           ],
         },
         {
           type: 'cta',
-          title: 'Open the web app on Windows',
-          sub: 'Nothing installs, and the work lands through a change request a person merges.',
-          ctas: [TRY_KORTIX, cta('Read the self-hosting guide', '/self-hosting')],
+          title: `Run the work from a Windows browser tab`,
+          sub: `Nothing installs, and the work lands through a change request a person merges.`,
+          ctas: [TRY_KORTIX, cta(`Read the self-hosting guide`, `/self-hosting`)],
         },
       ],
     },
