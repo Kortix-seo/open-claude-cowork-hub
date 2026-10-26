@@ -1,7 +1,7 @@
 {
   "": {
-    "hash": "4be9d2be891aedb4",
-    "updated": "2026-10-25"
+    "hash": "360d333080fb2c37",
+    "updated": "2026-10-26"
   },
   "ai-agent-orchestration": {
     "hash": "269e87062be8ae78",
@@ -16,12 +16,12 @@
     "updated": "2026-10-25"
   },
   "claude-cowork-alternatives": {
-    "hash": "45461ef5bf630828",
-    "updated": "2026-10-25"
+    "hash": "ad37167b5fa79aeb",
+    "updated": "2026-10-26"
   },
   "claude-cowork-data-privacy": {
-    "hash": "8b9c3542efaca66f",
-    "updated": "2026-10-25"
+    "hash": "332f07cadeba68cf",
+    "updated": "2026-10-26"
   },
   "claude-cowork-for-mac": {
     "hash": "8fc6e095b7bdbb27",
@@ -60,20 +60,20 @@
     "updated": "2026-10-25"
   },
   "claude-cowork-security-and-approvals": {
-    "hash": "60d1908d2242ef8d",
-    "updated": "2026-10-25"
+    "hash": "9973b2483aff059d",
+    "updated": "2026-10-26"
   },
   "claude-cowork-vs-chatgpt-work": {
-    "hash": "d1f47c616f5c1b99",
-    "updated": "2026-10-25"
+    "hash": "cf4830b21b0a42d6",
+    "updated": "2026-10-26"
   },
   "claude-cowork-vs-claude-code": {
-    "hash": "aa193447b81f1cd5",
-    "updated": "2026-10-25"
+    "hash": "33824c418ca20187",
+    "updated": "2026-10-26"
   },
   "claude-cowork-vs-microsoft-copilot": {
-    "hash": "0f081abd36cea143",
-    "updated": "2026-10-25"
+    "hash": "d9c3b962522145ef",
+    "updated": "2026-10-26"
   },
   "claude-cowork-vs-openclaw": {
     "hash": "142f1bfe4607201c",
@@ -84,8 +84,8 @@
     "updated": "2026-10-25"
   },
   "claude-cowork-vs-perplexity-computer": {
-    "hash": "0f71f77b343c94db",
-    "updated": "2026-10-25"
+    "hash": "1296e6c720a92834",
+    "updated": "2026-10-26"
   },
   "how-to-use-claude-cowork": {
     "hash": "2ad30db29f594385",
@@ -116,23 +116,23 @@
     "updated": "2026-10-25"
   },
   "self-hosted-ai-workspace": {
-    "hash": "8de29dd4bca28bc4",
-    "updated": "2026-10-25"
+    "hash": "d934e686b6c64f7e",
+    "updated": "2026-10-26"
   },
   "self-hosted-claude-code": {
     "hash": "52b4c7d3e6c43ff7",
     "updated": "2026-10-25"
   },
   "self-hosting": {
-    "hash": "be1a30db28b7ab44",
-    "updated": "2026-10-25"
+    "hash": "a2d312d7334730b8",
+    "updated": "2026-10-26"
   },
   "what-happened-to-claude-cowork": {
-    "hash": "6de6c943229384bd",
-    "updated": "2026-10-25"
+    "hash": "9d899a7bc93b2155",
+    "updated": "2026-10-26"
   },
   "what-is-claude-cowork": {
-    "hash": "f0e14661e50ebfa5",
-    "updated": "2026-10-25"
+    "hash": "6733b927c4f74767",
+    "updated": "2026-10-26"
   }
 }

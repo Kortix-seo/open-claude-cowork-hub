@@ -335,7 +335,7 @@ The Cowork product page is still live, and it still sells the capability with pa
 
 ## The question the merge leaves open
 
-The model is the vendor's, and the files and connectors sit in the vendor's product. None of that configuration is yours to copy out. The merge added no new switch: the files and connectors stayed in Anthropic\u0027s product. The question an alternative has to answer is direct: where does the system that does the work run?
+On a Claude plan the model is the vendor's, and the files and connectors sit in the vendor's product. Anthropic's third-party deployment mode sends inference and billing to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)), and the app stays Anthropic's either way. None of that configuration is yours to copy out. The merge added no new switch: the files and connectors stayed in Anthropic\u0027s product. The question an alternative has to answer is direct: where does the system that does the work run?
 
 This handbook answers it with three checks: what you can read, what you can host, and what you can review. None of them requires asking a vendor for permission.
 
@@ -410,7 +410,7 @@ Reaching the capability got easier on September 16: open Claude and hand it a ta
       metaDescription:
         'There is no self-hosted Claude Cowork. The open source stack that runs instead makes the install the easy half of the move.',
       h1: 'Self-hosting a Claude Cowork replacement: open source covers the easy half',
-      lead: 'No. Anthropic publishes no build of Claude Cowork. It runs in a Claude account, or in your own Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry account, and neither is a build you put on your own machine. Anthropic folded the name into Claude on September 16, 2026, and Kortix, the open-source AI Operating System, is the stack to run instead.',
+      lead: 'No. Anthropic publishes no build of Claude Cowork you can host. On a Claude plan it runs in a Claude account or in your own Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry account, and its third-party deployment mode moves inference and billing to a provider the organization configures rather than a service the team operates. Anthropic folded the name into Claude on September 16, 2026, and Kortix, the open-source AI Operating System, is the stack to run instead.',
       sections: [
         {
           type: 'comparison',
@@ -429,7 +429,7 @@ Reaching the capability got easier on September 16: open Claude and hand it a ta
             { label: 'Where the rules live', cells: ['`kortix.yaml` and markdown, in one repo', 'Skills and MCP servers shared by one link', 'Admin settings inside Claude'] },
             { label: 'Who reviews the work', cells: ['A person merges a change request', 'You read the files on your machine', 'Auto on Pro, Max and Team; Manual asks first on Enterprise'] },
             { label: 'What a move leaves behind', cells: ['Nothing, once the repo and instance directory (secrets, database, files) are copied', 'History, saved credentials, scheduled tasks', 'Chats, projects and connectors stay in Claude'] },
-            { label: 'Model keys', cells: ['Your own provider key, per project', 'Your own keys across 50+ providers', "Anthropic's plan and its usage limits"] },
+            { label: 'Model keys', cells: ['Your own provider key, per project', 'Your own keys across 50+ providers', "A Claude plan, or a provider you configure in 3P mode"] },
           ],
         },
         {
@@ -476,7 +476,7 @@ Reaching the capability got easier on September 16: open Claude and hand it a ta
 
 Claude Cowork has no self-hosted edition, and nothing is scheduled to change that. The help center describes where the work happens: \"Cowork runs your sessions remotely in the cloud, so your sessions and files live with your Claude account and follow you across desktop, web, and mobile\" ([Get started with Claude Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork), as of October 20, 2026).
 
-The product page offers two placements, and both sit inside Anthropic's estate: a Claude account, or your own cloud provider account through Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry ([the Cowork page](https://claude.com/product/cowork), checked October 2026). Neither is a build you put on a machine of your own.
+The product page offers two placements, and both sit inside Anthropic's estate: a Claude account, or your own cloud provider account through Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry ([the Cowork page](https://claude.com/product/cowork), checked October 2026). Neither is a service the team operates. A third option sits beside them: a managed desktop deployment that routes inference through a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)), which still leaves the app Anthropic's.
 
 September 16, 2026 closed off the last place such an edition could have lived. The Cowork product page carries the change in its banner: \"Claude Cowork is now just Claude\" and \"Rolling out to Pro and Max, with more plans to follow.\" The help center puts the state in its own words: \"The new Claude experience, which combines chat and Cowork, is rolling out to Pro and Max plans. On Team plans (in beta) and Enterprise plans, it\u0027s available where Chat and Cowork unified is turned on\" ([Get started with Claude Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork), checked October 2026). VentureBeat reported that day that the name \"will eventually disappear\" ([the report](https://venturebeat.com/technology/anthropic-is-killing-off-cowork-and-folding-it-into-claude-launching-claude-docs-and-claude-slides), September 16, 2026). Existing work carried over: chats, projects, artifacts, connectors and skills.
 
@@ -563,13 +563,13 @@ Two routes stay outside this install. One is staying on Claude, which keeps chat
               id: 'sh-run-locally',
               question: 'Does Claude Cowork run locally?',
               answer:
-                'Only the front half. The desktop app is what reaches local files, your browser and your screen, while the session behind it belongs to a Claude account or to your own Bedrock, Gemini Enterprise Agent Platform or Foundry account. Anthropic documents no mode that runs a session on a machine you own.',
+                'Partly, and only through a managed deployment. The desktop app is what reaches local files, your browser and your screen, and on a Claude plan the session behind it belongs to a Claude account or to your own Bedrock, Gemini Enterprise Agent Platform or Foundry account. Anthropic documents a third-party mode that runs the app on the device, with inference and billing on a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)), delivered through an MDM profile. It is still not a server the team installs and operates.',
             },
             {
               id: 'sh-cost',
               question: 'How much does it cost to have Claude Cowork?',
               answer:
-                'Nothing beyond a paid Claude plan, which is the only way in: Pro, Max, Team or Enterprise. The [Cowork page](https://claude.com/product/cowork) lists Pro at $17 and Team seats at $20 (checked October 2026).',
+                'On a Claude plan nothing beyond the plan itself: Pro, Max, Team or Enterprise. In the third-party deployment mode, the provider the organization configures bills the inference instead. The [Cowork page](https://claude.com/product/cowork) lists Pro at $17 and Team seats at $20 (checked October 2026).',
             },
           ],
         },
@@ -1247,12 +1247,12 @@ A first trial needs no DNS at all. The docs' tunnel mode runs the stack on your 
                 'Your own keys, subscriptions, or custom endpoints',
                 'Any model OpenCode supports',
                 'Cloud APIs, your own key, or fully local',
-                'Claude models; usage limits apply',
+                'Claude models on a plan; a provider you configure in 3P mode',
               ],
             },
             {
               label: 'Fully local model',
-              cells: ['An OpenAI-compatible endpoint', 'Local models included', 'Ollama, vLLM, SGLang, LM Studio, or LLaMA.cpp', { text: 'No', mark: 'no' }],
+              cells: ['An OpenAI-compatible endpoint', 'Local models included', 'Ollama, vLLM, SGLang, LM Studio, or LLaMA.cpp', { text: 'No, except behind a gateway you operate', mark: 'no' }],
             },
             {
               label: 'Where agent work runs',
@@ -1305,7 +1305,7 @@ The model layer is a different budget, and it is the layer whose provider you ac
 
 ## Three ways to split the layers
 
-A setup can put the two layers in three places. An all-local workspace keeps the model on your GPU and the tooling beside it, entirely inside your own network. A hybrid runs the tooling on your server and rents inference from a provider under your key. The managed pole hands both layers to a vendor. Claude Cowork sits there: it runs in Anthropic's apps on a [paid plan](https://claude.com/product/cowork), and since September 16, 2026 the name describes a capability of the one Claude app.
+A setup can put the two layers in three places. An all-local workspace keeps the model on your GPU and the tooling beside it, entirely inside your own network. A hybrid runs the tooling on your server and rents inference from a provider under your key. The managed pole hands both layers to a vendor. Claude Cowork sits there, with one managed exception: it runs in Anthropic's apps on a [paid plan](https://claude.com/product/cowork), and since September 16, 2026 the name describes a capability of the one Claude app. Its third-party deployment mode moves inference and billing to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)), which relocates the model layer while the app, the harness and the approval step stay Anthropic's.
 
 Kortix, the open-source AI Operating System, is built for the hybrid, and the same wiring reaches both poles. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free. Any model provider with your own keys. Or the ChatGPT plan you already pay for. Or sign in with your OpenCode Console account for OpenCode Zen and Go. For the all-local pole, the [models page](https://kortix.com/docs/project/models) documents a custom provider. Point it at any OpenAI-compatible endpoint, key optional, and a local model server takes the slot a hosted provider would hold. A self-hosted instance has no managed models, so on your own box the model layer is always your key or your hardware.
 
@@ -1333,7 +1333,7 @@ Start with the tooling layer, because the tooling is what the team owns and revi
               id: 'self-host-cowork',
               question: 'Can you self-host Claude Cowork?',
               answer:
-                "No. Anthropic merged Claude Cowork and chat into one Claude on September 16, 2026, and the capability runs in Anthropic's apps with a paid plan. There is no self-host path. Pro and Max plans have it first, with Team plans in beta behind an owner\u0027s switch, as of October 2026.",
+                "No. Anthropic merged Claude Cowork and chat into one Claude on September 16, 2026, and the capability runs in Anthropic's apps, on a paid Claude plan or against a provider the organization configures in the third-party deployment mode. There is no self-host path. Pro and Max plans have it first, with Team plans in beta behind an owner\u0027s switch, as of October 2026.",
             },
             {
               id: 'both-layers',
@@ -1593,7 +1593,7 @@ Orchestration is not always the answer. One agent in one session covers a lookup
                 'Files and past work in ChatGPT Space',
               ],
             },
-            { label: 'Models', cells: ['Any model provider with your own keys', 'Claude models', "OpenAI's GPT models"] },
+            { label: 'Models', cells: ['Any model provider with your own keys', 'Claude models, or a provider you configure', "OpenAI's GPT models"] },
           ],
         },
         {
@@ -1638,9 +1638,9 @@ The closed products audit through their own consoles. Cowork streams activity to
 
 ## Where it runs, and on whose model
 
-ChatGPT Work runs in ChatGPT: desktop apps for macOS and Windows on every plan, and web and mobile on Plus, Pro, Business, Enterprise or Edu ([its page](https://openai.com/chatgpt-work), checked October 2026). Cowork runs on Anthropic's side of the wall. It uses Anthropic's servers, or your own Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry account ([its product page](https://claude.com/product/cowork)). Kortix runs where you point it: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free."
+ChatGPT Work runs in ChatGPT: desktop apps for macOS and Windows on every plan, and web and mobile on Plus, Pro, Business, Enterprise or Edu ([its page](https://openai.com/chatgpt-work), checked October 2026). Cowork runs on Anthropic's side of the wall. It uses Anthropic's servers, your own Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry account ([its product page](https://claude.com/product/cowork)), or, in the third-party deployment mode, an inference provider the organization configures on a managed fleet ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). Kortix runs where you point it: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free."
 
-The model follows the same split. ChatGPT Work runs on OpenAI's GPT models, and Cowork runs on Claude models. On either product the model and the vendor are one decision. Kortix separates them: "Any model provider with your own keys. Or the ChatGPT plan you already pay for." A team already paying for ChatGPT can keep that subscription and still move the review and the audit onto ground it controls.
+The model follows the same split. ChatGPT Work runs on OpenAI's GPT models, and Cowork runs on Claude models on a Claude plan, where the model and the vendor are one decision. Anthropic's third-party deployment mode moves inference and billing to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)), delivered to the device as an MDM profile. Kortix separates them: "Any model provider with your own keys. Or the ChatGPT plan you already pay for." A team already paying for ChatGPT can keep that subscription and still move the review and the audit onto ground it controls.
 
 ## How to decide
 
@@ -1734,7 +1734,7 @@ If the work can live in the vendor's app, pick the chat product you already pay 
             },
             {
               label: 'Models',
-              cells: ['Any model provider with your own keys', 'Any model OpenCode supports', 'Cloud, enterprise gateway, or local models', "Anthropic's models only"],
+              cells: ['Any model provider with your own keys', 'Any model OpenCode supports', 'Cloud, enterprise gateway, or local models', "Claude models, or a provider you configure"],
             },
             {
               label: 'Where configuration lives',
@@ -1776,7 +1776,7 @@ The rollout is still in progress. Pro and Max plans got the merged experience fi
 
 Three placements cover the field. On your desk, an agent works with the files on your machine and sends prompts to the provider you connect. In your own infrastructure, the platform runs on hardware you control, from a spare server to an on-prem network. In a vendor's cloud, the session lives on someone else's computers and follows your account. The comparison table measures the options on those placements.
 
-Claude Cowork sits in the third placement. Its help center is explicit: the work runs on Anthropic's servers in an isolated environment, and sessions and files are saved to your Claude account. The product page adds one infrastructure choice: you can point Cowork at your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account ([the product page](https://claude.com/product/cowork)). That choice moves where the data sits. The model stays Anthropic's either way.
+Claude Cowork sits in the third placement. Its help center is explicit: the work runs on Anthropic's servers in an isolated environment, and sessions and files are saved to your Claude account. The product page adds one infrastructure choice: you can point Cowork at your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account ([the product page](https://claude.com/product/cowork)). That choice moves whose account runs the inference. The model stays Claude's either way. Anthropic's third-party deployment mode goes further: inference and billing move to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). Conversation content goes only to that configured endpoint, and the app keeps the history on the device, or on the remote host when a session runs over SSH, while the harness, the connectors and the approval step stay Anthropic's.
 
 Kortix is the open-source system built for the second placement, and the leading open-source alternative to Claude Cowork and ChatGPT Work. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free. The project lives in a git repo you own, and the model is a project setting. Any model provider with your own keys.
 
@@ -1816,7 +1816,7 @@ A company that wants the system owned wants Kortix, with configuration, memory, 
               id: 'self-host-cowork',
               question: 'Can I self-host Claude Cowork?',
               answer:
-                "No. Cowork's work runs on Anthropic's servers, and the infrastructure choice it offers is your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account ([the help center](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork)). Kortix, OpenWork, and Eigent each have a self-host path.",
+                "No. Cowork runs inside Anthropic's app: on its servers on a Claude plan, or on a managed device in the third-party deployment mode, where inference and billing go to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). The product page's account options sit at your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account. Kortix, OpenWork, and Eigent each have a self-host path.",
             },
             {
               id: 'local-models',
@@ -2416,7 +2416,7 @@ The [self-hosting guide](/self-hosting) walks the install, and the [alternatives
               ],
             },
             { label: 'Self-hosting', cells: [{ text: 'Yes', mark: 'yes' }, { text: 'Not offered', mark: 'no' }, { text: 'Not offered', mark: 'no' }] },
-            { label: 'Models', cells: ['Any model provider with your own keys', "Anthropic's models only", 'Frontier models from several labs, routed per task'] },
+            { label: 'Models', cells: ['Any model provider with your own keys', "Claude models, or a provider you configure", 'Frontier models from several labs, routed per task'] },
             {
               label: 'Your configuration',
               cells: [
@@ -2474,7 +2474,7 @@ The [self-hosting guide](/self-hosting) walks the install, and the [alternatives
 
 Claude Cowork and Perplexity Computer take the same kind of job. You describe an outcome. A hosted agent splits it into subtasks and hands back a finished deliverable. Perplexity's announcement calls Computer "a general-purpose digital worker." Each task runs, it says, in an isolated compute environment with a real filesystem, a browser, and tool integrations. Anthropic's page says Cowork completes "tasks you can steer from anywhere," with work handed back "for your review" (checked October 2026).
 
-The features converge because the shapes match. So does the custody arrangement: neither product publishes its source, and neither offers a self-hosted edition. The work runs on the vendor's cloud, under the vendor's terms, inside the vendor's app. The subscription it already holds usually settles the vendor. What stays open: when the arrangement ends, what comes with you?
+The features converge because the shapes match. So does the custody arrangement: neither product publishes its source, and neither offers a self-hosted edition. The work runs on the vendor's cloud, or on a managed device pointed at a provider the organization configures, under the vendor's terms, inside the vendor's app. The subscription it already holds usually settles the vendor. What stays open: when the arrangement ends, what comes with you?
 
 ## What you keep when you leave
 
@@ -2492,7 +2492,7 @@ Chats, projects, artifacts, connectors, and skills moved because they were alrea
 
 The mechanics are worth knowing before the custody question ever matters. On Perplexity, a skill deploys specialist sub-agents, "often several in parallel, each handling one part of the task" ([the Help Center](https://www.perplexity.ai/help-center/en/articles/13914413-how-to-use-computer-skills), checked October 2026). You can build your own skill in a conversation with Computer, or upload a SKILL.md file. One frontier model carries the core reasoning; sub-agents route to other models as the task demands. Perplexity can change that roster as models improve ([the announcement](https://www.perplexity.ai/hub/blog/introducing-perplexity-computer)). You can also run dozens of Computers in parallel. The product page sells the pattern plainly: hand off a project, get "polished, reliable deliverables around the clock."
 
-On Cowork, you choose the folders and tools Claude can reach. Whether each action waits for a person depends on the plan: Auto, the default on Pro, Max and Team, lets Claude keep working while automated safety checks run, and Manual, the default on Enterprise, asks before each action ([the Claude Help Center](https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude), checked October 2026). A scheduled task runs unattended either way. Anthropic's models carry the work. The app can also reach your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account.
+On Cowork, you choose the folders and tools Claude can reach. Whether each action waits for a person depends on the plan: Auto, the default on Pro, Max and Team, lets Claude keep working while automated safety checks run, and Manual, the default on Enterprise, asks before each action ([the Claude Help Center](https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude), checked October 2026). A scheduled task runs unattended either way. Anthropic's models carry the work on a Claude plan. The app can also reach your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account, or, in the third-party deployment mode, an inference provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)).
 
 ## The repo answer
 
@@ -2514,7 +2514,7 @@ Two deeper reads live on the Kortix blog. [Kortix vs Perplexity Computer](https:
               id: 'self-host',
               question: 'Can either one be self-hosted?',
               answer:
-                "Neither offers it. Cowork runs on Anthropic's cloud or your Bedrock, Gemini Enterprise Agent Platform, or Foundry account; Computer runs in Perplexity's cloud. Kortix is the option that installs on your own infrastructure, and self-host is free.",
+                "Neither offers it. Cowork runs in Anthropic's cloud, your Bedrock, Gemini Enterprise Agent Platform, or Foundry account, or a managed desktop deployment pointed at an inference endpoint the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)); Computer runs in Perplexity's cloud. Kortix is the option that installs on your own infrastructure, and self-host is free.",
             },
             {
               id: 'cost',
@@ -2765,7 +2765,7 @@ Kortix records the work in two places a team already owns. The audit log keeps 9
 
 Copilot's finished work lands in Word, Excel, PowerPoint, Outlook, and Teams, inside the Microsoft 365 tenant ([Microsoft's Copilot overview](https://learn.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot-overview)). Enterprise Data Protection and the European Union Data Boundary cover its prompts and responses. Cowork's output lands in the Claude apps, and after the merge the chats, projects, artifacts, connectors, and skills carry over inside Anthropic's product ([Anthropic's announcement](https://claude.com/blog/cowork-is-now-claude)). Leaving either suite means exporting documents and history; the system that produced them, its rules, its memory, and its connectors, stays on the vendor's terms.
 
-The model question sits in the same place. At the June 2026 general availability, Microsoft ran Cowork on Anthropic's Claude models, with its own Cowork model to follow ([the same announcement](https://www.microsoft.com/en-us/copilot/blog/2026/06/16/copilot-cowork-is-now-generally-available)). A picker lets customers steer cost per task. Neither product's pages describe bringing your own provider key.
+The model question sits in the same place. At the June 2026 general availability, Microsoft ran Cowork on Anthropic's Claude models, with its own Cowork model to follow ([the same announcement](https://www.microsoft.com/en-us/copilot/blog/2026/06/16/copilot-cowork-is-now-generally-available)). A picker lets customers steer cost per task, and Microsoft's pages describe no way to bring your own provider key. Anthropic's do: in the third-party deployment mode, inference and billing go to a provider the organization configures, including a gateway it operates ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)).
 
 Kortix is the open-source AI Operating System, and it answers the exit question with a repo. Your agents, skills, company memory, and connectors live in one git repo you own. Each session runs on its own cloud computer. Copy the repo and the system comes with it: agents, rules, memory, and connectors are all files. Moving to new infrastructure means cloning it. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free. Models are BYOK in the app, so the provider is a setting you hold.
 
@@ -2791,7 +2791,7 @@ Run the decision as three questions instead of a feature count. A team that live
               id: 'self-host',
               question: 'Can I self-host either vendor\u0027s agent?',
               answer:
-                'No. Microsoft runs Copilot as its own cloud service, and Anthropic runs Cowork in its cloud or in a Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account you hold. A cloud account is not an install you operate.',
+                'No. Microsoft runs Copilot as its own cloud service, and Anthropic runs Cowork in its cloud, in a Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account you hold, or on a managed device whose inference goes to an endpoint the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). A cloud account is not an install you operate.',
             },
             {
               id: 'merge-effect',
@@ -3147,7 +3147,7 @@ The code is public on [Kortix on GitHub](https://github.com/kortix-ai/suna), and
               id: 'self-host',
               question: 'Can Claude Cowork be self-hosted?',
               answer:
-                "No. Cowork runs as Anthropic's hosted service, and the product page's access options, Amazon Bedrock, Gemini Enterprise Agent Platform, and Microsoft Foundry, are not a self-hosted edition ([the product page](https://claude.com/product/cowork), checked October 2026). Kortix is the open source system with a self-host path, and [the self-hosting guide](https://opensourceclaudecowork.com/self-hosting) starts the install.",
+                "No. Cowork is Anthropic's app in every arrangement: a hosted service on a Claude plan, or a managed desktop deployment where inference and billing go to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). The product page's access options, Amazon Bedrock, Gemini Enterprise Agent Platform, and Microsoft Foundry, are not a self-hosted edition either ([the product page](https://claude.com/product/cowork), checked October 2026). Kortix is the open source system with a self-host path, and [the self-hosting guide](https://opensourceclaudecowork.com/self-hosting) starts the install.",
             },
           ],
         },
@@ -3639,7 +3639,7 @@ For the wider argument, [Kortix vs OpenClaw](https://kortix.com/blog/kortix-vs-o
             },
             {
               label: 'Model choice',
-              cells: ['Any model, your keys', 'Claude models', 'Claude models; terminal, VS Code, and JetBrains also take others'],
+              cells: ['Any model, your keys', 'Claude models, or a provider the organization configures', 'Claude models; terminal, VS Code, and JetBrains also take others'],
             },
             {
               label: 'Where your setup lives',
@@ -4520,7 +4520,7 @@ What Anthropic ships on a Claude plan:
 - Web and mobile on Pro, Max and Team, plus Claude in Chrome on every paid plan.
 - Sessions that run on Anthropic's servers "in an isolated environment", saved to your Claude account, so a task keeps going after your laptop closes.
 - Scheduled tasks that run with no device online, memory shared with chat, projects, skills, plugins and connectors.
-- A data path you choose: a Claude account, or an Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry account ([product page](https://claude.com/product/cowork)).
+- A data path you choose: a Claude account, an Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry account ([product page](https://claude.com/product/cowork)), or a managed third-party deployment that sends inference to a provider your organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)).
 
 The price is the subscription rather than the task. The Cowork page includes Cowork in Pro and Enterprise, lists Max at $100 and $200 a month and Team at $20, and applies usage limits to all of them ([the plan math](/claude-cowork-pricing)).
 
@@ -4569,7 +4569,7 @@ Its safety page puts the limit in one line: "Isolation limits where Claude's cod
               label: 'Which models it can use',
               cells: [
                 'Any model provider with your own keys.',
-                'Claude models, through the picker in the conversation.',
+                'Claude models on a plan, or the provider a 3P deployment names.',
                 '50+ providers, your own API keys, local models via Ollama.',
               ],
             },
@@ -5014,7 +5014,7 @@ Claude Cowork was Anthropic's mode for work that outlasted a single answer. A re
 
 ## What did not change
 
-The work still runs on infrastructure the team does not hold. Anthropic's help centre says Cowork "runs your tasks in the cloud" and that "Claude's work runs on Anthropic's servers, in an isolated environment". Sessions and files are saved to the Claude account ([Claude Help Center](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork)). An organization can point Claude Desktop at its own inference endpoint instead. Conversation content then goes to Bedrock, Gemini Enterprise Agent Platform or Foundry, and history stays on the device ([Claude docs](https://claude.com/docs/third-party/claude-desktop/overview)). Either arrangement ships a client and a service: Anthropic publishes no Cowork source, and no build of it runs on your own hardware.
+The work still runs through Anthropic's product, and the app, the harness and the approval step stay Anthropic's in every arrangement. Anthropic's help centre says Cowork "runs your tasks in the cloud" and that "Claude's work runs on Anthropic's servers, in an isolated environment". Sessions and files are saved to the Claude account ([Claude Help Center](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork)). An organization can point Claude Desktop at its own inference endpoint instead. Conversation content then goes to Bedrock, Gemini Enterprise Agent Platform or Foundry, and history stays on the device ([Claude docs](https://claude.com/docs/third-party/claude-desktop/overview)). Either arrangement ships a client and a service: Anthropic publishes no Cowork source, and no edition of it runs as a service the team operates.
 
 Permissions stay inside the product as well. A Manual or Auto setting in the message box decides whether Claude asks before each action ([Claude Help Center](https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude)). On a managed desktop deployment, an MDM profile delivers the configuration ([Claude docs](https://claude.com/docs/third-party/claude-desktop/overview)). A rulebook like that is a screen to click and, at larger companies, a policy file pushed to laptops. Nobody on the team reads it as a diff before it takes effect.
 
@@ -5089,7 +5089,7 @@ If you are still working out what the product was, [what Claude Cowork is](/what
                 { text: 'No', mark: 'no' },
               ],
             },
-            { label: 'Model choice', cells: ['Any model, your keys', "Anthropic's models", '50+ providers, local models', "OpenAI's models"] },
+            { label: 'Model choice', cells: ['Any model, your keys', "Claude models, or a configured provider", '50+ providers, local models', "OpenAI's models"] },
           ],
         },
         {
@@ -5300,7 +5300,7 @@ A reviewer can put four questions to any product that runs agents, and each one 
               label: 'Model choice',
               cells: [
                 'Any model provider, your own keys',
-                "Anthropic's models",
+                "Claude models on a plan, or a configured provider",
                 '50+ providers, or local models',
                 'The models OpenAI ships',
               ],
@@ -5356,7 +5356,7 @@ A reviewer can put four questions to any product that runs agents, and each one 
               id: 'self-host',
               question: 'Can you self-host Claude Cowork?',
               answer:
-                "No. There is no server to install: Cowork is Anthropic's hosted service, and the Bedrock, Gemini Enterprise Agent Platform and Foundry routes change who bills the inference, not who operates the software. Kortix is open source, self-hosts on your own network, and self-host is free.",
+                "No. There is no server to install. Cowork stays Anthropic's app: a hosted service on a Claude plan, or a managed device in the third-party deployment mode, where inference and billing go to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). The Bedrock, Gemini Enterprise Agent Platform and Foundry routes change who bills the inference, not who operates the software. Kortix is open source, self-hosts on your own network, and self-host is free.",
             },
           ],
         },
