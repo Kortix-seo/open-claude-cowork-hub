@@ -2014,7 +2014,7 @@ The next question is what to move to. The [migration guide](https://opensourcecl
               tab: 'Before the push',
               file: 'terminal',
               lang: 'sh',
-              source: 'kortix.com/docs/project/manifest',
+              source: 'https://kortix.com/docs/project/manifest',
               lines: [
                 'kortix validate                       # ./kortix.yaml',
                 'kortix validate --scopes              # print every grantable kortix_permissions entry',
