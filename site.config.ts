@@ -1794,6 +1794,14 @@ Cowork used to be a separate place you opened; now it is the same message box as
 
 Three things still separate the options: the machine the work runs on, the model behind it, and who signs off before it lands. The two desktops answer with the first. Every open option answers with the second, because each one takes the keys you already hold. Kortix answers with the third as a platform rule. Session work reaches \`main\` through a change request. Merge is default-deny for agents. An agent can draft all day and still change nothing until a person reads the diff.
 
+## Two more desktops, and the review neither one adds
+
+DeepSeek Cowork takes the Cowork shape onto your own machine and says so in its title: an open-source Claude Cowork alternative. The code is public at [imjszhang/deepseek-cowork](https://github.com/imjszhang/deepseek-cowork), and the install is four commands against that repo: \`git clone\`, \`cd deepseek-cowork\`, \`npm install\`, \`npm start\`. One codebase gives you a desktop app, a web UI and a CLI ([deepseek-cowork.com](https://deepseek-cowork.com)). The page names no model. It markets open-source models and local deployment, and the repo's component list names Claude Code as the integrated agent kernel.
+
+MausBot borrows the engines you already pay for. Its desktop app is free and open source. Every bot runs on the Claude, Codex or Grok CLI installed on your computer, on your own logins and subscriptions, and one local server on 127.0.0.1 owns each agent process ([mausbot.com](https://mausbot.com)). Approvals can surface in chat, though the vendor's FAQ stops short of promising that every action pauses. In the free app a bot can also take a cloud desktop from a provider you connect. Bots keep working with the laptop shut on an always-on host, a server you configure yourself or a MausBot Cloud workspace from $15 a month ([mausbot.com/pricing](https://mausbot.com/pricing)). Team sells at $169 a month for up to five people, Business at $599 for twenty, and Business self-hosted at $299 on your own servers.
+
+Placement follows the machine. DeepSeek Cowork keeps its app and runtime on your machine and calls the model over the network. MausBot's desktop app is the first placement. Its Cloud and self-hosted plans move the work to the vendor's cloud or your own infrastructure, which adds the second and third placements as plan choices. MausBot's Business plans add an admin console for people, activity and usage, which covers who is on the account. Neither page describes a review of the finished work before it lands.
+
 ## Choosing by placement
 
 Work that already lives in Claude, on a plan you pay for, belongs with the merged Claude. You accept Anthropic's models, Anthropic's servers, and an approval step the vendor defines, and for fast handoffs inside one app that trade is often right. Cowork needs a paid plan: Pro starts at $17 a month billed annually, and Max at $100 ([claude.com/pricing](https://claude.com/pricing), checked October 2026).
@@ -1829,6 +1837,12 @@ A company that wants the system owned wants Kortix, with configuration, memory, 
               question: 'What does it cost to run an alternative?',
               answer:
                 'The software is free on all three open options, and the model provider still bills unless you run a local model. Kortix runs on credits: Free is $0 with 500 credits per month, every feature and 1 project, on your own provider keys or ChatGPT subscription. Paid plans start at $50 a month for 5,000 credits, and members are free, sharing one credit pool.',
+            },
+            {
+              id: 'mausbot-deepseek',
+              question: 'How do MausBot and DeepSeek Cowork differ?',
+              answer:
+                'MausBot runs each bot on the Claude, Codex or Grok CLI already installed on your computer, and its Cloud plans start at $15 a month. DeepSeek Cowork installs from the public `imjszhang/deepseek-cowork` repo with four commands and runs as a desktop app, a web UI or a CLI. Neither page describes a review of the finished work before it lands.',
             },
           ],
         },
