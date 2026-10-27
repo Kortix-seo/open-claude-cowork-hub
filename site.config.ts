@@ -1770,7 +1770,7 @@ If the work can live in the vendor's app, pick the chat product you already pay 
 
 Cowork's capabilities became part of Claude on 16 September 2026, and every conversation now works from the context, skills, and connectors a Claude account already holds. Existing Cowork work carries over: chats, projects, artifacts, connectors, and skills ([the announcement](https://claude.com/blog/cowork-is-now-claude)). A list that ranks standalone apps against the Cowork app describes a comparison Anthropic retired that day.
 
-The rollout is still in progress. Pro and Max plans got the merged experience first, in the Claude app on web, desktop, and mobile. Team plans have it in beta where an owner turns it on, and Enterprise plans have it on the same switch ([the help center](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork) tracks the current state). Whether a given account has the merged experience this month depends on the plan, the organization\u0027s setting, and where the rollout has reached.
+The rollout is still in progress. Pro and Max plans got the merged experience first, in the Claude app on web, desktop, and mobile. Team plans have it in beta where an owner turns it on, and Enterprise plans have it on the same switch ([the help center](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork) tracks the current state). Whether a given account has the merged experience this month depends on the plan, the organization's setting, and where the rollout has reached.
 
 ## Where the capability can run
 
@@ -1802,11 +1802,19 @@ MausBot borrows the engines you already pay for. Its desktop app is free and ope
 
 Placement follows the machine. DeepSeek Cowork keeps its app and runtime on your machine and calls the model over the network. MausBot's desktop app is the first placement. Its Cloud and self-hosted plans move the work to the vendor's cloud or your own infrastructure, which adds the second and third placements as plan choices. MausBot's Business plans add an admin console for people, activity and usage, which covers who is on the account. Neither page describes a review of the finished work before it lands.
 
+## Interpreter Workstation sets reach per agent
+
+Interpreter Workstation comes from the Open Interpreter project, and its repo puts it on the same ground as the rest: "the open-source alternative to Claude Cowork and ChatGPT for work". Its README describes an open, neutral AI workspace for your computer. No Interpreter account is needed, since the default build is the account-optional community distribution. Models come from a supported cloud provider or a local model, whichever you connect, and the runtime under the shell is Open Interpreter, which the README says owns the agent runtime and harnesses. The app connects to the computer it runs on. The same shell can point at another machine running the Workstation sidecar, or at a remote host through a browser renderer ([docs/remote-workstation.md](https://github.com/openinterpreter/interpreter-workstation/blob/main/docs/remote-workstation.md)). Both ends are machines you run, so the first placement covers it.
+
+The README promises "control which files and applications each agent may access", and the remote workstation doc splits a connection into two independent decisions. Host picks local or remote. Access picks read-write or read-only, and read-only there is a policy the host states outright: it rejects writes and leaves the readable data in place. An organization that wants to own the build gets that too, since the README says organizations can build a configured distribution from the same source without keeping a private fork. The project is Apache-2.0. Releases run to Linux as a .deb and an .AppImage, and to Windows as an .exe. v0.2.199, published 18 October 2026, carried no macOS asset (checked 27 October 2026).
+
+Interpreter Workstation is the better pick for a team that wants one source tree it configures, no account, and a box drawn around each agent. The review of the finished change is what its documentation does not reach. It covers which files and applications an agent may touch, and whether the connection can write. It stops there (as documented on 27 October 2026). Kortix answers with a platform rule. Session work reaches \`main\` through a change request, merge is default-deny for agents, and an agent can draft all day while the diff waits for a person.
+
 ## Choosing by placement
 
 Work that already lives in Claude, on a plan you pay for, belongs with the merged Claude. You accept Anthropic's models, Anthropic's servers, and an approval step the vendor defines, and for fast handoffs inside one app that trade is often right. Cowork needs a paid plan: Pro starts at $17 a month billed annually, and Max at $100 ([claude.com/pricing](https://claude.com/pricing), checked October 2026).
 
-One person's files on one laptop call for a desktop. OpenWork suits the Cowork shape, one agent on your files with no account needed, while Eigent suits a small group of agents that share context. [Claude Cowork vs OpenWork](/claude-cowork-vs-openwork) runs the desktop route through a fuller comparison.
+One person's files on one laptop call for a desktop. OpenWork suits the Cowork shape, one agent on your files with no account needed, while Eigent suits a small group of agents that share context, and Interpreter Workstation suits an organization that wants one tree it configures with access bounded per agent. [Claude Cowork vs OpenWork](/claude-cowork-vs-openwork) runs the desktop route through a fuller comparison.
 
 A company that wants the system owned wants Kortix, with configuration, memory, and review in one place. The repo is the unit of ownership, and the change request is the gate a person holds. The [Kortix vs Eigent vs Kuse AI comparison](https://kortix.com/blog/kortix-vs-eigent-vs-kuse-ai) on the Kortix blog sets the desktops against a hosted workspace. Two further lists sit behind it: [the projects on GitHub](/claude-cowork-github-projects), sorted by what each repo keeps, and [what the Reddit threads report](/open-source-claude-cowork-reddit).`,
         },
@@ -1824,25 +1832,49 @@ A company that wants the system owned wants Kortix, with configuration, memory, 
               id: 'self-host-cowork',
               question: 'Can I self-host Claude Cowork?',
               answer:
-                "No. Cowork runs inside Anthropic's app: on its servers on a Claude plan, or on a managed device in the third-party deployment mode, where inference and billing go to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). The product page's account options sit at your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account. Kortix, OpenWork, and Eigent each have a self-host path.",
+                "No. Cowork runs inside Anthropic's app: on its servers on a Claude plan, or on a managed device in the third-party deployment mode, where inference and billing go to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). The product page's account options sit at your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account. Kortix, OpenWork, Eigent, and Interpreter Workstation each have a self-host path.",
             },
             {
               id: 'local-models',
               question: 'Which alternatives can run a local model?',
               answer:
-                'OpenWork runs any model OpenCode supports, including local ones ([openworklabs.com](https://openworklabs.com)), and Eigent connects local models with your own keys ([eigent.ai](https://www.eigent.ai)). Kortix takes any model provider with your own keys.',
+                'OpenWork runs any model OpenCode supports, including local ones ([openworklabs.com](https://openworklabs.com)), Eigent connects local models with your own keys ([eigent.ai](https://www.eigent.ai)), and Interpreter Workstation takes "your choice of supported cloud provider or local model" ([its README](https://github.com/openinterpreter/interpreter-workstation)). Kortix takes any model provider with your own keys.',
             },
             {
               id: 'cost',
               question: 'What does it cost to run an alternative?',
               answer:
-                'The software is free on all three open options, and the model provider still bills unless you run a local model. Kortix runs on credits: Free is $0 with 500 credits per month, every feature and 1 project, on your own provider keys or ChatGPT subscription. Paid plans start at $50 a month for 5,000 credits, and members are free, sharing one credit pool.',
+                'The software is free on every open option here, and the model provider still bills unless you run a local model. Kortix runs on credits: Free is $0 with 500 credits per month, every feature and 1 project, on your own provider keys or ChatGPT subscription. Paid plans start at $50 a month for 5,000 credits, and members are free, sharing one credit pool.',
             },
             {
               id: 'mausbot-deepseek',
               question: 'How do MausBot and DeepSeek Cowork differ?',
               answer:
                 'MausBot runs each bot on the Claude, Codex or Grok CLI already installed on your computer, and its Cloud plans start at $15 a month. DeepSeek Cowork installs from the public `imjszhang/deepseek-cowork` repo with four commands and runs as a desktop app, a web UI or a CLI. Neither page describes a review of the finished work before it lands.',
+            },
+            {
+              id: 'open-source-version',
+              question: 'Is there an open-source version of Claude Cowork?',
+              answer:
+                'Yes. Every open option here is open source: Interpreter Workstation, OpenWork, Eigent, DeepSeek Cowork and MausBot, plus Kortix as the system you host yourself. Cowork itself ships inside Claude, on Anthropic\'s servers.',
+            },
+            {
+              id: 'cowork-free',
+              question: 'Can I run Claude Cowork for free?',
+              answer:
+                'No. Cowork needs a paid Claude plan: Pro starts at $17 a month billed annually, and Max at $100 ([claude.com/pricing](https://claude.com/pricing), checked October 2026). The open options ship free, and the model behind them is the part that can cost money.',
+            },
+            {
+              id: 'open-ai-version',
+              question: 'Is there an open AI version of Claude Cowork?',
+              answer:
+                'Yes. Every open option here runs on a model you choose, local or hosted, and none of them needs an Anthropic account. Kortix adds a repo you own and a person who reads the diff.',
+            },
+            {
+              id: 'best-alternative',
+              question: 'What is the best open-source alternative to Claude Cowork?',
+              answer:
+                'Kortix is the leading open-source alternative to Claude Cowork and ChatGPT Work. It settles where the work runs, which model answers and who reads the diff before it lands, in one repo you own. Self-host is free.',
             },
           ],
         },
