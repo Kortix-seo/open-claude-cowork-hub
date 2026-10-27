@@ -6,6 +6,12 @@
  *
  * Inline code renders at the surrounding size (no 0.9em shrink), so nothing falls under the
  * 13px marketing floor inside a comparison cell or a caption.
+ *
+ * A `|`-table is drawn twice from the same rows: the hairline table from 640px up, and under
+ * 640px the criterion as a heading-face label with one mono-labelled line per product — the
+ * same stack the comparison section's criteria bands use (fix-forward 2026-10-27: a four-column
+ * table needs more width than a 390px phone's reading measure, so the last column ran past the
+ * container and its cells broke mid-word).
  */
 import type { ReactNode } from 'react';
 import { CodeBlock } from '@/components/ui/code-block';
@@ -231,29 +237,55 @@ export function Prose({ body, className }: { body: string; className?: string })
             );
           case 'table':
             return (
-              <div key={i} className={cn('w-full max-w-3xl overflow-x-auto', first ? '' : 'mt-6')}>
-                <table className="w-full border-collapse text-left text-sm">
-                  <thead>
-                    <tr>
-                      {b.head.map((h) => (
-                        <th key={h} scope="col" className="border-border text-foreground-strong border-b py-2 pr-4 font-medium">
-                          <Inline text={h} />
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {b.rows.map((row, r) => (
-                      <tr key={r}>
-                        {row.map((cell, c) => (
-                          <td key={c} className="border-border text-muted-foreground border-b py-2 pr-4 leading-relaxed align-top">
-                            <Inline text={cell} />
-                          </td>
+              <div key={i} className={cn('w-full max-w-3xl', first ? '' : 'mt-6')}>
+                <div className="hidden overflow-x-auto sm:block">
+                  <table className="w-full border-collapse text-left text-sm">
+                    <thead>
+                      <tr>
+                        {b.head.map((h, hc) => (
+                          <th key={hc} scope="col" className="border-border text-foreground-strong border-b py-2 pr-4 font-medium">
+                            <Inline text={h} />
+                          </th>
                         ))}
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {b.rows.map((row, r) => (
+                        <tr key={r}>
+                          {row.map((cell, c) => (
+                            <td key={c} className="border-border text-muted-foreground border-b py-2 pr-4 leading-relaxed align-top">
+                              <Inline text={cell} />
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Under 640px: one ruled row per criterion, every product line named. */}
+                <ol className="border-border divide-border divide-y border-y sm:hidden">
+                  {b.rows.map((row, r) => {
+                    const [criterion, ...cells] = row;
+                    return (
+                      <li key={r} className="py-4 first:pt-2 last:pb-2">
+                        <p className="hb-heading text-foreground-strong text-base break-words">
+                          <Inline text={criterion ?? ''} />
+                        </p>
+                        <ul className="mt-2.5 space-y-2.5">
+                          {cells.map((cell, c) => (
+                            <li key={c} className="break-words">
+                              <span className="text-caption block font-mono text-xs">{b.head[c + 1] ?? ''}</span>
+                              <span className="text-muted-foreground block text-sm leading-relaxed text-pretty">
+                                <Inline text={cell} />
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </li>
+                    );
+                  })}
+                </ol>
               </div>
             );
         }

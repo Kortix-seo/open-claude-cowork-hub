@@ -2985,10 +2985,10 @@ Some teams want the model choice, the agents, the skills and the memory in one s
     {
       slug: `claude-cowork-for-windows`,
       navLabel: `For Windows`,
-      title: `Claude Cowork for Windows: open source, and the work leaves the desk`,
-      metaDescription: `Claude Cowork runs on Windows for every paid plan. Kortix is the open source option where each session works on its own cloud computer.`,
-      h1: `Claude Cowork for Windows: open source, with no install at the desk`,
-      lead: `Claude Cowork runs on Windows for every paid plan, and the install is no longer the obstacle. Kortix is the open-source AI Operating System: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers.`,
+      title: `Claude Cowork on Windows bills an admin install per PC; open source bills a browser`,
+      metaDescription: `Claude Cowork on Windows needs admin rights, a hypervisor feature and a local virtual machine per PC; open-source Kortix runs the session in a browser.`,
+      h1: `Claude Cowork on Windows: open source skips the admin install`,
+      lead: `Claude Cowork on Windows works, and one laptop needs a single download. The bill arrives when a team repeats that install across ten machines, each needing administrator rights and a Windows hypervisor feature. Kortix is the open-source AI Operating System, and the session runs on a cloud computer cloned from the repo rather than on the desk.`,
       sections: [
         {
           type: 'artifact',
@@ -3010,96 +3010,114 @@ Some teams want the model choice, the agents, the skills and the memory in one s
           type: 'prose',
           body: `## What a paid Claude plan puts on a Windows desk
 
-Claude Cowork runs on Windows, on every paid plan. Anthropic's install guide lists it for Pro, Max, Team and Enterprise in the Claude Desktop app. The floor is Windows 10 or later ([Install Claude Desktop](https://support.claude.com/en/articles/10065433-install-claude-desktop)). The download page carries the detail an IT team asks about first: MSIX installers for Windows, the same enterprise deployment path as the Mac PKG ([Download Claude](https://claude.com/download)).
+Cowork is included in the Claude Desktop app on every paid plan. Anthropic's install guide lists it for Pro, Max, Team and Enterprise, with Windows 10 or higher as the floor ([install Claude Desktop](https://support.claude.com/en/articles/10065433-install-claude-desktop)). A Pro subscriber with a personal laptop opens Cowork the same afternoon.
 
-Web and mobile carry the same sessions. They arrive on Pro, Max and Team plans, in beta on Team, and on Enterprise plans where an owner enables them ([Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile)). A Windows owner can hand over a task at the desk and check on it from a phone. The merge on 16 September 2026 finished that picture. What Cowork could do became available from any conversation, and existing chats, projects, artifacts, connectors and skills came with it ([the announcement](https://claude.com/resources/articles/cowork-is-now-claude)).
+The difficulty sits in the words "administrator privileges". Anthropic's deployment article states it without decoration: "For individual installations with full feature support including Claude Cowork, administrator privileges are required." A person without admin access "can still install Claude, but Cowork on desktop will not be available" ([deploy Claude Desktop for Windows](https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows)). The reason is one layer below the app. Claude Desktop for Windows "includes a background service that runs Cowork's virtual machine", and Windows registers that service only when the install runs elevated. A standard account that declines the UAC prompt gets an app without the service that Cowork needs.
 
-The shape of a Windows deployment did not change with the merge. One install per machine, a conversation that follows the account across devices, and local reach that belongs to the machine the app runs on.
-
-## The desktop app is the only door to local files
-
-Every Cowork session runs in the cloud. Anthropic describes an isolated, temporary environment on its servers. It is created for one session, cannot reach a home or company network, and is removed when the session ends ([Use Claude Cowork safely](https://support.claude.com/en/articles/13364135-use-claude-cowork-safely)). Close the laptop and the task keeps going.
-
-The computer on the desk stays in the loop for anything that lives on it. A task that needs a connected folder, your own browser or your screen goes through the Claude Desktop app. It reaches the folders you connected, and only while the app is open. Close the app and the session runs on with no path to that machine. A file opened this way is processed on Anthropic's servers, so a document sitting on a Windows desk leaves it the moment a task touches it.
-
-Cowork's built-in browser covers part of the rest, in a side panel separate from your logins and tabs, with nothing to install. Signing in is where Windows narrows. Cookie import works from Firefox on Windows, and the Chrome and Edge imports are macOS only ([the Cowork page](https://claude.com/product/cowork), checked October 2026). Claude in Chrome runs in the side panel on every paid plan, with an Enterprise owner enabling it first.
-
-That seam is the one an install cannot close. Ten Windows machines with Cowork on each one hold ten assistants, and the files each assistant can read sit on the desk in front of that machine.
-
-## A session that runs on a computer nobody sits at
-
-Kortix puts the working computer somewhere else. Kortix is the open-source AI Operating System, and a project is a git repo with \`kortix.yaml\` at its root. A session clones that repo onto a cloud computer of its own, works on a branch, and commits there. The screen in front of a person is a client and nothing more.
-
-Kortix's starter template opens with the instruction a Kortix agent starts from. The file describes the session as an isolated sandbox, an ephemeral branch of the repo, with its own \`/workspace\`, where only what the agent commits and pushes survives. No operating system at the desk appears in that sentence. One isolated sandbox per session. Each session has its own isolated machine and branch.
-
-What a Windows machine installs for Kortix is a browser tab, at most:
+An IT team therefore provisions two things: the Virtual Machine Platform feature, and a machine-wide install of the MSIX package. Anthropic's own two commands do exactly that.
 
 \`\`\`
-Web, desktop and mobile apps | Start and follow sessions, review change requests, and manage projects and accounts.
-CLI | kortix creates projects, runs sessions, and manages agents, secrets, connectors and triggers from a terminal or a script.
-Slack, Teams and email | Mention the bot in Slack or Microsoft Teams with a task, and it starts a session.
+Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
+Add-AppxProvisionedPackage -Online -PackagePath "Claude.msix" -SkipLicense -Regions "all"
 \`\`\`
 
-Source: https://kortix.com/docs
+The first enables the Virtual Machine Platform, and the feature takes effect after a restart. The \`-NoRestart\` flag suppresses the automatic reboot so a management tool can schedule it. The second stages the package for every account on the device, standard accounts included. Run \`Add-AppxPackage\` on its own and the package registers for the current person only. That is why Anthropic warns that an Intune line-of-business upload fails for anyone without admin rights, with error 0x80073D28. Both commands come from that same deployment article.
 
+"Virtual machines and VDI environments without nested virtualization aren't supported, so Cowork can't run on these hosts," the deployment article adds ([deploy Claude Desktop for Windows](https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows)).
 
-Those surface lines are quoted from Kortix's docs ([Read the docs](https://kortix.com/docs)). A Teams chat starts a session across a Windows fleet without touching the machines, and the CLI runs through WSL when a script needs a terminal. Review stays with people. Session work reaches \`main\` through a change request. Merge is default-deny for agents.
+## The download is one page, and the app already holds the tab
 
-## Copilot Cowork is Microsoft's own answer
+Cowork is not a separate product to fetch. Anthropic's Cowork get-started article says to "Download or update at claude.com/download" ([get started with Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork)), and the download page adds that the desktop app "supports standard enterprise deployment with MSIX installers (Windows) and PKG installers (Mac)" ([claude.com/download](https://claude.com/download)). After sign-in, Cowork is one selection in the app's message box.
 
-Microsoft shipped its version of this work in June. Copilot Cowork went generally available on 16 June 2026 inside Microsoft 365 Copilot, billed as a usage-based addition to the Microsoft 365 Copilot subscription ([the announcement](https://www.microsoft.com/en-us/copilot/blog/2026/06/16/copilot-cowork-is-now-generally-available)). Copilot Cowork executes long, multi-tool tasks in Microsoft's cloud, grounded in work data through Work IQ, with files kept out of local storage.
+Availability differs by surface. Desktop carries Cowork on all paid plans. Web and mobile carry it on Pro, Max and Team, in beta on Team, and on Enterprise plans once an owner enables it ([use Cowork safely](https://support.claude.com/en/articles/13364135-use-claude-cowork-safely)). The Claude account follows the person, so a task handed over at a Windows desk can be checked from a phone.
 
-A team that lives in Word, Excel, PowerPoint, Outlook and Teams has a finished product to buy there. The three options separate on where the working computer sits, who holds the configuration, and what a move out would leave behind.
+## Local sessions and cloud sessions are two different things
+
+The desktop app runs two kinds of session, and only one of them is a cloud job. A local session runs on the machine in front of the person. The install guide states it directly: "Cowork runs code in an isolated virtual machine on your computer. File reads and writes are limited to folders you connect, and network access follows your egress settings" ([install Claude Desktop](https://support.claude.com/en/articles/10065433-install-claude-desktop)). The download page puts the same rule in seven words: "In Claude Cowork, local sessions stay on-device" ([claude.com/download](https://claude.com/download)).
+
+A cloud session is the other mode. There "Claude's work runs in an isolated, temporary environment on Anthropic's servers", created for that one session, unable to reach a home or company network, and removed when the session ends. When a cloud task needs a local file or the browser, "Claude reaches your computer through the Claude Desktop app", and only for folders already connected. If the app is offline, the session has no path to that machine ([use Cowork safely](https://support.claude.com/en/articles/13364135-use-claude-cowork-safely)).
+
+Both modes ship today, which changes the shape of a Windows plan. The machine-side half is the half that needs admin rights, the platform feature and the restart. Move a person's work to cloud sessions and those three requirements do not follow it, but the reach into that person's folders does: it stays with the app on that desk, and with whoever holds the admin password for it.
+
+## What a second Windows PC costs
+
+A machine that is reimaged or handed to a new starter goes through the approval, the install and the restart again, with the same admin involvement each time. A pilot across ten desks is ten rounds of that, plus one more whenever hardware changes hands.
+
+## Kortix puts the working computer somewhere else
+
+Kortix is the open-source AI Operating System, and a project is a git repo with \`kortix.yaml\` at its root. A session clones that repo onto a cloud computer of its own, works on a branch, and commits there. One isolated sandbox per session. Each session has its own isolated machine and branch. The screen in front of a person is a client and nothing else, and no operating system at the desk appears in that arrangement.
+
+So the tenth Windows machine is set up exactly like the first: a browser and a login. Nothing installs, no hypervisor feature gets switched on, and nobody files a ticket to approve an installer. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free.
+
+The surfaces follow the same logic. Kortix's docs list the web, desktop and mobile apps, the CLI, and Slack, Teams and email, with email marked experimental ([Kortix docs](https://kortix.com/docs)). A Teams mention from a Windows desk starts the session with nothing installed on the desk, and the CLI runs through WSL where a script needs a terminal.
+
+Session work reaches \`main\` through a change request, and merge is default-deny for agents unless an administrator's grant includes \`project.gitops.merge\`.
+
+## The three options, side by side
 
 | | Kortix | Claude Cowork | Copilot Cowork |
-| --- | --- | --- | --- |
-| Open source | Yes. Read it, fork it, audit it. | No. Anthropic publishes no source. | No. A licensed Microsoft 365 service. |
-| Where the work runs | Kortix Cloud, your VPC, or your on-prem network | Anthropic's servers; local files through the desktop app | Microsoft's cloud, inside Microsoft 365 |
-| Install on Windows | Nothing; any browser is the client | The Claude Desktop app | Nothing; inside Microsoft 365 Copilot |
-| Local files | In the repo each session clones | Through the desktop app, folders you connected | Not stored locally; work stays in Microsoft 365 |
-| Other clients | CLI, Slack and Teams | Web, mobile and Claude in Chrome | Word, Excel, PowerPoint, Outlook, Teams |
+|---|---|---|---|
+| Open source | Yes. Read it, fork it, audit it. | No | No |
+| Where the session runs | A cloud computer cloned from the repo | A local virtual machine, or Anthropic's cloud | Microsoft's cloud, inside Microsoft 365 |
+| What Windows installs | A browser and a login | The desktop app, with admin rights | The Microsoft 365 Copilot app, under the Copilot USL |
+| Windows prerequisites | None on the client | Virtual Machine Platform, Windows 10 or later | A Microsoft 365 Copilot USL |
+| Where configuration lives | In the git repo | In the Claude account | In the Microsoft 365 tenant |
 | Self-host | Self-host is free | Not offered | Not offered |
 
-Two rows carry most of the decision. On files, Cowork and Copilot both keep the source material on their side of the wall, with Cowork reaching a Windows folder through an app on that machine. On configuration, Kortix keeps the rules in the repo, where a reviewer reads a diff.
+The install row decides how many approvals a rollout costs, and the configuration row decides who can read a change before it lands: a diff in the repo, a setting in an account, or an admin center.
 
-## Where a Windows fleet gains
+## Copilot Cowork is the Microsoft lane
 
-A single desk hides the shape of a local install well. The second desk shows it: a folder connected on one machine is not connected on the next, and local reach belongs to the machine the app runs on. The cloud session keeps going with the laptop shut, as Anthropic promises ([the Cowork page](https://claude.com/product/cowork)). What does not travel is the reach into those folders.
+Microsoft shipped its own version of this work in June. Copilot Cowork went generally available on 16 June 2026 inside Microsoft 365 Copilot, billed as a usage-based addition to the Microsoft 365 Copilot subscription ([the announcement](https://www.microsoft.com/en-us/copilot/blog/2026/06/16/copilot-cowork-is-now-generally-available)). It needs the Microsoft 365 Copilot User Subscription License (USL), and the Microsoft 365 Copilot app "now includes a toggle that takes you into Cowork's full experience". Cowork is off until an admin enables it in the tenant.
 
-Kortix starts from the repo instead. The session clones it, so a new Windows machine needs a browser and a login, and the same job runs the same way on the tenth desk as on the first. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free. A browser at a Windows desk reaches a self-hosted stack the same way, and the [self-hosting guide](/self-hosting) walks the install.
+## Which one fits a Windows fleet
 
-The fit is narrower than the install story suggests. A person working alone in files on one PC gets a finished product from Anthropic with one download. Copilot Cowork is the obvious buy for a company already standardized on Microsoft 365. A team that runs the same jobs across several Windows machines, and wants the work to land through a review it can read, gains from moving the computer off the desk.`,
+One person, one PC, files on that PC: Claude Cowork is a good buy. One download gets a local virtual machine working against folders that person already has, and that is the whole project.
+
+A company that lives inside Microsoft 365 buys Copilot Cowork, governed in the tenant it already administers.
+
+A team that runs the same jobs across several Windows machines, and wants the work to land through a review somebody can read, has the per-machine cost removed by the browser-and-login path, with the change request keeping the record. Kortix is the open-source option built for that fleet.`,
         },
         {
           type: 'faq',
-          heading: { title: `Questions Windows buyers ask`, sub: `Short answers, with the dates the facts move.` },
+          heading: { title: `What Windows buyers ask first`, sub: `Short answers, with the sources beside the facts that move.` },
           items: [
             {
+              id: `download`,
+              question: `Where can I download Claude Cowork?`,
+              answer: `At claude.com/download, where the desktop app "supports standard enterprise deployment with MSIX installers (Windows) and PKG installers (Mac)" ([download page](https://claude.com/download)). Cowork has no installer of its own: it is part of the Claude Desktop app, and the same account opens it on web and mobile.`,
+            },
+            {
+              id: `free`,
+              question: `Is Claude Cowork free?`,
+              answer: `No. Claude Cowork is available for all paid plans (Pro, Max, Team, Enterprise), with Pro at $17 a month billed annually and Max from $100 on the 5x tier ([pricing](https://claude.com/pricing), checked October 2026). Chat is available on every plan, including Free.`,
+            },
+            {
+              id: `access`,
+              question: `Can I get access to Claude Cowork?`,
+              answer: `Yes, with a paid Claude plan. Cowork is in the desktop app on Pro, Max, Team and Enterprise, and web and mobile carry it on Pro, Max and Team, in beta on Team, and on Enterprise once an owner turns it on.`,
+            },
+            {
+              id: `install`,
+              question: `Does Claude Cowork need to be installed?`,
+              answer: `Cowork in a browser needs no install: claude.ai carries it on Pro, Max and Team (beta on Team) and Enterprise once enabled. The one install is the Claude Desktop app, which needs administrator rights and the Virtual Machine Platform and reaches local folders. The mobile app comes from a store.`,
+            },
+            {
               id: `windows`,
-              question: `Does Claude Cowork work on Windows?`,
-              answer: `Yes. Claude Cowork runs in the Claude Desktop app on Windows 10 or later, on every paid plan, and web and mobile carry the same sessions. Local files, browser use and computer use need that app open on the PC.`,
+              question: `Is Claude Cowork compatible with Windows?`,
+              answer: `Yes. Cowork runs in a browser on Windows, and in the Claude Desktop app on Windows 10 or higher on every paid plan. The desktop app's install needs administrator rights and the Virtual Machine Platform enabled.`,
             },
             {
-              id: `microsoft`,
-              question: `Is Claude Cowork available on Microsoft?`,
-              answer: `Yes, on Windows. Anthropic ships the Claude Desktop app for Windows and also offers access through a Microsoft Foundry account. Copilot Cowork is Microsoft's separate product inside Microsoft 365 Copilot.`,
-            },
-            {
-              id: `equivalent`,
-              question: `What is the Microsoft equivalent of Claude Cowork?`,
-              answer: `Copilot Cowork, the agent inside Microsoft 365 Copilot, generally available since 16 June 2026. It runs long, multi-tool tasks in Microsoft's cloud, grounded in work data through Work IQ.`,
-            },
-            {
-              id: `claude-ai`,
-              question: `Is claude.ai available for Windows?`,
-              answer: `Yes. claude.ai runs in any browser on Windows, and the Claude Desktop app installs on Windows 10 or later. Cowork sessions appear on both, with local file access only through the desktop app.`,
+              id: `requirements`,
+              question: `What do I need to run Claude Cowork?`,
+              answer: `A paid Claude plan for either path. For the desktop app on Windows: Windows 10 or later, administrator rights for that install, and the Virtual Machine Platform switched on with a restart afterwards. Without admin approval the app installs without Cowork ([deploy article](https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows)).`,
             },
           ],
         },
         {
           type: 'cta',
-          title: `Run the work from a Windows browser tab`,
-          sub: `Nothing installs, and the work lands through a change request a person merges.`,
+          title: `Give the tenth Windows desk the same setup as the first`,
+          sub: `A browser, a login and a session cloned from the repo, on Kortix Cloud or your own network.`,
           ctas: [TRY_KORTIX, cta(`Read the self-hosting guide`, `/self-hosting`)],
         },
       ],
