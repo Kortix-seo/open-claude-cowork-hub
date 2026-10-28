@@ -5282,6 +5282,8 @@ An auditable system starts with where the permissions are written. In Kortix an 
 
 Grants fail closed by default. The header states it in the file: "v2 is deny-by-default: an omitted connectors/secrets/kortix_permissions/skills grant resolves to "none", so a scoped specialist starts locked down." Access set in a console is a checkbox somebody ticked. Access written in a repo is a line somebody wrote and somebody else merged.
 
+A two-minute run of Kortix, [agent permissions as files](https://www.youtube.com/watch?v=XAmfUqvQwQE), shows the fail-closed rule at a terminal: \`kortix init northwind\` writes the project, a grant swapped for a permission that does not exist makes \`kortix validate\` fail at the exact path naming it, and the corrected file validates clean.
+
 The session is a branch of the repository. The starter agent's body describes the workspace it runs in as "an isolated sandbox", "an ephemeral branch of this repo, your own \`/workspace\`", where "Only what you commit + push survives". Each session gets one isolated sandbox with its own isolated machine and branch. What it writes and what it runs show up as repository state that a diff can reach.
 
 Work then lands the way code lands. Session work reaches the default branch through a change request, and merge is default-deny for agents. A person holding the \`project.gitops.merge\` permission reviews the diff and merges it. The name on that merge is the approval, and it sits in the history beside the change it approved. An auditor who asks who authorized something gets a person, a diff and a timestamp.
@@ -5323,7 +5325,7 @@ A reviewer can put four questions to any product that runs agents, and each one 
               label: 'Session isolation',
               cells: [
                 'One isolated sandbox per session',
-                "A sandbox on Anthropic's infrastructure, or a local VM",
+                'Cloud by default on every plan; local desktop is a Team/Enterprise opt-out',
                 "The member's machine; cloud workers optional",
                 'A local sandbox or a Work Cloud session',
               ],
