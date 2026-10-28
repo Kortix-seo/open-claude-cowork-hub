@@ -2985,10 +2985,10 @@ Some teams want the model choice, the agents, the skills and the memory in one s
     {
       slug: `claude-cowork-for-windows`,
       navLabel: `For Windows`,
-      title: `Claude Cowork on Windows bills an admin install per PC; open source bills a browser`,
-      metaDescription: `Claude Cowork on Windows needs admin rights, a hypervisor feature and a local virtual machine per PC; open-source Kortix runs the session in a browser.`,
-      h1: `Claude Cowork on Windows: open source skips the admin install`,
-      lead: `Claude Cowork on Windows works, and one laptop needs a single download. The bill arrives when a team repeats that install across ten machines, each needing administrator rights and a Windows hypervisor feature. Kortix is the open-source AI Operating System, and the session runs on a cloud computer cloned from the repo rather than on the desk.`,
+      title: `Claude Cowork on Windows bills an admin install per PC to reach local folders; open source bills a browser`,
+      metaDescription: `Claude Cowork on Windows needs admin rights and a per-PC install to reach local folders; open-source Kortix runs the session in a browser.`,
+      h1: `Claude Cowork on Windows installs for local folders; Kortix is open source`,
+      lead: `Claude Cowork on Windows runs in a browser with nothing installed. A laptop that has to reach its own folders needs one download. The bill arrives when a team repeats that install across ten machines, each needing administrator rights and a Windows hypervisor feature. Kortix is the open-source AI Operating System, and the session runs on a cloud computer cloned from the repo rather than on the desk.`,
       sections: [
         {
           type: 'artifact',
@@ -3031,17 +3031,21 @@ Cowork is not a separate product to fetch. Anthropic's Cowork get-started articl
 
 Availability differs by surface. Desktop carries Cowork on all paid plans. Web and mobile carry it on Pro, Max and Team, in beta on Team, and on Enterprise plans once an owner enables it ([use Cowork safely](https://support.claude.com/en/articles/13364135-use-claude-cowork-safely)). The Claude account follows the person, so a task handed over at a Windows desk can be checked from a phone.
 
-## Local sessions and cloud sessions are two different things
+## New Cowork tasks on Pro and Max run in the cloud; the desk keeps the folders
 
-The desktop app runs two kinds of session, and only one of them is a cloud job. A local session runs on the machine in front of the person. The install guide states it directly: "Cowork runs code in an isolated virtual machine on your computer. File reads and writes are limited to folders you connect, and network access follows your egress settings" ([install Claude Desktop](https://support.claude.com/en/articles/10065433-install-claude-desktop)). The download page puts the same rule in seven words: "In Claude Cowork, local sessions stay on-device" ([claude.com/download](https://claude.com/download)).
+On October 6, 2026, Anthropic moved new Cowork tasks on Pro and Max plans into its cloud. "New sessions run in the cloud on every surface," and there is "no setting to choose where a task runs" ([use Cowork on web, desktop and mobile](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile)). The "Only on your computer" option under Settings > General went with that change, so there is "nothing to set up, and you can't switch back."
 
-A cloud session is the other mode. There "Claude's work runs in an isolated, temporary environment on Anthropic's servers", created for that one session, unable to reach a home or company network, and removed when the session ends. When a cloud task needs a local file or the browser, "Claude reaches your computer through the Claude Desktop app", and only for folders already connected. If the app is offline, the session has no path to that machine ([use Cowork safely](https://support.claude.com/en/articles/13364135-use-claude-cowork-safely)).
+Team (beta) and Enterprise plans answer the question in the admin center instead. There an owner can "Turn sessions in the cloud on or off for the organization, while leaving local desktop Cowork available," and the same article scopes the October 6 cutoff to the other two plans: local sessions "apply to existing desktop deployments (on Pro and Max plans, only tasks and scheduled tasks started on the device before October 6, 2026)" ([Cowork architecture overview](https://support.claude.com/en/articles/14479288)). Cloud is the default on every plan. What differs is who can turn it off: on Pro and Max nobody can, while on Team and Enterprise an owner can, and local desktop Cowork then carries new work on the device.
 
-Both modes ship today, which changes the shape of a Windows plan. The machine-side half is the half that needs admin rights, the platform feature and the restart. Move a person's work to cloud sessions and those three requirements do not follow it, but the reach into that person's folders does: it stays with the app on that desk, and with whoever holds the admin password for it.
+Work already under way on the machine stays there. A task started on that computer before October 6 runs to the end on it, and a scheduled task that already ran locally keeps running there. The install guide still describes that path: "Cowork runs code in an isolated virtual machine on your computer. File reads and writes are limited to folders you connect, and network access follows your egress settings" ([install Claude Desktop](https://support.claude.com/en/articles/10065433-install-claude-desktop)). The download page still puts it in seven words: "In Claude Cowork, local sessions stay on-device" ([claude.com/download](https://claude.com/download)). On Pro and Max, for new work that has to stay on the machine, Anthropic names another app: "For new tasks that run only on your computer, use Claude Code in the desktop app." On Team and Enterprise, an owner who turns cloud sessions off keeps local desktop Cowork for that work.
+
+Cloud is now the default place for a session. "Cowork sessions run in the cloud by default: the agent loop and code execution run on Anthropic's servers" ([Cowork architecture overview](https://support.claude.com/en/articles/14479288)). There "Claude's work runs in an isolated, temporary environment on Anthropic's servers", created for that one session, unable to reach a home or company network, and removed when the session ends. When the task needs a local file or the browser, "Claude reaches your computer through the Claude Desktop app", and only for folders already connected. If the app is offline, the session has no path to that machine ([use Cowork safely](https://support.claude.com/en/articles/13364135-use-claude-cowork-safely)).
+
+That changes the shape of a Windows plan. Admin rights, the platform feature and the restart still buy the desktop app on that desk: the folders it may reach, and on Pro and Max any task that started there before October 6. On those two plans they no longer buy new work executing on the machine. A plan that budgets the virtual machine as the default place new tasks run is budgeting for a path Anthropic kept for older tasks on Pro and Max, plus folder reach that a cloud session borrows only while the app is open. On Team and Enterprise that budget holds only while an owner keeps cloud sessions switched off.
 
 ## What a second Windows PC costs
 
-A machine that is reimaged or handed to a new starter goes through the approval, the install and the restart again, with the same admin involvement each time. A pilot across ten desks is ten rounds of that, plus one more whenever hardware changes hands.
+A machine that is reimaged or handed to a new starter goes through the approval, the install and the restart again, with the same admin involvement each time. A pilot across ten desks is ten rounds of that, plus one more whenever hardware changes hands. A cloud session spares the desk only when the work needs nothing from it, because the reach into local folders sits in the app. Work with no local files runs from the web, with nothing installed at all.
 
 ## Kortix puts the working computer somewhere else
 
@@ -3058,9 +3062,9 @@ Session work reaches \`main\` through a change request, and merge is default-den
 | | Kortix | Claude Cowork | Copilot Cowork |
 |---|---|---|---|
 | Open source | Yes. Read it, fork it, audit it. | No | No |
-| Where the session runs | A cloud computer cloned from the repo | A local virtual machine, or Anthropic's cloud | Microsoft's cloud, inside Microsoft 365 |
-| What Windows installs | A browser and a login | The desktop app, with admin rights | The Microsoft 365 Copilot app, under the Copilot USL |
-| Windows prerequisites | None on the client | Virtual Machine Platform, Windows 10 or later | A Microsoft 365 Copilot USL |
+| Where the session runs | A cloud computer cloned from the repo | Anthropic's cloud by default; local Cowork for existing deployments, org-controlled | Microsoft's cloud, inside Microsoft 365 |
+| What Windows installs | A browser and a login | Nothing in a browser; desktop app and admin rights for local folders | The Microsoft 365 Copilot app, under the Copilot USL |
+| Windows prerequisites | None on the client | Nothing in a browser; Virtual Machine Platform for the desktop app | A Microsoft 365 Copilot USL |
 | Where configuration lives | In the git repo | In the Claude account | In the Microsoft 365 tenant |
 | Self-host | Self-host is free | Not offered | Not offered |
 
@@ -3072,11 +3076,11 @@ Microsoft shipped its own version of this work in June. Copilot Cowork went gene
 
 ## Which one fits a Windows fleet
 
-One person, one PC, files on that PC: Claude Cowork is a good buy. One download gets a local virtual machine working against folders that person already has, and that is the whole project.
+A team that runs the same jobs across several Windows machines, and wants the work to land through a review somebody can read, gets the per-machine cost removed by the browser-and-login path. Kortix is the open-source option built for that fleet: a project is one git repo with kortix.yaml at its root, and every session gets a cloud computer cloned from it. A Teams mention or a browser tab starts the same work with nothing installed on the desk, and what a session wants to land arrives as a change request a person approves, so the record lives in the repo.
 
 A company that lives inside Microsoft 365 buys Copilot Cowork, governed in the tenant it already administers.
 
-A team that runs the same jobs across several Windows machines, and wants the work to land through a review somebody can read, has the per-machine cost removed by the browser-and-login path, with the change request keeping the record. Kortix is the open-source option built for that fleet.`,
+One person, one PC, files on that PC: Claude Cowork still fits, because the download buys the app that reaches those folders, and on Pro and Max new tasks run in Anthropic's cloud. For a single desk, that is the whole project.`,
         },
         {
           type: 'faq',
