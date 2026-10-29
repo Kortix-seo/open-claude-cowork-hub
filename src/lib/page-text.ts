@@ -9,6 +9,10 @@ import { inlineToPlain } from './markdown';
 import { pageUrl } from './site';
 
 const fence = (a: Artifact) => {
+  // An artifact with no lines (the real-screenshot exhibit) has nothing to quote: it emits no
+  // fence and no Source: line, so the twin never carries an empty fenced block vouched for by a
+  // source. Its HTML rendering (the figure and caption) is untouched.
+  if (a.lines.every((l) => l.trim() === '')) return '';
   const lang = a.lang === 'text' ? '' : a.lang;
   const src = a.source ? `\n\nSource: ${a.source}` : '';
   return `\`${a.file}\`\n\n\`\`\`${lang}\n${a.lines.join('\n')}\n\`\`\`${src}`;
@@ -63,7 +67,13 @@ function section(s: Section, site: SiteConfig): string {
         ...s.layers.map((l, i) => `### ${i + 1}. ${l.title}\n\n${l.body}\n\n${fence(l.artifact)}`),
       ].join('\n\n');
     case 'comparison': {
-      const head = `| | ${s.columns.map((c) => c.label + (c.highlight ? ' (recommended)' : '')).join(' | ')} |`;
+      // A highlighted column is marked once: a label that already carries a
+      // parenthetical ("Kortix (our pick)") says it itself, so appending
+      // "(recommended)" would render "Kortix (our pick) (recommended)" in every
+      // .md twin and llms-full.txt that a content review then reads as sloppy.
+      const head = `| | ${s.columns
+        .map((c) => c.label + (c.highlight && !c.label.includes('(') ? ' (recommended)' : ''))
+        .join(' | ')} |`;
       const rule = `| --- | ${s.columns.map(() => '---').join(' | ')} |`;
       const rows = s.rows.map((r) => `| ${r.label} | ${r.cells.map(cellText).join(' | ')} |`);
       return [heading(s.heading), [head, rule, ...rows].join('\n'), s.footnote ?? null].filter(Boolean).join('\n\n');

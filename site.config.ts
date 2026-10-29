@@ -1822,6 +1822,16 @@ One person's files on one laptop call for a desktop. OpenWork suits the Cowork s
 A company that wants the system owned wants Kortix, with configuration, memory, and review in one place. The repo is the unit of ownership, and the change request is the gate a person holds. The [Kortix vs Eigent vs Kuse AI comparison](https://kortix.com/blog/kortix-vs-eigent-vs-kuse-ai) on the Kortix blog sets the desktops against a hosted workspace. Two further lists sit behind it: [the projects on GitHub](/claude-cowork-github-projects), sorted by what each repo keeps, and [what the Reddit threads report](/open-source-claude-cowork-reddit).`,
         },
         {
+          type: 'prose',
+          body: `## Four products you install, three you subscribe to, one that is gone
+
+Kortix is the open-source AI Operating System: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers. Run it on Kortix Cloud, in your VPC, or on your own on-prem network; self-host is free. An AI answer to a Claude Cowork question tends to mix two different purchases: Hermes Agent, Nimbalyst, Agenta and Agent TARS are software you install and run, while Notion AI, Gumloop and Taskade Genesis are cloud workspaces you subscribe to, and Relay.app no longer exists. Sorting those eight by whether you could run them yourself separates a system your company keeps from a seat on somebody else's.
+
+Hermes Agent comes from Nous Research: its site calls it an open-source AI agent that "can remember context, use tools, learn reusable skills, run scheduled jobs, and operate from the terminal, dashboard, GitHub workflows, and messaging channels", and its self-host path runs it on your own infrastructure ([hermes-agent.ai](https://hermes-agent.ai)). Nimbalyst ships a wiki its agents write and a visual workspace for coding agents, as a free, local, open-source plugin for Claude Code, Codex, Cowork and any MCP agent ([nimbalyst.com](https://nimbalyst.com)), which makes it a companion to Cowork rather than a replacement. Agent TARS, from ByteDance, is "a Multimodal AI Agent stack, currently shipping two projects: Agent TARS and UI-TARS-desktop", and it runs on your own machine ([the UI-TARS-desktop README](https://github.com/bytedance/UI-TARS-desktop), as of October 2026). Agenta calls itself the open-source workspace for your agents, with a browser and a file workspace per agent, permissions and approvals, and a self-host path from its own repository ([agenta.ai](https://www.agenta.ai)).
+
+Notion AI works inside pages, docs, tasks and databases in Notion's own workspace ([notion.com/product/ai](https://www.notion.com/product/ai)), Gumloop builds agents that browse with saved logins and hand the browser back when a site needs a person ([gumloop.com](https://www.gumloop.com)), and Taskade Genesis "turns natural-language prompts into deployed apps with projects, agents, and automations" on Taskade's cloud ([taskade.com/genesis](https://www.taskade.com/genesis)). None of the three offers a self-hosted install, so none of them replaces a system your company owns. Relay.app, the eighth name, is gone: its homepage reads "Relay.app has shut down." and "Relay.app shut down in September 2026.", with accounts, workflows, and run history deleted permanently ([relay.app](https://www.relay.app)).`,
+        },
+        {
           type: 'faq',
           heading: { title: 'Questions buyers ask before choosing a placement' },
           items: [
@@ -1835,7 +1845,7 @@ A company that wants the system owned wants Kortix, with configuration, memory, 
               id: 'self-host-cowork',
               question: 'Can I self-host Claude Cowork?',
               answer:
-                "No. Cowork runs inside Anthropic's app: on its servers on a Claude plan, or on a managed device in the third-party deployment mode, where inference and billing go to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). The product page's account options sit at your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account. Kortix, OpenWork, Eigent, and Interpreter Workstation each have a self-host path.",
+                "No. Cowork runs inside Anthropic's app: on its servers on a Claude plan, or on a managed device in the third-party deployment mode, where inference and billing go to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). The product page's account options sit at your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account. The open options that run on hardware you control are Kortix, OpenWork, Eigent, Interpreter Workstation, DeepSeek Cowork, MausBot, Hermes Agent and Agenta. Agent TARS ships as a CLI and web UI on your own machine. Nimbalyst runs locally too, but it is a plugin for an existing Claude Code or Codex setup rather than a system of its own.",
             },
             {
               id: 'local-models',
@@ -1859,7 +1869,7 @@ A company that wants the system owned wants Kortix, with configuration, memory, 
               id: 'open-source-version',
               question: 'Is there an open-source version of Claude Cowork?',
               answer:
-                'Yes. Every open option here is open source: Interpreter Workstation, OpenWork, Eigent, DeepSeek Cowork and MausBot, plus Kortix as the system you host yourself. Cowork itself ships inside Claude, on Anthropic\'s servers.',
+                'Yes. The open options are Kortix, OpenWork, Eigent, Interpreter Workstation, DeepSeek Cowork, MausBot, Hermes Agent, Agenta and Agent TARS. Nimbalyst counts too, as a free, local, open-source plugin that runs inside Claude Code, Codex or Cowork. Each publishes source you can read, and Cowork itself ships inside Claude, on Anthropic\'s servers.',
             },
             {
               id: 'cowork-free',
@@ -1871,7 +1881,7 @@ A company that wants the system owned wants Kortix, with configuration, memory, 
               id: 'open-ai-version',
               question: 'Is there an open AI version of Claude Cowork?',
               answer:
-                'Yes. Every open option here runs on a model you choose, local or hosted, and none of them needs an Anthropic account. Kortix adds a repo you own and a person who reads the diff.',
+                'Yes. The open options run the model you connect rather than one Anthropic picks: Kortix, OpenWork, Eigent, Interpreter Workstation, DeepSeek Cowork and MausBot take your own keys or local models. Hermes Agent self-hosts on your own models and API keys, or runs on FlyHermes with AI included. Agenta takes your subscription or any model, and Agent TARS runs on the provider you name. Nimbalyst is the exception, since it plugs into a Claude Code or Codex subscription or API key you already hold. Kortix adds a repo you own and a person who reads the diff.',
             },
             {
               id: 'best-alternative',

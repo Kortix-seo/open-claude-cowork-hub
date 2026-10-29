@@ -53,7 +53,7 @@ export function pageJsonLd(site: SiteConfig, page: Page) {
         '@type': 'SoftwareApplication',
         name: 'Kortix',
         applicationCategory: 'BusinessApplication',
-        operatingSystem: 'web; desktop apps for macOS, Windows and Linux; self-hosted on a Linux server',
+        operatingSystem: 'web; macOS and Linux desktop apps, WSL on Windows; self-hosted on a Linux server',
         url: 'https://kortix.com',
         description:
           'Kortix is the open-source AI Operating System, the leading open-source alternative to Claude Cowork and ChatGPT Work.',
