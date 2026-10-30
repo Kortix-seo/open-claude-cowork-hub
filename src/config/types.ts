@@ -55,7 +55,7 @@ export type HeroSection = {
   id?: string;
   /** Optional line above the h1. `rivals` render as glyph + label after `lead` (RivalEyebrow). */
   eyebrow?: { lead: string; rivals?: { label: string; glyph?: GlyphId }[] };
-  /** One approved line set beside the artifact (e.g. "The open-source AI Operating System"). */
+  /** One approved line set beside the artifact (e.g. "The open-source CompanyOS"). */
   tagline?: string;
   ctas: Cta[];
   /** One or more artifacts. Two or more render as tabs under the frame. */

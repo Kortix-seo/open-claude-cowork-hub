@@ -19,7 +19,7 @@ const site: SiteConfig = {
   domain: 'opensourceclaudecowork.com',
   siteName: 'Open Source Claude Cowork',
   description:
-    'An independent handbook of open-source alternatives to Claude Cowork: what you can read, what you can host, and what you can review. It recommends Kortix, the open-source AI Operating System.',
+    'An independent handbook of open-source alternatives to Claude Cowork: what you can read, what you can host, and what you can review. It recommends Kortix, the open-source CompanyOS.',
   updated: '2026-10-25',
   lang: 'en',
   accent: '#1e3a8a',
@@ -68,7 +68,7 @@ const site: SiteConfig = {
   ],
   footer: {
     blurb:
-      'The self-hosting handbook: an independent guide to open-source alternatives to Claude Cowork, built around three checks, what you can read, what you can host, and what you can review. Our recommendation is Kortix, the open-source AI Operating System.',
+      'The self-hosting handbook: an independent guide to open-source alternatives to Claude Cowork, built around three checks, what you can read, what you can host, and what you can review. Our recommendation is Kortix, the open-source CompanyOS.',
     columns: [
       {
         title: 'Start here',
@@ -149,8 +149,8 @@ const site: SiteConfig = {
       title: 'Kortix, the open source alternative to Claude Cowork you can host',
       metaDescription:
         'Kortix is the open-source alternative to Claude Cowork you can read, self-host on your own hardware, and review through a change request.',
-      h1: "An AI Operating System that is open source, hosted by you",
-      lead: "Claude Cowork became part of Claude on September 16, 2026, and the question that remains is where the work runs. Kortix is the open-source AI Operating System: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers.",
+      h1: "An open-source CompanyOS that you host yourself",
+      lead: "Claude Cowork became part of Claude on September 16, 2026, and the question that remains is where the work runs. Kortix is the open-source CompanyOS: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers.",
       sections: [
         {
           type: 'hero',
@@ -162,13 +162,13 @@ const site: SiteConfig = {
             {
               file: 'how work lands',
               lang: 'text',
-              source: 'https://kortix.com/docs',
+              source: 'https://kortix.com/docs/guide',
               lines: [
-                'A project is a git repo with kortix.yaml at its root.',
-                'A session runs one agent in its own sandbox.',
-                'The sandbox clones the repo and works on a new branch.',
-                "The agent commits, pushes the session branch, and opens a change request against the project's default branch.",
-                'A person with the project.gitops.merge permission reviews the change request and merges it into the default branch.',
+                'Your company\'s agents, skills and settings live in one shared repository. Kortix keeps it safe from unreviewed changes:',
+                'Each session works on its own branch, a private copy of the repository.',
+                'When the agent finishes, it opens a change request. A change request asks to merge that branch into the shared one.',
+                'A person reads the changes and approves, closes, or asks for changes.',
+                'An agent can merge its own change request only with the merge permission.',
               ],
             },
           ],
@@ -286,35 +286,36 @@ const site: SiteConfig = {
         },
         {
           type: 'code-panels',
-          heading: { title: 'Start with three commands', sub: "The README's own commands: an install, a first session, and a trigger." },
+          heading: { title: 'Start with three commands', sub: "The docs' own commands: an install, a first session, and a trigger." },
           panels: [
             {
               tab: 'Install',
               file: 'terminal',
               lang: 'sh',
-              source: 'https://github.com/kortix-ai/suna',
-              lines: ['curl -fsSL https://kortix.com/install | bash', 'kortix init', 'kortix ship'],
+              source: 'https://kortix.com/docs/developers',
+              lines: ['curl -fsSL https://kortix.com/install | bash', 'kortix init my-agent', 'kortix ship'],
             },
             {
               tab: 'First session',
               file: 'terminal',
               lang: 'sh',
-              source: 'https://github.com/kortix-ai/suna',
-              lines: ['kortix sessions new --prompt "Summarize this week\'s commits and open a change request"', 'kortix cr ls'],
+              source: 'https://kortix.com/docs/developers',
+              lines: ['kortix sessions new --prompt "Add a skill that drafts the weekly status report"', 'kortix chat <session_id>                      # talk to the agent; -p "…" sends one prompt', 'kortix cr ls && kortix cr diff 1              # read its change request'],
             },
             {
               tab: 'A trigger',
               file: 'kortix.yaml',
               lang: 'yaml',
-              source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+              source: 'https://kortix.com/docs/developers',
               lines: [
                 'triggers:',
-                '  - slug: harness-reflector',
-                '    name: Harness reflector',
-                '    type: cron',
-                '    agent: harness-reflector',
-                '    enabled: false',
-                '    cron: "0 0 3 * * *" # 03:00 daily',
+                '  - slug: weekly-report',
+                '    on:',
+                '      cron: "0 0 9 * * 1"',
+                '      timezone: Europe/Berlin',
+                '    run:',
+                '      agent: support',
+                '      prompt: Write the weekly support report for the last 7 days.',
               ],
             },
           ],
@@ -343,7 +344,7 @@ This handbook answers it with three checks: what you can read, what you can host
 
 ## What you can read
 
-Kortix is open source, so the readable part is the whole system. Agents are markdown files, skills are folders beside them, and company memory is plain files that accumulate. At the root, kortix.yaml names what each session gets. The starter repo lays it out in ordinary folders: agents, skills, and memory side by side, and the pi config under harnesses/pi.
+Kortix is open source, so the readable part is the whole system. Agents are markdown files, skills are folders beside them, and company memory is plain files that accumulate. At the root, kortix.yaml names what each session gets. The starter repo lays it out plainly: kortix.yaml with agents/, skills/ and memory/ beside it.
 
 For the wider field, [how the open-source options differ](https://kortix.com/blog/open-source-ai-agent-platform) sorts frameworks, visual builders, and full platforms by the job each one actually fits.
 
@@ -367,7 +368,7 @@ Reaching the capability got easier on September 16: open Claude and hand it a ta
               id: 'open-source-alternative',
               question: 'Is there an open-source alternative to Claude Cowork?',
               answer:
-                "Yes. Kortix is an open-source AI Operating System: agents, skills, company memory, and connectors are files in one git repo, and the code itself is public. The same comparison sets it beside Claude Cowork and the open-source desktop options.",
+                "Yes. Kortix is the open-source CompanyOS, and the whole system is readable: agents, skills, company memory and connectors are files in one git repo, and the code itself is public. The same comparison sets it beside Claude Cowork and the open-source desktop options.",
             },
             {
               id: 'self-hosted',
@@ -412,7 +413,7 @@ Reaching the capability got easier on September 16: open Claude and hand it a ta
       metaDescription:
         'There is no self-hosted Claude Cowork. The open source stack that runs instead makes the install the easy half of the move.',
       h1: 'Self-hosting a Claude Cowork replacement: open source covers the easy half',
-      lead: 'No. Anthropic publishes no build of Claude Cowork you can host. On a Claude plan it runs in a Claude account or in your own Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry account, and its third-party deployment mode moves inference and billing to a provider the organization configures rather than a service the team operates. Anthropic folded the name into Claude on September 16, 2026, and Kortix, the open-source AI Operating System, is the stack to run instead.',
+      lead: 'No. Anthropic publishes no build of Claude Cowork you can host. On a Claude plan it runs in a Claude account or in your own Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry account, and its third-party deployment mode moves inference and billing to a provider the organization configures rather than a service the team operates. Anthropic folded the name into Claude on September 16, 2026, and Kortix, the open-source CompanyOS, is the stack to run instead.',
       sections: [
         {
           type: 'comparison',
@@ -420,7 +421,7 @@ Reaching the capability got easier on September 16: open Claude and hand it a ta
             title: 'Where the work, the rules and the review sit',
           },
           columns: [
-            { id: 'kortix', label: 'Kortix', highlight: true, href: 'https://kortix.com/docs/host', nofollow: true },
+            { id: 'kortix', label: 'Kortix', highlight: true, href: 'https://kortix.com/docs/developers#self-hosting', nofollow: true },
             { id: 'openwork', label: 'OpenWork', href: 'https://openworklabs.com' },
             { id: 'cowork', label: 'Claude Cowork', href: 'https://claude.com/product/cowork' },
           ],
@@ -444,7 +445,7 @@ Reaching the capability got easier on September 16: open Claude and hand it a ta
               tab: 'Server',
               file: 'terminal',
               lang: 'sh',
-              source: 'https://kortix.com/docs/host',
+              source: 'https://kortix.com/docs/developers#self-hosting',
               lines: [
                 'curl -fsSL https://kortix.com/install | bash',
                 'kortix self-host init --domain kortix.example.com --admin-email you@example.com',
@@ -455,14 +456,14 @@ Reaching the capability got easier on September 16: open Claude and hand it a ta
               tab: 'No domain',
               file: 'terminal',
               lang: 'sh',
-              source: 'https://kortix.com/docs/host',
+              source: 'https://kortix.com/docs/developers#self-hosting',
               lines: ['kortix self-host init --tunnel cloudflare', 'kortix self-host start'],
             },
             {
               tab: 'Review',
               file: 'terminal',
               lang: 'sh',
-              source: 'https://kortix.com/docs/quickstart',
+              source: 'https://kortix.com/docs/developers#quickstart',
               lines: [
                 'kortix cr ls      # open change requests',
                 'kortix cr diff 1  # the unified diff',
@@ -504,9 +505,9 @@ Both lists cover the same items. Prompts, permissions, skills and cadences are t
 
 ## Three things the server has to carry
 
-The first is the rules. \`kortix.yaml\` sits at the root of the project repository, and its agents map declares each agent: its prompt file, model, mode and permission, plus the connectors, secrets and skills it may use. The template's own comment states the default: grants are deny-by-default, so an omitted grant is none. That comment sits in the file's header, above the agents map it governs.
+The first is the rules. \`kortix.yaml\` sits at the root of the project repository, and its agents map declares each agent: its prompt file, model, mode and permission, plus the connectors, secrets and skills it may use. The reference states the default once: an omitted grant is none. \`skills\`, \`subagents\`, \`commands\`, \`extensions\`, \`connectors\`, \`secrets\`, \`apps\` and \`kortix_permissions\` all follow that rule.
 
-The second is the review. Merge is default-deny for agents. The agent commits to a branch of its own and opens a change request, which proposes to merge that branch into the default branch ([Read the docs](https://kortix.com/docs/quickstart), checked October 2026). It stops there. Someone reads the diff first. The grant decides the rest. The starter agent carries \`kortix_permissions: all\`, which lets the API merge what it opened. The managed skill that Kortix adds to every session tells it to stop there, and to hand the change request up instead.
+The second is the review. Merge is default-deny for agents. The agent commits to a branch of its own and opens a change request, which proposes to merge that branch into the default branch ([Read the docs](https://kortix.com/docs/developers#quickstart), checked October 2026). It stops there. Someone reads the diff first. The grant decides the rest. The starter agent carries \`kortix_permissions: all\`, which lets the API merge what it opened. The managed skill that Kortix adds to every session tells it to stop there, and to hand the change request up instead.
 
 The third is the keys. Your provider accounts, one per project, billed by the provider that serves them. Nothing about that bill is ours to change, and the configuration line that names it sits in \`.env\` and in the project, in files a reviewer can read.
 
@@ -532,21 +533,20 @@ Two routes stay outside this install. One is staying on Claude, which keeps chat
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              '# Grants are deny-by-default: an omitted skills, subagents,',
-              '# commands, extensions, connectors, secrets or kortix_permissions grant is',
-              '# none. Write `all`, `none`, or a list of names.',
               'agents:',
-              '  kortix:',
-              '    prompt_file: agents/kortix.md',
-              '    connectors: all',
-              '    secrets: all',
-              '    kortix_permissions: all',
+              '  support:',
+              '    description: Answers help desk tickets.',
+              '    mode: primary',
+              '    prompt_file: agents/support.md',
+              '    skills: [refund-policy, kortix-cli]',
+              '    connectors: [helpdesk]',
+              '    secrets: [HELPDESK_TOKEN]',
             ],
           },
           caption:
-            "Nine lines from the starter manifest: the deny-by-default grant rule, the agent's markdown file, and the grants that decide what it may do without a person.",
+            "Eight lines from a reference manifest: the agent's mode and prompt file, and the skills, connector and secret names it enables, while every grant it omits stays none.",
         },
         {
           type: 'faq',
@@ -593,28 +593,30 @@ Two routes stay outside this install. One is staying on Claude, which keeps chat
       navLabel: 'Plugins',
       title: 'What a Cowork plugin holds, and where open source stops',
       metaDescription:
-        'Claude Cowork plugins are forkable files inside a product you do not host. Kortix, the open-source AI Operating System, keeps those parts in your repo.',
+        'Claude Cowork plugins are forkable files inside a product you do not host. Kortix, the open-source CompanyOS, keeps those parts in your repo.',
       h1: 'Claude Cowork plugins are open source; the runtime is not',
-      lead: 'A Claude Cowork plugin is a folder of markdown and JSON that tells Claude how a role gets done: skills, slash commands, connectors, and sub-agents in one package. Kortix, the open-source AI Operating System, keeps the same four things as files in a git repo you own.',
+      lead: 'A Claude Cowork plugin is a folder of markdown and JSON that tells Claude how a role gets done: skills, slash commands, connectors, and sub-agents in one package. Kortix, the open-source CompanyOS, keeps the same four things as files in a git repo you own.',
       sections: [
         {
           type: 'artifact',
-          heading: { title: 'Six lines of the manifest that registers the same four things' },
+          heading: { title: 'Eight lines of a manifest that registers what a plugin packages' },
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              'agents:',
-              '  kortix:',
-              '    prompt_file: agents/kortix.md',
-              '    connectors: all',
-              '    skills: all',
-              '    workspace: { project_repository: true }',
+              '# Registries: what the project has. A registry entry gives nothing to any agent.',
+              'skills:',
+              '  refund-policy: skills/refund-policy',
+              'tools:',
+              '  lookup_order: tools/lookup_order.ts',
+              'commands:',
+              '  triage:',
+              '    description: Sort a ticket by urgency.',
             ],
           },
           caption:
-            "The agent's markdown file, its connector grant, its skills grant, and the repo checkout each session gets, excerpted from the starter's longer manifest block, which also carries \`secrets: all\` and \`kortix_permissions: all\`.",
+            "Three of the plugin's four parts as registries in one file: a skill as a folder, a tool as a module, a command with its description. The fourth, sub-agents, is an agent block in that same file.",
         },
         {
           type: 'prose',
@@ -648,7 +650,7 @@ The skill you wrote, the commands you renamed and the manifest you forked travel
 
 ## The same four parts, as files the company reviews
 
-Kortix is the open-source AI Operating System, and a Kortix project is a git repo. The manifest documents its own layout in the header. \`agents/<name>.md\` holds one agent per file, \`skills/<name>/SKILL.md\` holds a skill every harness loads, \`tools/<name>.ts\` holds a tool the project wrote, and \`kortix.yaml\` sits beside them with a block per agent. The mapping from a Cowork plugin is direct:
+Kortix is the open-source CompanyOS, and a Kortix project is a git repo. The docs give the layout. \`agents/<name>.md\` holds one agent per file, \`skills/<name>/SKILL.md\` holds a skill, \`tools/<name>.ts\` holds a tool the project wrote, and \`kortix.yaml\` sits beside them with a block per agent. The mapping from a Cowork plugin is direct:
 
 - the plugin's skill becomes \`skills/<name>/SKILL.md\`, which a reviewer reads in a change request like any other file;
 - its sub-agents become \`agents/<name>.md\`, one markdown file each;
@@ -716,24 +718,25 @@ If the appeal is working on your own files rather than on a system that runs ser
       metaDescription:
         "Cowork memory works in cloud sessions and not in local ones, per Anthropic's help center. Open source Kortix keeps project memory in a repo you own.",
       h1: 'Where Claude Cowork memory lives, and what open source keeps instead',
-      lead: "Yes, Claude Cowork has memory, but only when the session runs in the cloud: Anthropic's help center says sessions that run locally on your computer don't use memory. Kortix is the open-source AI Operating System, where project memory is files in a repository you own.",
+      lead: "Yes, Claude Cowork has memory, but only when the session runs in the cloud: Anthropic's help center says sessions that run locally on your computer don't use memory. Kortix is the open-source CompanyOS, where project memory is files in a repository you own.",
       sections: [
         {
           type: 'artifact',
-          heading: { title: 'The layout the base template ships' },
+          heading: { title: 'Where memory lives, and who reads each folder' },
           artifact: {
-            file: 'kortix.yaml',
-            lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            file: 'Memory',
+            lang: 'text',
+            source: 'https://kortix.com/docs/guide',
             lines: [
-              '#   kortix.yaml               this file',
-              '#   agents/<name>.md          agent prompts (`agents.<name>.prompt_file`)',
-              '#   skills/<name>/SKILL.md    skills (`skills:` below)',
-              '#   tools/<name>.ts           project tools (`tools:` below)',
-              '#   memory/                   the project brain (the `kortix-memory` skill)',
+              '| Memory folder | Who reads it |',
+              '| --- | --- |',
+              '| `Memory` in **Company** | Every project member |',
+              '| `Memory` in your own folder | Only you. Each agent keeps its notes in its own subfolder. |',
+              'The project repository can hold memory too: a `memory/` folder with `MEMORY.md` as its index. The built-in `memory` tool edits it, and every edit lands through a change request.',
             ],
           },
-          caption: "Five lines from the manifest in the starter's base template.",
+          caption:
+            "The guide's memory section: which folder each person reads, and the `memory/` folder in the project repository that a change request reviews.",
         },
         {
           type: 'prose',
@@ -767,7 +770,7 @@ Account memory does what it says, and its limit is the account: a colleague read
 
 ## What owned memory looks like in Kortix
 
-In Kortix, memory is a folder. The [Kortix docs](https://kortix.com/docs) describe a project as a git repo with \`kortix.yaml\` at its root, where agents, skills, memory, tools, triggers and connectors are files. The base template says the same in its opening comment block. \`memory/\` is "the project brain (the \`kortix-memory\` skill)", sitting beside \`agents/\`, \`skills/\` and \`tools/\`. The manifest gives the memory tool to every agent of the project, so what one session writes is there for the next person's session in the same repo.
+In Kortix, memory is a folder. The [Kortix docs](https://kortix.com/docs) describe a project as a git repo with \`kortix.yaml\` at its root, where agents, skills, memory, tools, triggers and connectors are files. The guide says the same in its memory section: the project repository can hold memory too, a \`memory/\` folder with \`MEMORY.md\` as its index, edited by the built-in \`memory\` tool. The manifest gives the memory tool to every agent of the project, so what one session writes is there for the next person's session in the same repo.
 
 Because memory is a file, a change to it arrives the way every other change does. "Session work reaches \`main\` through a change request. Merge is default-deny for agents." A person reads the diff before it lands, and that review is where a wrong lesson gets caught before it becomes policy. Who can read the folder is an ordinary permission question: "Per-resource permissions for people and agents. Roles, groups, and an audit trail." [The security and approvals page](/claude-cowork-security-and-approvals) takes the gate apart.
 
@@ -854,7 +857,7 @@ The calculation changes with the second person. Two members, each starting with 
             {
               label: 'Kind',
               cells: [
-                'The company platform, an AI Operating System',
+                'The company platform, a CompanyOS',
                 'Free desktop app for macOS, Windows and Linux',
                 'Python framework, a control plane sold beside it',
                 'Classic autonomous agent, plus a builder and hosted platform',
@@ -891,24 +894,23 @@ The calculation changes with the second person. Two members, each starting with 
         },
         {
           type: 'artifact',
-          heading: { title: 'The starter manifest every project begins from' },
+          heading: { title: 'The smallest manifest the reference accepts' },
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              '# Kortix project manifest: the one file that defines this project\'s agents.',
-              '#',
-              '# The project REGISTERS what exists (skills, tools, commands, extensions,',
-              '# connectors, secrets). Each AGENT decides: its prompt, model and permission,',
-              '# and which registered things it enables, by name. Nothing applies to every',
-              '# agent by itself, and an agent sees only what it enables.',
-              '# Layout:',
+              '# yaml-language-server: $schema=https://kortix.com/schema/kortix.v3.schema.json',
               'kortix_version: 3',
-              'default_agent: kortix',
+              'default_agent: assistant',
+              'agents:',
+              '  assistant:',
+              '    description: Answers questions about the project.',
+              '    prompt: You answer questions about this project. Read the files before you answer.',
+              '    skills: all                              # omitted: no skills',
             ],
           },
-          caption: 'The header of kortix.yaml, the file that makes a company platform\u0027s configuration plain files in git.',
+          caption: 'One agent, its prompt and its one skill grant, in the smallest manifest the reference accepts.',
         },
         {
           type: 'prose',
@@ -916,11 +918,11 @@ The calculation changes with the second person. Two members, each starting with 
 
 Search results for an open-source AI agent platform hold three kinds of software that barely overlap. Every one of them calls itself a platform. A company platform is infrastructure a whole organization runs: named agents, shared skills, company memory, connectors to real tools, and a gate a person holds on changes. A framework is a library a developer composes into an application the team writes, hosts and secures. An autonomous agent is a single loop that takes a goal and works at it until it decides the job is done.
 
-A framework leaves you owning code you wrote around someone else's library. An autonomous agent leaves you owning the loop and whatever you built around it. A company platform ships the surroundings as the product, so memory, skills, connectors and the review gate arrive in files the team can read. The comparison table sorts four projects into those kinds. The starter manifest shown with it makes the platform kind concrete.
+A framework leaves you owning code you wrote around someone else's library. An autonomous agent leaves you owning the loop and whatever you built around it. A company platform ships the surroundings as the product, so memory, skills, connectors and the review gate arrive in files the team can read. The comparison table sorts four projects into those kinds. The manifest shown with it makes the platform kind concrete.
 
 ## The company platform: the surroundings ship in the repo
 
-Kortix is the open-source AI Operating System, and it is the company-platform entry in the table. The starter project makes the claim in files. \`kortix.yaml\` opens: "Kortix project manifest: the one file that defines this project's agents." Core folders carry the substance: \`agents/\` holds one markdown file per agent, \`skills/\` holds how the company does a job, \`memory/\` is the project brain, and \`tools/\` is code every agent may call. Behavior and grants live in the same manifest. An \`agents:\` map grants connectors, secrets, permissions and skills per agent. An omitted grant resolves to none, in the starter's own words: "Grants are deny-by-default".
+Kortix is the open-source CompanyOS, and it is the company-platform entry in the table. The reference makes the claim in one line: \`kortix.yaml\` is the manifest at the root of a project repository, and it defines the project's agents and everything each agent may use. Core folders carry the substance: \`agents/\` holds one markdown file per agent, \`skills/\` holds how the company does a job, \`memory/\` is the project brain, and \`tools/\` is code every agent may call. Behavior and grants live in the same manifest. An \`agents:\` map grants connectors, secrets, permissions and skills per agent. An omitted grant resolves to none, in the reference's own words: "Omitted means none."
 
 The openness runs underneath the interface. A harness is the agent runtime inside a session's sandbox: it runs the model loop, calls tools and writes the transcript. Every new session runs pi; OpenCode is deprecated. Both read the same \`agents/\`, \`skills/\`, root \`AGENTS.md\` and \`kortix.yaml\`. A team can therefore read the thing that actually runs its sessions, in the same repo that holds what those sessions work from.
 
@@ -998,7 +1000,7 @@ The kind decides which projects belong on the shortlist. Agent steps inside an a
       metaDescription:
         'Judge a self-hosted AI agent platform by what survives a restart: the open-source Kortix keeps agents, memory and connector rules as repo files.',
       h1: 'The restart test for an open-source self-hosted AI agent platform',
-      lead: "Reboot the box and count what comes back: a self-hosted AI agent platform is judged by what survives. Kortix, the open-source AI Operating System, keeps one git repo: agents, skills, memory and connector rules as files, with kortix.yaml at the root. Three projects take the same test.",
+      lead: "Reboot the box and count what comes back: a self-hosted AI agent platform is judged by what survives. Kortix, the open-source CompanyOS, keeps one git repo: agents, skills, memory and connector rules as files, with kortix.yaml at the root. Three projects take the same test.",
       sections: [
         {
           type: 'comparison',
@@ -1049,14 +1051,16 @@ The kind decides which projects belong on the shortlist. Agent steps inside an a
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              '# Each block is one agent. Behavior: description, mode (primary | subagent |',
-              '# all), model, prompt or prompt_file, and permission (per tool: allow | ask |',
-              '# deny; omitted = allow, so a tool never waits for an answer the agent did not',
-              '# ask for). Grants are deny-by-default: an omitted skills, subagents,',
-              '# commands, extensions, connectors, secrets or kortix_permissions grant is',
-              '# none. Write `all`, `none`, or a list of names.',
+              '# kortix.yaml',
+              'kortix_version: 3',
+              'default_agent: assistant',
+              'imports:',
+              '  - triggers/          # every .yaml and .yml file below this folder',
+              'agents:',
+              '  assistant:',
+              '    prompt: You write reports.',
             ],
           },
         },
@@ -1064,15 +1068,15 @@ The kind decides which projects belong on the shortlist. Agent steps inside an a
           type: 'artifact',
           heading: { eyebrow: 'Folder layout', title: 'Every part of the system is a folder' },
           artifact: {
-            file: 'kortix.yaml',
-            lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            file: 'project tree',
+            lang: 'text',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              '#   kortix.yaml               this file',
-              '#   agents/<name>.md          agent prompts (`agents.<name>.prompt_file`)',
-              '#   skills/<name>/SKILL.md    skills (`skills:` below)',
-              '#   tools/<name>.ts           project tools (`tools:` below)',
-              '#   memory/                   the project brain (the `kortix-memory` skill)',
+              'my-agent/',
+              '├── kortix.yaml        the manifest (kortix_version: 3): skills, agents, one trigger, secret names',
+              '├── agents/            the prompt of each agent: kortix.md, harness-reflector.md, session-reviewer.md',
+              '├── skills/            11 skills, one folder each, with a SKILL.md',
+              '├── memory/MEMORY.md   the project memory',
             ],
           },
         },
@@ -1080,33 +1084,32 @@ The kind decides which projects belong on the shortlist. Agent steps inside an a
           type: 'artifact',
           heading: { eyebrow: 'Default grant', title: 'Deny first, in writing' },
           artifact: {
-            file: 'kortix.yaml',
-            lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            file: 'Registries and grants',
+            lang: 'text',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              '# Grants are deny-by-default: an omitted skills, subagents,',
-              '# commands, extensions, connectors, secrets or kortix_permissions grant is',
-              '# none. Write `all`, `none`, or a list of names.',
+              '- **A grant** is `all` (or `*`), `none` (or `""`), or a list of names. A list that contains `*` means all.',
+              '- **Omitted means none.** An omitted `skills`, `subagents`, `commands`, `extensions`, `connectors`, `secrets`, `apps` or `kortix_permissions` grants nothing.',
+              '- **Three keys are open by default:** `tools` is `all`, `permission` is `allow`, and `codemode` is `on`.',
             ],
           },
         },
         {
           type: 'artifact',
-          heading: { eyebrow: 'Starter grants', title: 'One agent\u0027s reach, in the starter manifest' },
+          heading: { eyebrow: 'An agent\u0027s grants', title: 'One agent\u0027s reach, in a manifest' },
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            source: 'https://kortix.com/docs/developers',
             lines: [
               'agents:',
-              '  kortix:',
-              '    mode: primary',
-              '    prompt_file: agents/kortix.md',
-              '    connectors: all',
-              '    secrets: all',
-              '    kortix_permissions: all',
-              '    skills: all',
-              '    workspace: { project_repository: true }',
+              '  researcher:',
+              '    mode: subagent',
+              '    prompt: You research orders and report what you find. Never edit files.',
+              '    permission:',
+              '      edit: deny',
+              '    tools: [read, glob, grep, lookup_order, web_search]',
+              '    connectors: [helpdesk]',
             ],
           },
         },
@@ -1122,7 +1125,7 @@ A vendor account is not a build you can put on your own machine. It buys a seat 
 
 Three things share the name self-hosted: the harness that runs an agent, the rules that govern what it may reach, and the machine its sessions run on. Two of the three are files in a repository. A Kortix project is a git repo with \`kortix.yaml\` at its root, and the platform can host that repo or you can connect your own on GitHub. Agents are markdown files under \`agents/\`. Skills are folders with a \`SKILL.md\`. Memory is a directory the sessions read and write. Triggers are entries in the manifest. Most of a project's setup lives in those files, which is what makes it reviewable.
 
-The agents map in the same file declares each agent, its behaviour and what it may use: connectors, secrets, permissions and skills. The template says it outright in a comment: grants are deny-by-default, so an agent with no grant starts with none. The starter agent's own block names the agent, points at the prompt with \`prompt_file\`, and lists its grants: skills, subagents, commands, extensions, connectors, secrets, kortix_permissions and workspace. The markdown file is the system prompt, and both harnesses read it. Model, mode and permission sit in the \`agents.<name>\` block: one line there changes an agent's reach, one line of prompt changes its behavior.
+The agents map in the same file declares each agent, its behaviour and what it may use: connectors, secrets, permissions and skills. The reference says it outright: an omitted grant is none, so an agent with no grant starts with none. An agent's own block names it, sets its mode and its prompt, and lists its grants: tools, skills, commands, extensions, connectors, secrets and workspace. The markdown file is the system prompt, and both harnesses read it. Model, mode and permission sit in the \`agents.<name>\` block: one line there changes an agent's reach, one line of prompt changes its behavior.
 
 Sessions keep the same shape. Each boots in its own sandbox, clones the repo and works on its own branch, so the files are also the material agents edit. When the server restarts, the stack returns from the instance directory and the fleet returns from the repo.
 
@@ -1169,7 +1172,7 @@ A first trial needs no DNS at all. The docs' tunnel mode runs the stack on your 
               id: 'move-instance',
               question: 'How do I move an instance to a new server?',
               answer:
-                'Stop the stack so the database files stay consistent, copy the instance directory, and start on the new box: a self-hosted AI platform moves that easily only when its state is files. That directory holds every secret and signing key, the Postgres data and the stored files; the docs count it as the whole backup ([Read the docs](https://kortix.com/docs/host)). Your project repos travel the way any git repository does.',
+                'Stop the stack so the database files stay consistent, copy the instance directory, and start on the new box: a self-hosted AI platform moves that easily only when its state is files. That directory holds every secret and signing key, the Postgres data and the stored files; the docs count it as the whole backup ([Read the docs](https://kortix.com/docs/developers#self-hosting)). Your project repos travel the way any git repository does.',
             },
             {
               id: 'updates',
@@ -1193,7 +1196,7 @@ A first trial needs no DNS at all. The docs' tunnel mode runs the stack on your 
               id: 'host-locally',
               question: 'Can I host an AI agent locally?',
               answer:
-                'Partly. The stack, the repo and a model endpoint you serve can share one machine, while each session\u0027s compute runs on a sandbox provider that calls back to your instance, so the box holding the rules is not always the box doing the work. A stack bound to loopback starts no sessions, because the sandbox cannot reach it ([Read the docs](https://kortix.com/docs/host)).',
+                'Partly. The stack, the repo and a model endpoint you serve can share one machine, while each session\u0027s compute runs on a sandbox provider that calls back to your instance, so the box holding the rules is not always the box doing the work. A stack bound to loopback starts no sessions, because the sandbox cannot reach it ([Read the docs](https://kortix.com/docs/developers#self-hosting)).',
             },
           ],
         },
@@ -1270,19 +1273,18 @@ A first trial needs no DNS at all. The docs' tunnel mode runs the stack on your 
         },
         {
           type: 'artifact',
-          heading: { title: 'The contract every session starts from' },
+          heading: { title: 'What a session keeps, and what it loses' },
           artifact: {
-            file: 'agents/kortix.md',
+            file: 'Files',
             lang: 'text',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/agents/kortix.md',
+            source: 'https://kortix.com/docs/guide',
             lines: [
-              'You are hands-on: you read, edit, run, search, fetch, and ship. The',
-              "session you're in is an isolated sandbox — an ephemeral branch of",
-              'this repo, your own `/workspace` — so you can install, experiment,',
-              'and recover freely. Only what you commit + push survives.',
+              '- `/workspace` holds this session\'s files, kept for the life of the session.',
+              '- `/drives` (Drive) holds your files and the company\'s files, shared across sessions and kept until deleted.',
+              '- Anything else (home directory, `/tmp`, installed packages) can be gone when the session reopens. Put tools in a sandbox template.',
             ],
           },
-          caption: 'Every Kortix project starts from this starter agent file; the second paragraph tells the agent what a session is.',
+          caption: 'The guide\'s own account: the session\'s files last the session, Drive lasts until deleted, and anything else can be gone when it reopens.',
         },
         {
           type: 'prose',
@@ -1294,9 +1296,9 @@ Most results for the phrase serve the model layer alone: a chat interface over a
 
 ## What each layer costs to host
 
-The tooling layer is a software problem. Kortix's stack is one Docker Compose project on a Linux server with a public IP, installed and updated by the kortix self-host CLI. You point DNS at the server, open ports 80 and 443, and answer the setup questions; the first run asks six things, none of them a model key. Agent sessions never run on that server, though. Each one executes on Platinum, the reference sandbox provider, and calls back to the instance's public URL. The [Kortix self-hosting docs](https://kortix.com/docs/host) put the split in one line: "Sessions run on Platinum sandboxes, not on the server." A self-hosted workspace therefore still needs to be reachable from the internet. The service table on that docs page lists every process that runs, and no Redis or separate worker appears in it.
+The tooling layer is a software problem. Kortix's stack is one Docker Compose project on a Linux server with a public IP, installed and updated by the kortix self-host CLI. You point DNS at the server, open ports 80 and 443, and answer the setup questions; the first run asks six things, none of them a model key. Agent sessions never run on that server, though. Each one executes on Platinum, the reference sandbox provider, and calls back to the instance's public URL. The [Kortix self-hosting docs](https://kortix.com/docs/developers#self-hosting) put the split in one line: "Sessions run on Platinum sandboxes, not on the server." A self-hosted workspace therefore still needs to be reachable from the internet. The service table on that docs page lists every process that runs, and no Redis or separate worker appears in it.
 
-The install is three lines, kept verbatim in the [Kortix self-hosting docs](https://kortix.com/docs/host). For a first look without a domain, the same CLI also offers a Cloudflare tunnel mode that publishes the API and leaves the web app on localhost:
+The install is three lines, kept verbatim in the [Kortix self-hosting docs](https://kortix.com/docs/developers#self-hosting). For a first look without a domain, the same CLI also offers a Cloudflare tunnel mode that publishes the API and leaves the web app on localhost:
 
 \`\`\`sh
 curl -fsSL https://kortix.com/install | bash
@@ -1310,11 +1312,11 @@ The model layer is a different budget, and it is the layer whose provider you ac
 
 A setup can put the two layers in three places. An all-local workspace keeps the model on your GPU and the tooling beside it, entirely inside your own network. A hybrid runs the tooling on your server and rents inference from a provider under your key. The managed pole hands both layers to a vendor. Claude Cowork sits there, with one managed exception: it runs in Anthropic's apps on a [paid plan](https://claude.com/product/cowork), and since September 16, 2026 the name describes a capability of the one Claude app. Its third-party deployment mode moves inference and billing to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)), which relocates the model layer while the app, the harness and the approval step stay Anthropic's.
 
-Kortix, the open-source AI Operating System, is built for the hybrid, and the same wiring reaches both poles. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free. Any model provider with your own keys. Or the ChatGPT plan you already pay for. Or sign in with your OpenCode Console account for OpenCode Zen and Go. For the all-local pole, the [models page](https://kortix.com/docs/project/models) documents a custom provider. Point it at any OpenAI-compatible endpoint, key optional, and a local model server takes the slot a hosted provider would hold. A self-hosted instance has no managed models, so on your own box the model layer is always your key or your hardware.
+Kortix, the open-source CompanyOS, is built for the hybrid, and the same wiring reaches both poles. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free. Any model provider with your own keys. Or the ChatGPT plan you already pay for. Or sign in with your OpenCode Console account for OpenCode Zen and Go. For the all-local pole, the [guide's models section](https://kortix.com/docs/guide#models) documents a custom provider. Point it at any OpenAI-compatible endpoint, key optional, and a local model server takes the slot a hosted provider would hold. A self-hosted instance has no managed models, so on your own box the model layer is always your key or your hardware.
 
 ## The tooling layer is the workspace
 
-Kortix keeps that second layer in one git repo: agents, their skills, company memory, connector rules and triggers sit there as files you can read, diff and back up. A session is one agent run. One isolated sandbox per session. Each session has its own isolated machine and branch. The starter agent file, quoted in the artifact above, tells the agent that in its second paragraph. The session is an ephemeral branch of the repo, free to install and break anything, and only what it commits and pushes survives. A chat interface has no equivalent contract, because it has nothing to commit into.
+Kortix keeps that second layer in one git repo: agents, their skills, company memory, connector rules and triggers sit there as files you can read, diff and back up. A session is one agent run. One isolated sandbox per session. Each session has its own isolated machine and branch. The guide states what a session keeps: \`/workspace\` holds this session's files, kept for the life of the session, and anything else can be gone when the session reopens. The reference adds the branch: a session with \`workspace.project_repository: true\` checks out the repository in \`/workspace\`, on its own session branch. A chat interface has no equivalent contract, because it has nothing to commit into.
 
 ## How the work gets approved
 
@@ -1384,7 +1386,7 @@ Start with the tooling layer, because the tooling is what the team owns and revi
             {
               label: 'What it is',
               cells: [
-                'The open-source AI Operating System',
+                'The open-source CompanyOS',
                 'Python framework for role-based multi-agent workflows',
                 'Low-level orchestration framework for stateful agents',
                 'Visual automation platform with AI built in',
@@ -1431,43 +1433,50 @@ Start with the tooling layer, because the tooling is what the team owns and revi
         },
         {
           type: 'code-panels',
-          heading: { title: 'The wiring as it ships', sub: 'Straight from the Kortix triggers docs.' },
+          heading: { title: 'The wiring as it ships', sub: 'Straight from the Kortix docs.' },
           panels: [
             {
               tab: 'Cron trigger',
               file: 'kortix.yaml',
               lang: 'yaml',
-              source: 'https://kortix.com/docs/connect/triggers',
+              source: 'https://kortix.com/docs/developers',
               lines: [
                 'triggers:',
-                '  - slug: daily-digest',
-                '    type: cron',
-                '    cron: "0 0 9 * * 1-5"',
-                '    timezone: Europe/Berlin',
-                "    prompt: Summarize yesterday's commits and open change requests.",
+                '  - slug: weekly-report',
+                '    on:',
+                '      cron: "0 0 9 * * 1"',
+                '      timezone: Europe/Berlin',
+                '    run:',
+                '      agent: support',
+                '      prompt: Write the weekly support report for the last 7 days.',
               ],
             },
             {
               tab: 'Add it',
-              file: 'terminal',
-              lang: 'sh',
-              source: 'https://kortix.com/docs/connect/triggers',
+              file: 'typescript',
+              lang: 'ts',
+              source: 'https://kortix.com/docs/developers',
               lines: [
-                '$ kortix triggers add daily-digest --type cron \\',
-                '  --cron "0 0 9 * * 1-5" --timezone Europe/Berlin \\',
-                '  --prompt "Summarize yesterday\u0027s commits and open change requests." --apply',
-                '$ kortix triggers fire daily-digest',
+                'await p.triggers.create({',
+                '  slug: \'daily-digest\',',
+                '  type: \'cron\',',
+                '  prompt_template: \'Summarize yesterday’s support tickets.\',',
+                '});',
+                'const run = await p.triggers.fire(\'daily-digest\');',
+                'console.log(run.status, run.session_id, run.run_id);',
               ],
             },
             {
-              tab: 'Webhook trigger',
+              tab: 'Approve the change',
               file: 'terminal',
               lang: 'sh',
-              source: 'https://kortix.com/docs/connect/triggers',
+              source: 'https://kortix.com/docs/developers',
               lines: [
-                '$ kortix secrets set WEBHOOK_SECRET=- --scope connector',
-                '$ kortix triggers add new-lead --type webhook --secret-env WEBHOOK_SECRET \\',
-                '  --prompt "A new lead arrived: {{ body.name }} ({{ body.email }}). Add it to the CRM." --apply',
+                'kortix cr ls                     # open change requests',
+                'kortix cr diff 3                 # the unified diff',
+                'kortix cr merge-preview 3        # can it merge? lists conflicts',
+                'kortix cr merge 3',
+                'kortix cr request-changes 3 --message "Rename the flag first"',
               ],
             },
           ],
@@ -1482,9 +1491,9 @@ In Kortix the whole fleet is files in a git repo you own. Each agent is a block 
 
 ## The loop from fire to merge
 
-A cron or webhook trigger starts a session with no person present. Two trigger types need nothing extra. Cron takes a six-field schedule with the seconds field first and fires at most once a minute. A webhook fires when a signed POST reaches its URL. Kortix checks the HMAC signature on every request; there is no unsigned webhook. Two more types sit behind project flags. Event triggers subscribe to a connected app; monitors watch the output of a command from your repo.
+A cron or webhook trigger starts a session with no person present. Two trigger types need nothing extra. Cron takes a six-field schedule with the seconds field first and fires at most once a minute. A webhook fires when a POST reaches its URL and carries the trigger's secret: an HMAC signature in \`X-Kortix-Signature\` or \`X-Hub-Signature-256\`, an \`X-Kortix-Token\` header, or \`Authorization: Bearer <secret>\` ([the developers reference](https://kortix.com/docs/developers)). No webhook runs unauthenticated. A third type starts from your own Kortix Apps: an App event trigger fires when one of your Apps reports something. Monitors, which watched a command's output, were removed; an App and a trigger with \`type: app\` replace them ([the manifest reference](https://kortix.com/docs/developers#kortixyaml-reference)).
 
-Each fire renders the trigger's prompt and sends it to the session \`session_mode\` picks. The four values are fresh, reuse, pinned and keyed, and fresh is the default. A fresh fire gets a new session, and each session has its own isolated machine and branch. Continuity has a switch too: a \`session_key\` such as \`digest-{{ cron.scheduled_date }}\` keeps one session per UTC day.
+Each fire renders the trigger's prompt and sends it to the session \`session_mode\` picks. The four values are fresh, reuse, pinned and keyed, and fresh is the default. A fresh fire gets a new session, and each session has its own isolated machine and branch. Continuity is a setting too: \`run.session: keyed\` with a \`run.session_key\` template such as \`"{{ body.chat_id }}"\` keeps one session for each value of the key, and a key that renders empty starts a fresh session.
 
 The agent commits to its branch and opens a change request. Session work reaches \`main\` through a change request. Merge is default-deny for agents: a session cannot merge a change request it opened itself unless its grant in \`kortix.yaml\` includes \`project.gitops.merge\`. Without that grant, a person reads the diff and decides what becomes the record.
 
@@ -1519,13 +1528,13 @@ Orchestration is not always the answer. One agent in one session covers a lookup
               id: 'session-mode',
               question: 'What does session_mode control?',
               answer:
-                'Which session receives each fire. Fresh starts a new session per fire and is the default, reuse returns to the trigger\u0027s last session, pinned re-prompts one named session, and keyed starts one session per key. Monitors are the exception: they default to reuse.',
+                'Which session receives each fire. Fresh starts a new session per fire and is the default, reuse returns to the trigger\u0027s last session, pinned re-prompts one named session, and keyed starts one session per key. The mode is set on the trigger itself, under `run.session` in `kortix.yaml`, or as `session_mode` in the flat form.',
             },
             {
               id: 'webhook-auth',
               question: 'Do webhook triggers authenticate?',
               answer:
-                'Every webhook trigger needs a signing secret, and Kortix verifies the HMAC-SHA256 signature of each request. There is no unsigned webhook.',
+                'Yes. Every webhook trigger needs the secret it authenticates with, and the request carries it as an HMAC signature in X-Kortix-Signature or X-Hub-Signature-256, as X-Kortix-Token, or as Authorization: Bearer <secret>. No webhook runs unauthenticated ([the developers reference](https://kortix.com/docs/developers)).',
             },
             {
               id: 'stop-all',
@@ -1605,17 +1614,18 @@ Orchestration is not always the answer. One agent in one session covers a lookup
           artifact: {
             file: 'terminal',
             lang: 'sh',
-            source: 'https://kortix.com/docs/git',
+            source: 'https://kortix.com/docs/developers#git',
             lines: [
               'kortix projects clone <project_id> my-project',
               'cd my-project',
-              'git checkout -b tighten-triage        # edit agents/, skills/ or kortix.yaml',
+              'git checkout -b tighten-triage',
+              '# edit agents/, skills/ or kortix.yaml',
               'git commit -am "Tighten the triage prompt"',
               'git push origin tighten-triage',
               'kortix cr open --head tighten-triage --title "Tighten the triage prompt"',
             ],
           },
-          caption: 'That page\u0027s audit log records every clone and every push.',
+          caption: 'The audit log records each clone and fetch as `git.clone` and each push as `git.push`.',
         },
         {
           type: 'prose',
@@ -1635,7 +1645,7 @@ Kortix moves the gate into git. Session work reaches \`main\` through a change r
 
 ## Who can audit it
 
-Kortix's answer is short: "Every action is recorded. Reading, exporting and streaming the audit log depend on the plan." The log sits next to the system it describes, in a codebase anyone can read. The [git documentation](https://kortix.com/docs/git) notes that the audit log records each clone and each push. The whole project lives as files in a repo your team owns.
+Kortix's answer is short: "Every action is recorded. Reading, exporting and streaming the audit log depend on the plan." The log sits next to the system it describes, in a codebase anyone can read. The [git section of the Kortix docs](https://kortix.com/docs/developers#git) notes that the audit log records each clone and fetch, and each push. The whole project lives as files in a repo your team owns.
 
 The closed products audit through their own consoles. Cowork streams activity to your SIEM through OpenTelemetry on Enterprise ([its product page](https://claude.com/product/cowork)). ChatGPT Work gives enterprise admins a Compliance API with visibility into conversations and actions at scale ([its launch post](https://openai.com/index/chatgpt-for-your-most-ambitious-work)). Those are genuine controls. Neither vendor, though, publishes the software that produces the reports. On Kortix you can check the report against the thing itself, because the source, the configuration and the history are all files.
 
@@ -1703,6 +1713,7 @@ If the work can live in the vendor's app, pick the chat product you already pay 
           heading: { title: 'The field, sorted by where the capability runs', sub: 'A desktop app, a hosted workspace, or a server you own: the choice fixes where the files, the models and the review sit.' },
           columns: [
             { id: 'kortix', label: 'Kortix', highlight: true, href: 'https://kortix.com/docs', nofollow: true },
+            { id: 'omnara', label: 'Omnara', href: 'https://omnara.com' },
             { id: 'openwork', label: 'OpenWork', href: 'https://openworklabs.com' },
             { id: 'eigent', label: 'Eigent', href: 'https://www.eigent.ai' },
             { id: 'claude-cowork', label: 'Claude Cowork', href: 'https://claude.com/product/cowork' },
@@ -1714,6 +1725,7 @@ If the work can live in the vendor's app, pick the chat product you already pay 
                 { text: 'Yes', mark: 'yes' },
                 { text: 'Yes', mark: 'yes' },
                 { text: 'Yes', mark: 'yes' },
+                { text: 'Yes', mark: 'yes' },
                 { text: 'No', mark: 'no' },
               ],
             },
@@ -1721,6 +1733,7 @@ If the work can live in the vendor's app, pick the chat product you already pay 
               label: 'Where the product runs',
               cells: [
                 'Kortix Cloud, VPC, or your own network',
+                "Omnara's cloud, your own cloud account, or your own machine",
                 'A desktop app for macOS, Windows, and Linux',
                 'On your machine, or self-hosted',
                 "Claude's apps on web, desktop, and mobile",
@@ -1730,6 +1743,7 @@ If the work can live in the vendor's app, pick the chat product you already pay 
               label: 'Where the agent works',
               cells: [
                 "In a session's own sandbox",
+                'On any machine you point it at',
                 'On your machine, with optional cloud workers',
                 'On infrastructure your team controls',
                 "On Anthropic's servers, or your own cloud account",
@@ -1737,15 +1751,15 @@ If the work can live in the vendor's app, pick the chat product you already pay 
             },
             {
               label: 'Models',
-              cells: ['Any model provider with your own keys', 'Any model OpenCode supports', 'Cloud, enterprise gateway, or local models', "Claude models, or a provider you configure"],
+              cells: ['Any model provider with your own keys', 'Any model, from any provider', 'Any model OpenCode supports', 'Cloud, enterprise gateway, or local models', "Claude models, or a provider you configure"],
             },
             {
               label: 'Where configuration lives',
-              cells: ['In a git repo you own', 'On your machine, shared as packages', 'In versioned Space profiles', 'In your Claude account'],
+              cells: ['In a git repo you own', "In Omnara's dashboard and its API", 'On your machine, shared as packages', 'In versioned Space profiles', 'In your Claude account'],
             },
             {
               label: 'Free to start',
-              cells: ['Self-host is free', 'The desktop app, no account needed', 'Self-hosted, with your own keys', 'A paid Claude plan'],
+              cells: ['Self-host is free', '$0 platform fee, your own keys and machines', 'The desktop app, no account needed', 'Self-hosted, with your own keys', 'A paid Claude plan'],
             },
           ],
         },
@@ -1753,19 +1767,17 @@ If the work can live in the vendor's app, pick the chat product you already pay 
           type: 'artifact',
           heading: { title: 'Where a session\u0027s model comes from' },
           artifact: {
-            file: 'docs/project/models',
+            file: 'docs/guide#models',
             lang: 'text',
-            source: 'https://kortix.com/docs/project/models',
+            source: 'https://kortix.com/docs/guide',
             lines: [
-              "A model is the LLM that a session's agent runs on.",
-              'A project can use Kortix-managed models, your own provider API keys, and a ChatGPT or OpenCode subscription.',
-              'Sign in instead of a key. Three providers take a device-code login:',
-              'kortix providers login openai      # ChatGPT Plus or Pro',
-              'kortix providers login opencode    # OpenCode Zen',
-              'kortix providers login opencode-go # OpenCode Go',
+              'A model is the AI an agent runs on. Use Kortix-managed models, your own provider keys, or a ChatGPT subscription.',
+              'Set a project default, a model per agent, or a model for one session.',
+              'Every model request goes through the Kortix LLM gateway, which applies budgets, access rules and cost reports.',
+              'When a request runs on your own key or subscription, your provider bills it. Every plan, Free included, can use your own key or a ChatGPT subscription.',
             ],
           },
-          caption: 'The Kortix models docs, where a session\u0027s model is a project setting and the key can be yours.',
+          caption: 'The models section of the Kortix guide: a project default, a model per agent or per session, and provider keys that bill to you.',
         },
         {
           type: 'prose',
@@ -1813,6 +1825,14 @@ The README promises "control which files and applications each agent may access"
 
 Interpreter Workstation is the better pick for a team that wants one source tree it configures, no account, and a box drawn around each agent. The review of the finished change is what its documentation does not reach. It covers which files and applications an agent may touch, and whether the connection can write. It stops there (as documented on 27 October 2026). Kortix answers with a platform rule. Session work reaches \`main\` through a change request, merge is default-deny for agents, and an agent can draft all day while the diff waits for a person.
 
+## Omnara ships a runtime for your product's agents
+
+Omnara calls itself the open-source alternative to Claude Managed Agents: one API to deploy and run agents for your product and your team, on any model, any machine and any cloud ([omnara.com](https://omnara.com)). Its repository calls it a self-hostable alternative to Claude Managed Agents and OpenAI's Agents API.
+
+It is model-agnostic, and agent state lives in a durable event log, so an agent runs indefinitely and resumes after a failure. You reach its agents from a product dashboard, Slack, a CLI or background workflows. Install it yourself, pay for Omnara-managed models and machines, bring your own Blaxel, Daytona or Unikraft Cloud account, or run the Omnara daemon on a laptop, VM or container.
+
+Pricing is a $0 platform fee with no per-seat fee: your own model keys and machines cost nothing on top, machine runtime is $0.0414 per GiB of memory per hour, and idle machines auto-sleep ([omnara.com/pricing](https://omnara.com/pricing)). The difference from Kortix is what the repo holds. Omnara sells an agent runtime and a control plane for your own product's agents. Kortix's repo is the company itself: the agents, their skills, the company memory and the connectors a team works in, with every change landing through a change request a person approves.
+
 ## Choosing by placement
 
 Work that already lives in Claude, on a plan you pay for, belongs with the merged Claude. You accept Anthropic's models, Anthropic's servers, and an approval step the vendor defines, and for fast handoffs inside one app that trade is often right. Cowork needs a paid plan: Pro starts at $17 a month billed annually, and Max at $100 ([claude.com/pricing](https://claude.com/pricing), checked October 2026).
@@ -1825,7 +1845,7 @@ A company that wants the system owned wants Kortix, with configuration, memory, 
           type: 'prose',
           body: `## Four products you install, three you subscribe to, one that is gone
 
-Kortix is the open-source AI Operating System: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers. Run it on Kortix Cloud, in your VPC, or on your own on-prem network; self-host is free. An AI answer to a Claude Cowork question tends to mix two different purchases: Hermes Agent, Nimbalyst, Agenta and Agent TARS are software you install and run, while Notion AI, Gumloop and Taskade Genesis are cloud workspaces you subscribe to, and Relay.app no longer exists. Sorting those eight by whether you could run them yourself separates a system your company keeps from a seat on somebody else's.
+Kortix is the open-source CompanyOS: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers. Run it on Kortix Cloud, in your VPC, or on your own on-prem network; self-host is free. An AI answer to a Claude Cowork question tends to mix two different purchases: Hermes Agent, Nimbalyst, Agenta and Agent TARS are software you install and run, while Notion AI, Gumloop and Taskade Genesis are cloud workspaces you subscribe to, and Relay.app no longer exists. Sorting those eight by whether you could run them yourself separates a system your company keeps from a seat on somebody else's.
 
 Hermes Agent comes from Nous Research: its site calls it an open-source AI agent that "can remember context, use tools, learn reusable skills, run scheduled jobs, and operate from the terminal, dashboard, GitHub workflows, and messaging channels", and its self-host path runs it on your own infrastructure ([hermes-agent.ai](https://hermes-agent.ai)). Nimbalyst ships a wiki its agents write and a visual workspace for coding agents, as a free, local, open-source plugin for Claude Code, Codex, Cowork and any MCP agent ([nimbalyst.com](https://nimbalyst.com)), which makes it a companion to Cowork rather than a replacement. Agent TARS, from ByteDance, is "a Multimodal AI Agent stack, currently shipping two projects: Agent TARS and UI-TARS-desktop", and it runs on your own machine ([the UI-TARS-desktop README](https://github.com/bytedance/UI-TARS-desktop), as of October 2026). Agenta calls itself the open-source workspace for your agents, with a browser and a file workspace per agent, permissions and approvals, and a self-host path from its own repository ([agenta.ai](https://www.agenta.ai)).
 
@@ -1845,7 +1865,7 @@ Notion AI works inside pages, docs, tasks and databases in Notion's own workspac
               id: 'self-host-cowork',
               question: 'Can I self-host Claude Cowork?',
               answer:
-                "No. Cowork runs inside Anthropic's app: on its servers on a Claude plan, or on a managed device in the third-party deployment mode, where inference and billing go to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). The product page's account options sit at your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account. The open options that run on hardware you control are Kortix, OpenWork, Eigent, Interpreter Workstation, DeepSeek Cowork, MausBot, Hermes Agent and Agenta. Agent TARS ships as a CLI and web UI on your own machine. Nimbalyst runs locally too, but it is a plugin for an existing Claude Code or Codex setup rather than a system of its own.",
+                "No. Cowork runs inside Anthropic's app: on its servers on a Claude plan, or on a managed device in the third-party deployment mode, where inference and billing go to a provider the organization configures ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)). The product page's account options sit at your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account. The open options that run on hardware you control are Kortix, Omnara, OpenWork, Eigent, Interpreter Workstation, DeepSeek Cowork, MausBot, Hermes Agent and Agenta. Agent TARS ships as a CLI and web UI on your own machine. Nimbalyst runs locally too, but it is a plugin for an existing Claude Code or Codex setup rather than a system of its own.",
             },
             {
               id: 'local-models',
@@ -1869,7 +1889,7 @@ Notion AI works inside pages, docs, tasks and databases in Notion's own workspac
               id: 'open-source-version',
               question: 'Is there an open-source version of Claude Cowork?',
               answer:
-                'Yes. The open options are Kortix, OpenWork, Eigent, Interpreter Workstation, DeepSeek Cowork, MausBot, Hermes Agent, Agenta and Agent TARS. Nimbalyst counts too, as a free, local, open-source plugin that runs inside Claude Code, Codex or Cowork. Each publishes source you can read, and Cowork itself ships inside Claude, on Anthropic\'s servers.',
+                'Yes. The open options are Kortix, Omnara, OpenWork, Eigent, Interpreter Workstation, DeepSeek Cowork, MausBot, Hermes Agent, Agenta and Agent TARS. Nimbalyst counts too, as a free, local, open-source plugin that runs inside Claude Code, Codex or Cowork. Each publishes source you can read, and Cowork itself ships inside Claude, on Anthropic\'s servers.',
             },
             {
               id: 'cowork-free',
@@ -1881,7 +1901,7 @@ Notion AI works inside pages, docs, tasks and databases in Notion's own workspac
               id: 'open-ai-version',
               question: 'Is there an open AI version of Claude Cowork?',
               answer:
-                'Yes. The open options run the model you connect rather than one Anthropic picks: Kortix, OpenWork, Eigent, Interpreter Workstation, DeepSeek Cowork and MausBot take your own keys or local models. Hermes Agent self-hosts on your own models and API keys, or runs on FlyHermes with AI included. Agenta takes your subscription or any model, and Agent TARS runs on the provider you name. Nimbalyst is the exception, since it plugs into a Claude Code or Codex subscription or API key you already hold. Kortix adds a repo you own and a person who reads the diff.',
+                'Yes. The open options run the model you connect rather than one Anthropic picks: Kortix, Omnara, OpenWork, Eigent, Interpreter Workstation, DeepSeek Cowork and MausBot take your own keys or local models. Hermes Agent self-hosts on your own models and API keys, or runs on FlyHermes with AI included. Agenta takes your subscription or any model, and Agent TARS runs on the provider you name. Nimbalyst is the exception, since it plugs into a Claude Code or Codex subscription or API key you already hold. Kortix adds a repo you own and a person who reads the diff.',
             },
             {
               id: 'best-alternative',
@@ -1948,7 +1968,7 @@ The answer was no before the merge; the merge removed the single codebase that c
 
 Open source has two parts a buyer can check: source anyone can open, so you can see what the agent does before it touches real work, and a stack that installs on hardware you control, built from that same source. Claude Cowork offers neither, and after the merge it cannot, because there is no Cowork codebase to publish.
 
-Kortix is built the other way. It is the open-source AI Operating System, and its README carries the one-liner: "Open source. Read it, fork it, audit it." The [Kortix docs](https://kortix.com/docs) define a project as a git repo with kortix.yaml at its root. The agents, skills, memory, tools, triggers and connectors are files in it. Hosting stays a choice: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free."
+Kortix is built the other way. It is the open-source CompanyOS, and its README carries the one-liner: "Open source. Read it, fork it, audit it." The [Kortix docs](https://kortix.com/docs) define a project as a git repo with kortix.yaml at its root. The agents, skills, memory, tools, triggers and connectors are files in it. Hosting stays a choice: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free."
 
 The next question is what to move to. The [migration guide](https://opensourceclaudecowork.com/migrate-from-claude-cowork) on this site gives the order of steps that avoids rework. The [Kortix vs Claude Cowork](https://kortix.com/blog/kortix-vs-claude-cowork) post on the Kortix blog covers the trade in more depth. For the definition itself, [what Claude Cowork is](/what-is-claude-cowork) starts from Anthropic's own pages, and [the projects on GitHub](/claude-cowork-github-projects) sort the open rebuilds by what each repo keeps.`,
         },
@@ -2005,64 +2025,63 @@ The next question is what to move to. The [migration guide](https://opensourcecl
           type: 'code-panels',
           heading: {
             title: "The setup as files, in the docs' own example",
-            sub: "One support agent's file and governance block from the agents docs, plus a cron trigger from the manifest reference.",
+            sub: "Four excerpts from the current docs: a manifest, one agent's block with its grants, a trigger in its own file, and the validate command.",
           },
           panels: [
             {
-              tab: 'The agent file',
-              file: 'agents/support.md',
-              lang: 'text',
-              source: 'https://kortix.com/docs/project/agents',
+              tab: 'The manifest',
+              file: 'kortix.yaml',
+              lang: 'yaml',
+              source: 'https://kortix.com/docs/developers',
               lines: [
-                '---',
-                'description: Answers support tickets from the help desk.',
-                'mode: primary',
-                'permission:',
-                '  bash: ask',
-                '---',
-                'You answer support tickets. Read the ticket, check the order history,',
-                'draft a reply, and submit it for review. Never close a ticket yourself.',
+                'kortix_version: 3',
+                'default_agent: assistant',
+                'agents:',
+                '  assistant:',
+                '    description: Answers questions about the project.',
+                '    prompt: You answer questions about this project. Read the files before you answer.',
               ],
             },
             {
-              tab: 'The governance block (v2)',
+              tab: 'The governance block',
               file: 'kortix.yaml',
               lang: 'yaml',
-              source: 'https://kortix.com/docs/project/agents',
+              source: 'https://kortix.com/docs/developers',
               lines: [
-                'kortix_version: 2',
-                'default_agent: support',
                 'agents:',
                 '  support:',
-                '    file: agents/support.md',
+                '    description: Answers help desk tickets.',
+                '    prompt_file: agents/support.md',
+                '    skills: [refund-policy, kortix-cli]',
                 '    connectors: [helpdesk]',
-                '    secrets: [HELPDESK_API_KEY]',
-                '    skills: [kortix-cli, triage]',
-                '    kortix_permissions: [project.session.read, project.review.submit]',
+                '    secrets: [HELPDESK_TOKEN]',
+                '    kortix_permissions: [project.session.read, project.gitops.push]',
               ],
             },
             {
               tab: 'The schedule',
               file: 'triggers/reports/weekly.yaml',
               lang: 'yaml',
-              source: 'https://kortix.com/docs/project/manifest',
+              source: 'https://kortix.com/docs/developers',
               lines: [
                 'triggers:',
                 '  - slug: weekly-report',
-                '    type: cron',
-                '    agent: kortix',
-                '    cron: "0 0 15 * * 0"',
-                '    prompt: Build the weekly report.',
+                '    on:',
+                '      cron: "0 0 15 * * 0"',
+                '    run:',
+                '      agent: assistant',
+                '      prompt: Build the weekly report.',
               ],
             },
             {
               tab: 'Before the push',
               file: 'terminal',
               lang: 'sh',
-              source: 'https://kortix.com/docs/project/manifest',
+              source: 'https://kortix.com/docs/developers',
               lines: [
-                'kortix validate                       # ./kortix.yaml',
-                'kortix validate --scopes              # print every grantable kortix_permissions entry',
+                'kortix validate                                  # ./kortix.yaml and its imports',
+                'kortix validate --file config/kortix.yaml --json',
+                'kortix validate --scopes                         # every grantable kortix_permissions entry',
               ],
             },
           ],
@@ -2081,13 +2100,13 @@ A reader planning the exit reads the same carry-over list the other way. The Hel
 
 Take the Monday brief as the worked case. In Cowork it is a project. Instructions say what the brief covers and how it reads. Memory holds which numbers matter and what changed last quarter. A connector reaches the data, and a schedule fires it every Monday at nine. After the merge all of that keeps working inside Claude, which is exactly why a move is easy to postpone. The instructions, the connector and the schedule exist only as settings on the account, so nothing in an export carries them into another platform.
 
-In Kortix, the open-source AI Operating System, the same setup becomes files in one git repo. The code panels show the docs' own v2 example: an agent file, its governance block and a cron trigger. Every key comes from the two pages the panels quote: [the agents and permissions docs](https://kortix.com/docs/project/agents) and [the kortix.yaml reference](https://kortix.com/docs/project/manifest). The agent file carries the behavior: the prompt, the mode, and the permission rules that decide which tools run and which wait for a person. The \`agents\` block in \`kortix.yaml\` carries the governance: connectors, secrets, skills and the project permissions the agent holds. A connectors entry carries the reach, and the catalog covers 3,000+ apps in a click, plus MCP, OpenAPI, Postman, GraphQL and raw HTTP. A trigger carries the schedule.
+In Kortix, the open-source CompanyOS, the same setup becomes files in one git repo. The code panels quote each piece from the docs: a manifest, one agent's block with its grants, and a trigger in a file of its own. The keys come from [the agents guide](https://kortix.com/docs/guide#agents) and, for every key in the manifest, [the kortix.yaml reference](https://kortix.com/docs/developers#kortixyaml-reference). The agent's block in \`kortix.yaml\` carries both halves. The behavior half is the prompt or the file it loads, the mode, and the permission rules that decide which tools it may use freely, use after asking, or never use. The access half is the connectors, secrets, skills and project permissions the agent holds. A connectors entry carries the reach, and the catalog covers 3,000+ apps in a click, plus MCP, OpenAPI, Postman, GraphQL and raw HTTP. A trigger carries the schedule.
 
 A rebuilt job runs as a session. One isolated sandbox per session. Each session has its own isolated machine and branch. The session clones the repo and works on a branch of its own. Its result comes back as a change request rather than as a file in someone's download folder.
 
 ## An order that loses no work
 
-The starter agent file every Kortix session boots from states the constraint in one line: "Only what you commit + push survives." The file, agents/kortix.md, ships in [Kortix on GitHub](https://github.com/kortix-ai/suna). Uncommitted work disappears when a session ends. Whatever exists only inside the Claude account is the material most at risk, so this order writes it down and commits it before anything is rebuilt.
+The starter agent file every Kortix session boots from states the constraint in one line: "Only what you commit + push survives." The file, agents/worker.md, ships in [Kortix on GitHub](https://github.com/kortix-ai/suna). Uncommitted work disappears when a session ends. Whatever exists only inside the Claude account is the material most at risk, so this order writes it down and commits it before anything is rebuilt.
 
 1. Capture what no export reproduces. For each Cowork project, write out its instructions, the connector it calls and the cadence it runs on, and copy the memory Claude holds into a file with the memory export. The merge took the deadline off this step, since the work carries over inside Claude. It stays first anyway: it is the only material that arrives as prose somebody has to write.
 2. Commit the capture before building. Create the repo, save the inventory as a markdown file, and push. Every later step rebuilds from a file on your own disks instead of from what someone remembers.
@@ -2101,7 +2120,7 @@ The starter agent file every Kortix session boots from states the constraint in 
 
 Cowork's control is a mode you pick. The Help Center names three: Manual, where Claude pauses and asks before each action; Auto, where it keeps working and reviews each action for safety while consuming more of the usage limit; and Skip, where nothing checks the work at all. The Help Center sets the default by plan: Auto on Pro, Max and Team, where Claude keeps working and automated safety checks run before each action, and Manual on Enterprise, where it asks before each one ([the Claude Help Center](https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude), checked October 2026).
 
-Kortix keeps the same final say and puts it in the repo. Session work reaches \`main\` through a change request. Merge is default-deny for agents. A person with \`project.gitops.merge\` reads the diff and merges. A session cannot merge the change request it opened unless its grant in \`kortix.yaml\` includes that permission. The governance panel shows the shape in practice. The support agent holds \`project.review.submit\`, so it can hand its work up. It holds no merge permission, so it cannot land its own output.
+Kortix keeps the same final say and puts it in the repo. Session work reaches \`main\` through a change request. Merge is default-deny for agents. A person with \`project.gitops.merge\` reads the diff and merges. A session cannot merge the change request it opened unless its grant in \`kortix.yaml\` includes that permission. The governance panel shows the shape in practice. The support agent's grant holds \`project.gitops.push\`, so it can push a branch and open a change request. It holds no \`project.gitops.merge\`, so it cannot land its own output.
 
 ## Where the rebuilt stack runs
 
@@ -2362,19 +2381,17 @@ Self-hosting moves the question off the invoice. "Run it on Kortix Cloud, in you
           type: 'artifact',
           heading: { title: 'The review gate, in the Kortix docs' },
           artifact: {
-            file: 'kortix.com/docs',
+            file: 'kortix.com/docs/developers',
             lang: 'text',
-            source: 'https://kortix.com/docs',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              'The agent opens a change request',
-              'The agent commits, pushes the session branch, and opens a change',
-              "request against the project's default branch.",
-              '',
-              'A person merges it',
-              'A person with the project.gitops.merge permission reviews the change request and merges it into the default branch.',
+              '1. Commit on `$KORTIX_BRANCH_NAME`.',
+              '2. Push: `git push origin HEAD`.',
+              '3. Open: `kortix cr open --title "…" --description "…"`. Inside a sandbox, `--head` and `--session` fill themselves from `$KORTIX_BRANCH_NAME` and `$KORTIX_SESSION_ID`.',
+              '4. Report the change request number to the person, and stop.',
             ],
           },
-          caption: 'How agent work lands in a Kortix project: its own branch, a change request, and a person who merges.',
+          caption: 'How agent work lands in a Kortix project: the agent commits on its branch, pushes, opens a change request, and stops.',
         },
         {
           type: 'prose',
@@ -2384,7 +2401,7 @@ OpenWork is a free, open-source desktop app for macOS, Windows, and Linux that r
 
 Claude Cowork stopped being a separate destination on September 16, 2026, when Anthropic merged Cowork and chat into one Claude. What Cowork could do now comes from any conversation, with the context, skills, and connectors you already have. The rollout reached Pro and Max plans first; Team plans have it in beta behind an owner\u0027s switch (checked October 2026). The Cowork product page still stands, describing the same job as before: hand over a task, get work back for review, on a paid plan.
 
-Kortix is the open-source AI Operating System. The comparison table holds the three side by side on the two questions that separate them: where the work runs, and who reviews it.
+Kortix is the open-source CompanyOS. The comparison table holds the three side by side on the two questions that separate them: where the work runs, and who reviews it.
 
 ## Where the work runs
 
@@ -2509,23 +2526,18 @@ The [self-hosting guide](/self-hosting) walks the install, and the [alternatives
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              '# Grants are deny-by-default: an omitted skills, subagents,',
-              '# commands, extensions, connectors, secrets or kortix_permissions grant is',
-              '# none. Write `all`, `none`, or a list of names.',
-              'env:',
-              '  required: []',
-              '  optional: [STRIPE_API_KEY]',
+              'kortix_version: 3',
+              'default_agent: assistant',
               'agents:',
-              '  kortix:',
-              '    prompt_file: agents/kortix.md',
-              '    connectors: all',
-              '    secrets: all',
-              '    kortix_permissions: all',
+              '  assistant:',
+              '    prompt: You answer questions about this project. Read the files before you answer.',
+              '    skills: all                              # omitted: no skills',
+              '    workspace: { project_repository: true }  # omitted: no repository in /workspace',
             ],
           },
-          caption: 'The grant block of the starter \`kortix.yaml\`: connector, secret, and permission rules that live in git, in a file the team owns.',
+          caption: 'The smallest useful \`kortix.yaml\` in the reference: a version, a default agent, and one agent block whose comments state the default, that an omitted grant leaves the agent with nothing.',
         },
         {
           type: 'prose',
@@ -2555,7 +2567,7 @@ On Cowork, you choose the folders and tools Claude can reach. Whether each actio
 
 ## The repo answer
 
-Kortix is the open-source AI Operating System, and models come with the repo: any provider with your own keys, or a ChatGPT plan you already hold. The review gate sits in the file layout too. Session work reaches \`main\` through a change request. Merge is default-deny for agents.
+Kortix is the open-source CompanyOS, and models come with the repo: any provider with your own keys, or a ChatGPT plan you already hold. The review gate sits in the file layout too. Session work reaches \`main\` through a change request. Merge is default-deny for agents.
 
 Two deeper reads live on the Kortix blog. [Kortix vs Perplexity Computer](https://kortix.com/blog/kortix-vs-perplexity-computer) weighs the hosted worker against the owned system, and a second [Kortix](https://kortix.com/blog/open-source-perplexity-computer) piece maps the wider open field. The [self-hosting guide](/self-hosting) takes a bare box from nothing to a running stack. Handing an outcome to a hosted worker and getting a deliverable back is a job both do. Either subscription covers it. A setup that outlives the subscription needs a repo outside the vendor, and in Kortix the project is that repo.`,
         },
@@ -2612,7 +2624,7 @@ Two deeper reads live on the Kortix blog. [Kortix vs Perplexity Computer](https:
       metaDescription:
         'Team plans get merged Cowork in beta behind an owner\u0027s switch. Open source governance covers who approves, who reads the record, and where it runs.',
       h1: 'Open-source governance for teams: who approves, who can read, where it runs',
-      lead: 'The Claude Team plan lists Claude Cowork today, and the merged experience reaches Team seats in beta, behind a switch an owner turns on. The real question for a team is who approves the work, who can read the record, and where it runs. Kortix is the open-source system built to answer all three.',
+      lead: 'The Claude Team plan lists Claude Cowork today, and the merged experience reaches Team seats in beta, behind a switch an owner turns on. The real question for a team is who approves the work, who can read the record, and where it runs. Kortix is the open-source CompanyOS, built to answer all three.',
       sections: [
         {
           type: 'comparison',
@@ -2635,19 +2647,16 @@ Two deeper reads live on the Kortix blog. [Kortix vs Perplexity Computer](https:
           type: 'artifact',
           heading: { title: 'The grant that decides who can start a session' },
           artifact: {
-            file: 'docs/accounts',
+            file: 'kortix.com/docs/guide',
             lang: 'text',
-            source: 'https://kortix.com/docs/accounts',
+            source: 'https://kortix.com/docs/guide',
             lines: [
-              'Every person holds one account role, and a project role on each project they work in.',
-              'Open **Account settings** → **Projects**, pick the project, and select **Grant access**.',
-              'Pick a role: **Manager** or **Member**.',
-              'Give them at least one agent.',
-              'In the Grant access dialog, set Agents to All agents or Only these….',
-              'Without an agent grant, a member cannot start a session: the API answers 403 with "You don\u0027t have access to any agent in this project."',
+              'Open **Account settings** → **Projects**, pick the project, and select **Grant access**. Pick **Manager** or **Member**. You can also set a date when the access ends.',
+              'In the same dialog, set **Agents** to **All agents** or **Only these…**. A member without any agent cannot start a session.',
+              'Owners and admins reach every project without a grant.',
             ],
           },
-          caption: 'From Kortix\u0027s accounts and access docs, the same page that documents the account\u0027s audit log and its custom roles.',
+          caption: 'From the teams section of the Kortix guide: a project role, at least one agent, and the rule that without one a member cannot start a session.',
         },
         {
           type: 'prose',
@@ -2673,9 +2682,9 @@ Where it runs reads the same way. The choice is Anthropic's cloud or the custome
 
 ## The gate, in a repo you own
 
-Kortix is open source, so governance lives where the work lives: in the repo. The accounts docs write the access model step by step. The excerpt shows the middle of it. Every person holds one account role, and a project role on each project they work in. Granting a project means picking a role, Manager or Member, plus at least one agent. Without an agent grant the API refuses: 403, "You don't have access to any agent in this project."
+Kortix CompanyOS is open source, so governance lives where the work lives: in the repo. The guide's teams section writes the access model step by step. The excerpt shows the middle of it. Every person holds one account role, and a project role on each project they work in. Granting a project means picking a role, Manager or Member, plus at least one agent. Without an agent grant, a member cannot start a session.
 
-Visibility is written the same way. A member sees their own sessions and costs. Another person's session answers 404. Widening that is a deliberate act: a custom role with member.read and group.read. The account's audit log sits in the same settings tree.
+Visibility is written the same way. A member sees their own sessions and costs. Another person's session answers 404. Widening that is a deliberate act: a custom role, an Enterprise feature, granted to the person who needs it. The account's audit log sits in the same settings tree.
 
 Approvals and landing get their own lines. Connector calls run allow, ask, or block. An approval holds the call until a person answers. Work lands on the base branch through change requests. A session runs on a branch of its own, and landing the merge takes a person with the merge permission. The team's setup stays files in that repo: agents, skills, memory, and the rules binding them. A reviewer can read the rule an agent ran under before judging its output.
 
@@ -2786,19 +2795,16 @@ The merge made Cowork easier to reach. It changed nothing about who holds the ga
           type: 'artifact',
           heading: { title: 'The merge gate and the audit log, as the docs state them' },
           artifact: {
-            file: 'kortix.com/docs',
+            file: 'kortix.com/docs/developers',
             lang: 'text',
-            source: 'https://kortix.com/docs',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              "The agent commits, pushes the session branch, and opens a change request against the project's default branch.",
-              'A person with the project.gitops.merge permission reviews the change request and merges it into the default branch.',
-              "A session can merge its own change request only when its agent's kortix_permissions grant in kortix.yaml includes project.gitops.merge.",
-              'To require a person, give the agent a kortix_permissions list without project.gitops.merge.',
-              'Every action is recorded in the audit log.',
-              'The log keeps 90 days of events live, and the archive keeps them up to 365 days.',
+              'An agent that declares `kortix_permissions` merges only when the grant includes `project.gitops.merge`. An agent without `kortix_permissions` cannot merge.',
+              'A session cannot merge a change request it opened unless its grant in `kortix.yaml` includes `project.gitops.merge`. Without it, the merge returns `403` `CR_SELF_MERGE_REFUSED`.',
+              'A merge that changes `agents`, `default_agent` or `triggers` also needs the permission the direct edit needs: `project.agent.write`, or `project.trigger.create`, `.update` or `.delete`. The merging agent cannot grant any permission it does not hold.',
             ],
           },
-          caption: "Lines from the Kortix docs on the gate an admin configures and the record kept behind it, plus Kortix's default-deny rule.",
+          caption: 'Three rules from the Kortix developers docs on who may merge a change request, and the grant that has to carry each one.',
         },
         {
           type: 'prose',
@@ -2812,13 +2818,13 @@ Claude Cowork changed shape the same season. The change landed on 16 September 2
 
 Both vendors give admins real controls, and both attach them to the same condition: the controls are settings in a console the vendor operates. Microsoft's Cowork ships off by default. An admin decides when to enable it and who gets access, and sets spending limits at the tenant, group, and user levels ([Microsoft's GA announcement](https://www.microsoft.com/en-us/copilot/blog/2026/06/16/copilot-cowork-is-now-generally-available)). Usage reports break down the same way. Anthropic concentrates its controls on the Team and Enterprise tiers: admins set access by team, manage spend limits, and control tool permissions by department, and Enterprise activity streams to a SIEM through OpenTelemetry ([Claude Cowork](https://claude.com/product/cowork)).
 
-Kortix keeps its levers in the repo instead of a console. Nothing merges itself: work reaches \`main\` through a change request a person approves, unless an admin granted the merge capability ([the Kortix docs](https://kortix.com/docs)). That rule lives in the project's files, so a person can read it, edit it, and roll it back. The console versions are thorough, and they change when the vendor changes them. A grant written in the repo changes only when the team changes it, and the change shows up as a diff a colleague can approve.
+Kortix keeps its levers in the repo instead of a console. Nothing merges itself: work reaches \`main\` through a change request a person approves, unless an admin granted the merge capability ([the Kortix developers docs](https://kortix.com/docs/developers#git)). That rule lives in the project's files, so a person can read it, edit it, and roll it back. The console versions are thorough, and they change when the vendor changes them. A grant written in the repo changes only when the team changes it, and the change shows up as a diff a colleague can approve.
 
 ## What the record shows
 
 Microsoft's record is wider than a bill, and it is read from a console Microsoft runs. Cowork prompts, responses and generated artifacts flow through the existing Microsoft 365 controls, and the general availability post names the protected surface: audit log, Data Security Posture Management, eDiscovery, Insider Risk Management, Data Lifecycle Management, and Communication Compliance policies ([Microsoft's GA announcement](https://www.microsoft.com/en-us/copilot/blog/2026/06/16/copilot-cowork-is-now-generally-available)). Beside that sits the cost view, with usage reported at the tenant, group and user level and a price in credits on each task as it runs. Both halves are real, and both live inside the Microsoft 365 trust boundary the same post describes. Anthropic's record leans on the controls that govern access: deleting anything in Cowork needs the person's approval, and Enterprise customers stream activity to their own SIEM through OpenTelemetry ([Claude Cowork](https://claude.com/product/cowork)).
 
-Kortix records the work in two places a team already owns. The audit log keeps 90 days of events live, with an archive up to 365 days ([the Kortix docs](https://kortix.com/docs)). The repo keeps the rest: a session's output arrives as a change request, and its history reads as a git log with a reviewer's decision on each entry. A console answers what happened, inside a tenant the vendor runs. The repo answers the same question from a copy the team can clone.
+Kortix records the work in two places a team already owns. The audit log keeps 90 days of events live, with an archive up to 365 days ([the Kortix guide](https://kortix.com/docs/guide#audit-log)). The repo keeps the rest: a session's output arrives as a change request, and its history reads as a git log with a reviewer's decision on each entry. A console answers what happened, inside a tenant the vendor runs. The repo answers the same question from a copy the team can clone.
 
 ## The exit path
 
@@ -2826,7 +2832,7 @@ Copilot's finished work lands in Word, Excel, PowerPoint, Outlook, and Teams, in
 
 The model question sits in the same place. At the June 2026 general availability, Microsoft ran Cowork on Anthropic's Claude models, with its own Cowork model to follow ([the same announcement](https://www.microsoft.com/en-us/copilot/blog/2026/06/16/copilot-cowork-is-now-generally-available)). A picker lets customers steer cost per task, and Microsoft's pages describe no way to bring your own provider key. Anthropic's do: in the third-party deployment mode, inference and billing go to a provider the organization configures, including a gateway it operates ([the 3P overview](https://claude.com/docs/third-party/claude-desktop/overview)).
 
-Kortix is the open-source AI Operating System, and it answers the exit question with a repo. Your agents, skills, company memory, and connectors live in one git repo you own. Each session runs on its own cloud computer. Copy the repo and the system comes with it: agents, rules, memory, and connectors are all files. Moving to new infrastructure means cloning it. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free. Models are BYOK in the app, so the provider is a setting you hold.
+Kortix is the open-source CompanyOS, and it answers the exit question with a repo. Your agents, skills, company memory, and connectors live in one git repo you own. Each session runs on its own cloud computer. Copy the repo and the system comes with it: agents, rules, memory, and connectors are all files. Moving to new infrastructure means cloning it. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free. Models are BYOK in the app, so the provider is a setting you hold.
 
 Run the decision as three questions instead of a feature count. A team that lives in Word, Excel, and Teams gets answers grounded in its own work data from Copilot ([Microsoft Copilot](https://www.microsoft.com/en-us/copilot)). Work IQ reads the context behind its projects. A team handing off scheduled reports and document work fits Cowork's shape on a Claude plan. When the deciding questions are who administers the agents, what gets recorded, and how you leave, Kortix is the option to weigh first. It lives in your repo instead of someone's tenant. The [alternatives guide](https://opensourceclaudecowork.com/claude-cowork-alternatives) covers the wider open-source field, and the [Kortix blog](https://kortix.com/blog/open-source-microsoft-copilot-alternative) keeps a longer guide to the open-source Copilot alternatives.`,
         },
@@ -2880,27 +2886,24 @@ Run the decision as three questions instead of a feature count. A team that live
       title: `Claude Cowork with a local LLM: open source makes it a setting`,
       metaDescription: `Cowork can reach a model behind a gateway your organization runs, and Kortix is the open source stack where the endpoint is a project setting.`,
       h1: `Claude Cowork with a local LLM: open source owns the endpoint`,
-      lead: `Claude Cowork can reach a model your organization serves, through a managed deployment rather than a user setting. A third-party build points at a gateway you operate. Kortix is the open-source AI Operating System: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers.`,
+      lead: `Claude Cowork can reach a model your organization serves, through a managed deployment rather than a user setting. A third-party build points at a gateway you operate. Kortix is the open-source CompanyOS: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers.`,
       sections: [
         {
           type: 'artifact',
-          heading: { title: `The custom-endpoint rules, in the model docs' own words` },
+          heading: { title: 'Where the model attaches, in the docs\' own words' },
           artifact: {
-            file: `docs/project/models`,
+            file: 'kortix.com/docs/guide',
             lang: 'text',
-            source: `https://kortix.com/docs/project/models`,
+            source: 'https://kortix.com/docs/guide',
             lines: [
-              `For a self-hosted or unlisted OpenAI-compatible endpoint, open the **Custom** tab.`,
-              `Enter a provider id, a name, the base URL and one or more models (an id and a name each).`,
-              `The gateway calls \`<base_url>/chat/completions\` with the OpenAI chat-completions format.`,
-              `The key is optional: Kortix saves it as the project secret \`CUSTOM_<ID>_API_KEY\` and sends it as a Bearer token.`,
-              `Both harnesses, OpenCode and pi, can use its models.`,
-              `A model id is \`<id>/<model>\`, for example \`my-vllm/qwen-3\`.`,
-              `The gateway refuses a base URL on a private, loopback or link-local address.`,
-              `On a self-hosted deployment, list the host in the API environment variable \`KORTIX_LLM_CUSTOM_PROVIDER_ALLOW_HOSTS\` (comma-separated) to allow it.`,
+              'A model is the AI an agent runs on. Use Kortix-managed models, your own provider keys, or a ChatGPT subscription.',
+              'Set a project default, a model per agent, or a model for one session.',
+              'Every model request goes through the Kortix LLM gateway, which applies budgets, access rules and cost reports.',
+              'A self-hosted Kortix has no managed models. Connect your own providers there.',
+              'A provider key belongs to the whole project.',
             ],
           },
-          caption: `Eight lines from \`docs/project/models\`, quoted as they read.`,
+          caption: 'Five lines from the Models section of the Kortix docs, quoted as they read.',
         },
         {
           type: 'prose',
@@ -2932,7 +2935,7 @@ So the answer has two halves. On a personal or team plan, a local model has no p
 
 ## Where the endpoint attaches in Kortix
 
-Kortix keeps the endpoint in project configuration rather than device policy. The Custom tab takes a provider id, a name, a base URL and one or more models, and the key is optional, saved as the project secret \`CUSTOM_<ID>_API_KEY\` ([the Kortix docs](https://kortix.com/docs/project/models)). Requests go through the gateway in the OpenAI chat-completions format. Ollama already serves that shape at \`http://localhost:11434/v1\` ([Ollama's compatibility note](https://ollama.com/blog/openai-compatibility)).
+Kortix keeps the endpoint in project configuration rather than device policy. The Custom tab takes a provider id, a name, a base URL and one or more models, and the key is optional, saved as the project secret \`CUSTOM_<ID>_API_KEY\` ([the Kortix docs](https://kortix.com/docs/guide#models)). Requests go through the gateway in the OpenAI chat-completions format. Ollama already serves that shape at \`http://localhost:11434/v1\` ([Ollama's compatibility note](https://ollama.com/blog/openai-compatibility)).
 
 Reachability is where most local setups break before the first request. A private, loopback or link-local base URL is refused, so \`http://localhost:11434/v1\` fails as written. A self-hosted deployment names the host in \`KORTIX_LLM_CUSTOM_PROVIDER_ALLOW_HOSTS\`. The gateway is the caller: every model request goes through it, and it calls \`<base_url>/chat/completions\`. On Kortix Cloud a loopback URL therefore resolves on the gateway host, not on the laptop and not in the session's sandbox. Serve the model on a host the gateway can reach, or self-host and allow-list the host.
 
@@ -3001,23 +3004,23 @@ Some teams want the model choice, the agents, the skills and the memory in one s
       title: `Claude Cowork on Windows bills an admin install per PC to reach local folders; open source bills a browser`,
       metaDescription: `Claude Cowork on Windows needs admin rights and a per-PC install to reach local folders; open-source Kortix runs the session in a browser.`,
       h1: `Claude Cowork on Windows installs for local folders; Kortix is open source`,
-      lead: `Claude Cowork on Windows runs in a browser with nothing installed. A laptop that has to reach its own folders needs one download. The bill arrives when a team repeats that install across ten machines, each needing administrator rights and a Windows hypervisor feature. Kortix is the open-source AI Operating System, and the session runs on a cloud computer cloned from the repo rather than on the desk.`,
+      lead: `Claude Cowork on Windows runs in a browser with nothing installed. A laptop that has to reach its own folders needs one download. The bill arrives when a team repeats that install across ten machines, each needing administrator rights and a Windows hypervisor feature. Kortix is the open-source CompanyOS, and the session runs on a cloud computer cloned from the repo rather than on the desk.`,
       sections: [
         {
           type: 'artifact',
-          heading: { title: `The instruction a Kortix agent starts from` },
+          heading: { title: `Where a session runs, and how its work reaches the repository` },
           artifact: {
-            file: `packages/starter/templates/base/agents/kortix.md`,
+            file: `Computers`,
             lang: 'text',
-            source: `https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/agents/kortix.md`,
+            source: `https://kortix.com/docs/guide`,
             lines: [
-              `You are hands-on: you read, edit, run, search, fetch, and ship. The`,
-              `session you're in is an isolated sandbox — an ephemeral branch of`,
-              `this repo, your own \`/workspace\` — so you can install, experiment,`,
-              `and recover freely. Only what you commit + push survives.`,
+              `Every session starts its own isolated machine, called a sandbox.`,
+              `The agent works there on its own branch of the project's repository.`,
+              `By default, a session can push only to its own branch.`,
+              `Its work reaches the shared repository only when a person merges its change request.`,
             ],
           },
-          caption: `Second paragraph of \`packages/starter/templates/base/agents/kortix.md\`, quoted as it reads.`,
+          caption: `The guide's security section on a session's own machine: it takes its own branch, can push only there, and a person's merge is what reaches the shared repository.`,
         },
         {
           type: 'prose',
@@ -3062,7 +3065,7 @@ A machine that is reimaged or handed to a new starter goes through the approval,
 
 ## Kortix puts the working computer somewhere else
 
-Kortix is the open-source AI Operating System, and a project is a git repo with \`kortix.yaml\` at its root. A session clones that repo onto a cloud computer of its own, works on a branch, and commits there. One isolated sandbox per session. Each session has its own isolated machine and branch. The screen in front of a person is a client and nothing else, and no operating system at the desk appears in that arrangement.
+Kortix, the open-source CompanyOS, works the same way: a project is a git repo with \`kortix.yaml\` at its root. A session clones that repo onto a cloud computer of its own, works on a branch, and commits there. One isolated sandbox per session. Each session has its own isolated machine and branch. The screen in front of a person is a client and nothing else, and no operating system at the desk appears in that arrangement.
 
 So the tenth Windows machine is set up exactly like the first: a browser and a login. Nothing installs, no hypervisor feature gets switched on, and nobody files a ticket to approve an installer. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free.
 
@@ -3154,14 +3157,14 @@ One person, one PC, files on that PC: Claude Cowork still fits, because the down
           type: 'artifact',
           heading: { title: 'The chain from a session to a review' },
           artifact: {
-            file: 'kortix.com/docs',
+            file: 'kortix.com/docs/developers',
             lang: 'text',
-            source: 'https://kortix.com/docs',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              'A project is a git repo with kortix.yaml at its root.',
-              'A session runs one agent in its own sandbox. The sandbox clones the repo and works on a new branch.',
-              'The agent commits, pushes the session branch, and opens a change request against the project\u0027s default branch.',
-              'A person with the project.gitops.merge permission reviews the change request and merges it into the default branch.',
+              'A session is one unit of agent work. It runs in its own sandbox, on its own branch.',
+              'A change request proposes to merge the session branch into the default branch (`main` in a new project). Kortix does not open a change request by itself.',
+              'An agent that declares `kortix_permissions` merges only when the grant includes `project.gitops.merge`. An agent without `kortix_permissions` cannot merge.',
+              'A session cannot merge a change request it opened unless its grant in `kortix.yaml` includes `project.gitops.merge`. Without it, the merge returns `403` `CR_SELF_MERGE_REFUSED`.',
             ],
           },
           caption: 'From the Kortix docs: where a session executes, and the named permission that stands between its work and the project\u0027s default branch.',
@@ -3190,7 +3193,7 @@ These controls are real, and each one is a setting on Anthropic's service. The s
 
 ## The same two questions, on infrastructure you own
 
-Kortix is the open-source AI Operating System. Agents, skills, memory, and connectors live in one git repo you own, and every session gets its own cloud computer. Where the work executes, the answer is a placement choice. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free.
+Kortix is the open-source CompanyOS. Agents, skills, memory, and connectors live in one git repo you own, and every session gets its own cloud computer. Where the work executes, the answer is a placement choice. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free.
 
 Who can read what gets a structural answer. Connector credentials are brokered server-side and never enter the machine. Secrets are encrypted at rest with a key per project. Every action is recorded. Reading, exporting and streaming the audit log depend on the plan. The docs put numbers on the retention: 90 days of audit events live, up to 365 days in the archive.
 
@@ -3255,7 +3258,7 @@ The code is public on [Kortix on GitHub](https://github.com/kortix-ai/suna), and
           type: 'code-panels',
           heading: {
             title: 'Setup, then the scoping decision',
-            sub: 'The first panel copies Anthropic\u0027s get-started steps; the other two are the same decision held in files, straight from the Kortix agents and permissions docs.',
+            sub: 'The first panel copies Anthropic\'s get-started steps; the other two are the same decision held in files, straight from the Kortix manifest and permissions reference.',
           },
           panels: [
             {
@@ -3275,33 +3278,29 @@ The code is public on [Kortix on GitHub](https://github.com/kortix-ai/suna), and
               tab: 'Governance',
               file: 'kortix.yaml',
               lang: 'yaml',
-              source: 'https://kortix.com/docs/project/agents',
+              source: 'https://kortix.com/docs/developers',
               lines: [
-                'kortix_version: 2',
-                'default_agent: support',
                 'agents:',
                 '  support:',
-                '    file: agents/support.md',
+                '    prompt_file: agents/support.md',
+                '    skills: [refund-policy, kortix-cli]',
                 '    connectors: [helpdesk]',
-                '    secrets: [HELPDESK_API_KEY]',
-                '    skills: [kortix-cli, triage]',
-                '    kortix_permissions: [project.session.read, project.review.submit]',
+                '    secrets: [HELPDESK_TOKEN]',
+                '    kortix_permissions: [project.session.read, project.gitops.push]',
               ],
             },
             {
               tab: 'Behavior',
-              file: 'agents/support.md',
+              file: 'kortix.yaml',
               lang: 'yaml',
-              source: 'https://kortix.com/docs/project/agents',
+              source: 'https://kortix.com/docs/developers',
               lines: [
                 'permission:',
-                '  edit: allow',
                 '  bash:',
-                '    "*": ask',
-                '    "git status": allow',
-                '    "git diff *": allow',
-                '    "git log *": allow',
+                '    "*": allow',
+                '    "git push *": ask',
                 '    "rm -rf *": deny',
+                '  external_directory: deny',
                 '  webfetch: ask',
               ],
             },
@@ -3333,11 +3332,11 @@ Two boundaries sit outside that dial. Computer use asks permission before it tou
 
 ## The same decision, held in files
 
-Kortix is the open-source AI Operating System, and it holds the same decision in a repo a reviewer can read. The [agents and permissions docs](https://kortix.com/docs/project/agents) put an agent's behavior and its grants in one block, and both are text in the repo.
+Kortix is the open-source CompanyOS, and it holds the same decision in a repo a reviewer can read. The [agents docs](https://kortix.com/docs/guide#agents) put an agent's behavior and its grants in one block, and both are text in the repo.
 
-Governance lives in \`kortix.yaml\`. An agent block there names the connector it may reach, the secrets and skills it may use, and the Kortix permissions it holds. The governance panel is the docs' own example: a support agent granted one connector, one secret, two skills and two permissions, and nothing beyond the list.
+Governance lives in \`kortix.yaml\`. An agent block there names the connector it may reach, the secrets and skills it may use, and the Kortix permissions it holds. The governance panel is the docs' own example: a support agent granted one connector, one secret, two skills and two permissions, each one named in the file.
 
-In v2 the file holds the behavior; the permission block is the dial. Each rule resolves to allow, ask or deny, and a pattern can scope a rule down to a single command. The docs' example agent asks before any shell command, lets read-only git commands run freely, and refuses \`rm -rf\` outright. An ask holds the turn until a person approves or rejects the call, then the agent resumes.
+In the current manifest the behavior and the rules sit in the agent's own block, and the permission block is the dial. Each rule resolves to allow, ask or deny, and a pattern can scope a rule down to a single command. The docs' example agent allows every shell command, holds a \`git push\` for approval, and refuses \`rm -rf\` outright. An ask holds the turn until a person approves or rejects the call, then the agent resumes.
 
 The shipped default belongs in the picture too. Approval gates you set. Off until you set them. The docs say the same thing about a missing rule: a tool with no rule is allowed. An agent with no rules written runs wide until someone narrows it, which is the same trap as connecting a home directory in Cowork and forgetting about it.
 
@@ -3438,13 +3437,14 @@ Kortix runs that way, and where it runs is your call: Run it on Kortix Cloud, in
           artifact: {
             file: 'kortix.com/docs',
             lang: 'text',
-            source: 'https://kortix.com/docs',
+            source: 'https://kortix.com/docs/guide',
             lines: [
-              'Connector credentials are brokered server-side and never enter the machine.',
-              'A secret can be egress-enforced. The sandbox holds a handle. Kortix substitutes the real value outside the sandbox, only on approved HTTPS hosts. Environment is the default exposure. Egress-enforced is experimental.',
+              'A connector gives agents access to one outside app, such as Gmail, Linear, Notion or Stripe.',
+              'Kortix stores the login, picks the account, applies your rules and records every call.',
+              'The login never enters the agent\'s computer.',
             ],
           },
-          caption: "The credential rule from the Kortix docs' security section, with the egress-enforced mechanism beside it.",
+          caption: 'The connector rule from the Kortix guide: Kortix holds the login, and the agent\'s computer never sees it.',
         },
         {
           type: 'prose',
@@ -3470,7 +3470,7 @@ Anthropic's connector controls are set per connector and per organization. Owner
 
 Kortix treats the same problem as a file and a service boundary. Its connector layer reaches "3,000+ apps in a click, plus MCP, OpenAPI, Postman, GraphQL and raw HTTP", so an internal API connects through the same layer as a marketplace app. Connector credentials are brokered server-side and never enter the machine. That broker is part of the stack you run: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free." Where the credential sits becomes a deployment decision, and a self-hosted instance keeps it inside your own network.
 
-The second half is per-agent. Grants live in \`kortix.yaml\` beside the code. An omitted connectors grant resolves to none, so a scoped agent starts locked down. One agent can hold the full catalog while another holds none. The file a reviewer reads is the file the agent runs from. Per-resource permissions for people and agents. Roles, groups, and an audit trail. That record is what lets a reviewer trace which agent held which credential. The docs excerpt shows the credential rule and the egress-enforced mechanism beside it. [Securing AI agent tool access](https://kortix.com/blog/secure-ai-agent-tool-access) takes the policy question further, the [self-hosting guide](/self-hosting) covers the install, and the source is public at [Kortix on GitHub](https://github.com/kortix-ai/suna).`,
+The second half is per-agent. Grants live in \`kortix.yaml\` beside the code. An omitted connectors grant resolves to none, so a scoped agent starts locked down. One agent can hold the full catalog while another holds none. The file a reviewer reads is the file the agent runs from. Per-resource permissions for people and agents. Roles, groups, and an audit trail. That record is what lets a reviewer trace which agent held which credential. The docs excerpt shows the rule: Kortix stores the login, and the login never enters the agent's computer. [Securing AI agent tool access](https://kortix.com/blog/secure-ai-agent-tool-access) takes the policy question further, the [self-hosting guide](/self-hosting) covers the install, and the source is public at [Kortix on GitHub](https://github.com/kortix-ai/suna).`,
         },
         {
           type: 'faq',
@@ -3566,27 +3566,18 @@ The second half is per-agent. Grants live in \`kortix.yaml\` beside the code. An
         },
         {
           type: 'artifact',
-          heading: { title: 'The grant block that governs an agent' },
+          heading: { title: 'The two halves of an agent, and the default that decides access' },
           artifact: {
-            file: 'kortix.yaml',
-            lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            file: 'Agents',
+            lang: 'text',
+            source: 'https://kortix.com/docs/guide',
             lines: [
-              '# Grants are deny-by-default: an omitted skills, subagents,',
-              '# commands, extensions, connectors, secrets or kortix_permissions grant is',
-              '# none. Write `all`, `none`, or a list of names.',
-              'agents:',
-              '  kortix:',
-              '    mode: primary',
-              '    prompt_file: agents/kortix.md',
-              '    connectors: all',
-              '    secrets: all',
-              '    kortix_permissions: all',
-              '    skills: all',
-              '    workspace: { project_repository: true }',
+              '- **Behavior.** Its instructions, its model, and its rules for which tools it may use freely, use after asking, or never use.',
+              '- **Access.** The connectors, secrets, skills, Apps, Kortix permissions and project repository it may use.',
+              'Access is deny-by-default. An agent gets no connector, secret, skill, App or project repository until you grant it.',
             ],
           },
-          caption: 'The starter agent is deliberately broad; a team narrows its grants in this file.',
+          caption: 'The guide splits an agent into behavior and access, then states the default: access is deny-by-default, so a grant the file never names is a grant the agent does not get.',
         },
         {
           type: 'prose',
@@ -3614,7 +3605,7 @@ The capability that used to live in a separate Cowork space arrives inside Claud
 
 A company runs many agents for many people at once, and its questions multiply. Who may connect which tool? Who reviews an agent's work before it reaches a customer? Answers need shared configuration, per-resource permissions, and a review step, and they need to hold while ten sessions run at once.
 
-Kortix is the open-source AI Operating System: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers. A session runs one agent in its own sandbox. The sandbox clones the repo and works on a branch cut for that session, so parallel sessions never share a machine ([the Kortix docs](https://kortix.com/docs)). Session work reaches \`main\` through a change request. Merge is default-deny for agents. A reviewer reads the same repo the agents run from, so a diff shows exactly what changed before it takes effect.
+Kortix is the open-source CompanyOS: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers. A session runs one agent in its own sandbox. The sandbox clones the repo and works on a branch cut for that session, so parallel sessions never share a machine ([the Kortix docs](https://kortix.com/docs)). Session work reaches \`main\` through a change request. Merge is default-deny for agents. A reviewer reads the same repo the agents run from, so a diff shows exactly what changed before it takes effect.
 
 OpenClaw can be run as a shared deployment; its repository says one Gateway serves a team. What its documentation does not describe is the layer around the work: roles, grants, and connector policies, an audit trail, and a review step. A company can build that layer itself, on top of a personal assistant's architecture. Kortix ships it with the system, as files in the project repo.
 
@@ -3738,21 +3729,20 @@ For the wider argument, [Kortix vs OpenClaw](https://kortix.com/blog/kortix-vs-o
           type: 'artifact',
           heading: { title: 'A knowledge job, stored as repo files' },
           artifact: {
-            file: 'agents/support.md',
+            file: 'kortix.yaml',
             lang: 'text',
-            source: 'https://kortix.com/docs/project/agents',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              '---',
-              'description: Answers support tickets from the help desk.',
-              'mode: primary',
-              'permission: bash: ask',
-              '---',
-              '',
-              'You answer support tickets. Read the ticket, check the order history,',
-              'draft a reply, and submit it for review. Never close a ticket yourself.',
+              'kortix_version: 3',
+              'default_agent: assistant',
+              'agents:',
+              '  assistant:',
+              '    description: Answers questions about the project.',
+              '    prompt: You answer questions about this project. Read the files before you answer.',
+              '    workspace: { project_repository: true }  # omitted: no repository in /workspace',
             ],
           },
-          caption: 'The docs\u0027 v2 example; in v3 those fields move into the agents block, and the file holds the prompt.',
+          caption: 'The smallest manifest in the current reference: one agent, its prompt and its workspace, all in the repo file.',
         },
         {
           type: 'prose',
@@ -3774,7 +3764,7 @@ Cowork's job reads differently. You hand over a goal, it works across the files 
 
 Both jobs run inside a closed product. Anthropic publishes the product and its help center, and neither name ships a public source tree or a self-hosted edition. Where the setup lives differs between the two. Cowork keeps its configuration in your Claude account. Claude Code reads instructions and hooks from your repo, and still runs a closed engine under a Claude subscription.
 
-Kortix takes the other position. It is the open-source AI Operating System, and the whole setup lives as files: agents, skills, company memory and connector rules in a repo the team holds ([the docs](https://kortix.com/docs)). Each session gets a cloud computer to itself, and a branch of its own. The two jobs are two agents in that repo. The starter agent file covers "coding / research / content / ops / data tasks end-to-end". The agents docs show a support-ticket agent in the same shape: a prompt file and the block that grants it ([the agents docs](https://kortix.com/docs/project/agents)). A code-heavy team keeps its coding loop too: every new session runs pi, the harness that runs the model loop in the sandbox.
+Kortix takes the other position. It is the open-source CompanyOS, and the whole setup lives as files: agents, skills, company memory and connector rules in a repo the team holds ([the docs](https://kortix.com/docs)). Each session gets a cloud computer to itself, and a branch of its own. The two jobs are two agents in that repo. The starter agent is a general-purpose worker: coding, research, writing, ops and data work, done end to end in its own sandbox. The agents docs show a support-ticket agent in the same shape: a prompt file and the block that grants it ([the agents docs](https://kortix.com/docs/guide#agents)). A code-heavy team keeps its coding loop too: every new session runs pi, the harness that runs the model loop in the sandbox.
 
 Either job starts the same way, with one command from the Kortix sessions docs:
 
@@ -3822,7 +3812,7 @@ The job decides first. If the work is code and the team lives in terminals, Clau
               id: 'both-jobs',
               question: 'Can one Kortix repo carry both jobs?',
               answer:
-                'Yes. Agents are blocks in kortix.yaml with a prompt file each, the starter agent covers coding, research, content, ops, and data tasks, and each job runs as a session on its own sandbox ([the agents docs](https://kortix.com/docs/project/agents)).',
+                'Yes. Agents are blocks in kortix.yaml with a prompt file each, the starter agent is a general-purpose worker for coding, research, writing, ops and data work, and each job runs as a session on its own sandbox ([the agents docs](https://kortix.com/docs/guide#agents)).',
             },
           ],
         },
@@ -3849,15 +3839,16 @@ The job decides first. If the work is code and the team lives in terminals, Clau
           type: 'artifact',
           heading: { title: "The workflow, one git operation per step" },
           artifact: {
-            file: "docs/quickstart",
+            file: 'kortix.com/docs/developers',
             lang: 'text',
-            source: "https://kortix.com/docs/quickstart",
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              "| Step | Command | What happens in git |",
-              "| Create a project | `kortix init`, `kortix ship` | `git init`, commit, push to the project's repository |",
-              "| Get a project | `kortix projects clone` | `git clone` through Kortix |",
-              "| Run a session | `kortix sessions new` | The agent works on its own branch, named `<session_id>` |",
-              "| Review and merge | `kortix cr merge` | The session branch merges into the default branch |",
+              '| Step | Command | What happens in git |',
+              '| --- | --- | --- |',
+              '| Create a project | `kortix init`, `kortix ship` | `git init`, commit, push to the project\'s repository |',
+              '| Get a project | `kortix projects clone` | `git clone` through Kortix |',
+              '| Run a session | `kortix sessions new` | The agent works on its own branch, named `<session_id>` |',
+              '| Review and merge | `kortix cr merge` | The session branch merges into the default branch |',
             ],
           },
           caption: "From the Kortix quickstart, whose table reads: every step is a git operation on your project's repository, from a fresh terminal to a merged change request.",
@@ -3892,9 +3883,9 @@ For one person, that is a working setup.
 
 ## The open-source half: the setup becomes a repo
 
-It is open source, and the setup, agents, skills, company memory, and connectors, is a set of files in one git repo you own. The work does not wait on your Mac either. Kortix's own line for it: "Thousands of agents in parallel on one config, each on its own cloud computer." Neither the sessions nor the configuration is tied to the machine in front of you.
+Kortix is the open-source CompanyOS, and the setup (agents, skills, company memory, connectors) is a set of files in one git repo you own. The work does not wait on your Mac either. Kortix's own line for it: "Thousands of agents in parallel on one config, each on its own cloud computer." Neither the sessions nor the configuration is tied to the machine in front of you.
 
-On a Mac you install nothing to start. The web app runs in a browser: create a project, type the prompt on the project page, and follow the session. If you want a terminal, the CLI's install script supports macOS and Linux on x86_64 and arm64 ([the quickstart](https://kortix.com/docs/quickstart), checked October 2026). Every step from install to a merged change request is a git operation, as the quickstart table sets out.
+On a Mac you install nothing to start. The web app runs in a browser: create a project, type the prompt on the project page, and follow the session. If you want a terminal, the CLI's install script supports macOS and Linux on x86_64 and arm64 ([the quickstart](https://kortix.com/docs/developers#quickstart), checked October 2026). Every step from install to a merged change request is a git operation, as the quickstart table sets out.
 
 There is a desktop app as well. macOS ships one universal \`.dmg\` ([the download page](https://kortix.com/download)). The CLI covers macOS and Linux, WSL on Windows. Where the system itself runs is your choice: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free." The desktop app is one way in, the browser and the terminal are the other two. None of the three holds the work; the repo does.`,
         },
@@ -4010,21 +4001,19 @@ If the setup has to outlive the machine, the balance tips to the open-source sid
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            source: 'https://kortix.com/docs/developers',
             lines: [
               'kortix_version: 3',
-              'default_agent: kortix',
+              'default_agent: support',
               'project:',
-              '  name: "{{projectName}}"',
-              '  description: A Kortix project.',
-              'agents:',
-              '  kortix:',
-              '    mode: primary',
-              '    prompt_file: agents/kortix.md',
-              '    connectors: all',
+              '  name: support-desk',
+              '  description: Answers help desk tickets.',
+              'env:',
+              '  required: [HELPDESK_TOKEN]',
+              '  optional: [STRIPE_API_KEY]',
             ],
           },
-          caption: 'A new Kortix project opens with this file; the agent, its grants, and its tools are lines a person reads and edits.',
+          caption: "A project's manifest carries its version, its default agent, its name and description, and the secret names it expects; the values live in Secrets, never in this file.",
         },
         {
           type: 'prose',
@@ -4048,7 +4037,7 @@ The getting-started docs show the working arrangement. Agents work inside Projec
 
 Claude Cowork, Gemini Enterprise and Antigravity are all closed products. Cowork runs on Anthropic's cloud, or in your own Amazon Bedrock, Gemini Enterprise Agent Platform, or Microsoft Foundry account ([Claude Cowork](https://claude.com/product/cowork)). Either way, the software is Anthropic's. Gemini Enterprise runs in Google Cloud. Antigravity runs on your machine and signs in to Google's services. None of the three publishes source you can read, and none offers a self-hosted edition. So the configuration, the memory, and the history stay on the vendor's side.
 
-Kortix is the open source option, and the difference is a repo the team clones rather than a console it signs into. The Kortix docs define the unit: "A project is a git repo with kortix.yaml at its root", and "Agents, skills, memory, tools, triggers and connectors are files in it" ([the Kortix docs](https://kortix.com/docs)). The manifest excerpt above shows the starter file a new project opens with.
+Kortix is the open source option, and the difference is a repo the team clones rather than a console it signs into. The Kortix docs define the unit: "A project is a git repo with kortix.yaml at its root", and "Agents, skills, memory, tools, triggers and connectors are files in it" ([the Kortix docs](https://kortix.com/docs)). The manifest excerpt above shows what the file carries: the project's name and description, the default agent, and the secret names it expects.
 
 Connectors reach 3,000+ apps in a click, plus MCP, OpenAPI, Postman, GraphQL and raw HTTP. Models are a choice you hold: any model provider with your own keys. The hosting line is the one no Google product offers. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free, and the [self-hosting guide](https://opensourceclaudecowork.com/self-hosting) walks the install.
 
@@ -4112,7 +4101,7 @@ Staying inside Anthropic on a paid plan keeps Claude Cowork, which since Septemb
       metaDescription:
         'A free Claude Cowork alternative can be a plan tier, a free desktop app, or software you host and read. See what each costs when a second person joins.',
       h1: 'Free Claude Cowork alternative: free tier, free app, open source',
-      lead: "A free Claude Cowork alternative comes in three shapes: a plan tier inside a paid product, an app that costs nothing to download, and software that stays free because you host it. Claude Cowork, now part of Claude, rides paid plans; OpenWork ships a free desktop app; Kortix is the open-source AI Operating System, free to self-host.",
+      lead: "A free Claude Cowork alternative comes in three shapes: a plan tier inside a paid product, an app that costs nothing to download, and software that stays free because you host it. Claude Cowork, now part of Claude, rides paid plans; OpenWork ships a free desktop app; Kortix is the open-source CompanyOS, free to self-host.",
       sections: [
         {
           type: 'comparison',
@@ -4151,7 +4140,7 @@ Staying inside Anthropic on a paid plan keeps Claude Cowork, which since Septemb
           artifact: {
             file: "hosting requirements",
             lang: 'text',
-            source: "https://kortix.com/docs/host",
+            source: "https://kortix.com/docs/developers#self-hosting",
             lines: [
               "A self-hosted instance is the full Kortix platform on a server you control:",
               "one Docker Compose stack that the kortix self-host CLI installs, configures",
@@ -4187,9 +4176,9 @@ The download gives one person a working agent for nothing, on one machine and th
 
 ## The free software: Kortix, free because you host it
 
-Kortix is the open-source AI Operating System. Its README puts the terms in one line: "Open source. Read it, fork it, audit it." Where it runs is your choice: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free." Hardware you already own never sees an invoice from the platform.
+Kortix is the open-source CompanyOS, and its configuration is a git repo the company owns. Its README puts the terms in one line: "Open source. Read it, fork it, audit it." Where it runs is your choice: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free." Hardware you already own never sees an invoice from the platform.
 
-The install docs' own Requirements section lists what a self-hosted instance needs, and three items on that list cost money somewhere: the server, the sandbox provider, the model provider. None of them bills through Kortix: the sandbox key goes to the provider that supplies each session's cloud computer, and that provider is Platinum. "Sessions run on Platinum sandboxes, not on the server," [the docs](https://kortix.com/docs/host) say. The list is explicit: "A Platinum API key (\`PLATINUM_API_KEY\`). Without it, sessions do not start." Daytona is a legacy fallback with its removal scheduled, and E2B support is discontinued (checked 21 October 2026).
+The install docs' own Requirements section lists what a self-hosted instance needs, and three items on that list cost money somewhere: the server, the sandbox provider, the model provider. None of them bills through Kortix: the sandbox key goes to the provider that supplies each session's cloud computer, and that provider is Platinum. "Sessions run on Platinum sandboxes, not on the server," [the docs](https://kortix.com/docs/developers#self-hosting) say. The list is explicit: "A Platinum API key (\`PLATINUM_API_KEY\`). Without it, sessions do not start." Daytona is a legacy fallback with its removal scheduled, and E2B support is discontinued (checked 21 October 2026).
 
 What the hosting buys back is the model choice: "Any model provider with your own keys. Or the ChatGPT plan you already pay for." The routing lives in your repo as a setting. Routine work can point at a cheaper model, and the judgment calls keep the strong one.
 
@@ -4215,7 +4204,7 @@ Vendors reprice tiers, and a repo you host is unaffected by any of it, which is 
               id: 'still-bills',
               question: 'What does a free open-source alternative still bill me for?',
               answer:
-                'The software costs nothing. Your bills are the server, the sandbox provider and the model provider; the Kortix docs state that [sessions do not start without a sandbox key](https://kortix.com/docs/host).',
+                'The software costs nothing. Your bills are the server, the sandbox provider and the model provider; the Kortix docs state that [sessions do not start without a sandbox key](https://kortix.com/docs/developers#self-hosting).',
             },
             {
               id: 'after-free',
@@ -4247,7 +4236,7 @@ Vendors reprice tiers, and a repo you host is unaffected by any of it, which is 
       metaDescription:
         "Anthropic's self-hosted Claude Code keeps the control plane and transcript; an open-source harness puts the repo and review on your side.",
       h1: 'Self-hosted Claude Code: where an open-source harness draws the line',
-      lead: "Self-hosted Claude Code in 2026 means Anthropic's public beta runs cloud sessions on a runner inside your network, not on your laptop. The control plane, the queue and the transcript stay with Anthropic. Kortix is the open-source AI Operating System that puts the harness, the repo and the review on your side.",
+      lead: "Self-hosted Claude Code in 2026 means Anthropic's public beta runs cloud sessions on a runner inside your network, not on your laptop. The control plane, the queue and the transcript stay with Anthropic. Kortix is the open-source CompanyOS that puts the harness, the repo and the review on your side.",
       updated: '2026-10-19',
       sections: [
         {
@@ -4315,26 +4304,19 @@ Vendors reprice tiers, and a repo you host is unaffected by any of it, which is 
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: "https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml",
+            source: "https://kortix.com/docs/developers",
             lines: [
-              '# Sessions boot from the platform\'s default image (Ubuntu + the Kortix',
-              '# runtime) and clone this repo into /workspace. Add named images only when a',
-              '# project needs more: a Dockerfile in the repo (`dockerfile:`) or a public',
-              '# image (`image:`). Hardware: cpu = cores, memory and disk = GiB.',
-              '# sandbox:',
-              '#   templates:',
-              '#     - slug: python',
-              '#       name: Python 3.12',
-              '#       image: python:3.12-slim',
-              '#       cpu: 2',
-              '#       memory: 4',
-              'agents:',
-              '  kortix:',
-              '    prompt_file: agents/kortix.md',
-              '    connectors: all',
+              'sandbox:',
+              '  default: python',
+              '  templates:',
+              '    - slug: python',
+              '      name: Python 3.12',
+              '      image: python:3.12-slim',
+              '      cpu: 2',
+              '      memory: 4',
             ],
           },
-          caption: "A sandbox template and the starter agent's grants, copied from the base kortix.yaml.",
+          caption: "The `sandbox` block from the reference manifest: a default template, one named image and its hardware, written as lines in the repo.",
         },
         {
           type: 'prose',
@@ -4364,7 +4346,7 @@ A project is a git repo with \`kortix.yaml\` at its root, and the manifest holds
 
 Sessions do not run on the box that hosts the stack. The self-host README says agent sessions still run on a cloud sandbox provider, "Platinum, set with \`PLATINUM_API_KEY\`", and that sandboxes are "managed compute, not part of this box". The same paragraph records that Daytona remains only as a legacy fallback, its removal scheduled and no support guarantee attached, and that E2B support is discontinued ([the README](https://github.com/kortix-ai/suna/blob/dev/self-host/README.md), checked 21 October 2026). What stays on your disks is the stack and the instance directory: the database, the stored files and the secrets. What stays in your git is the configuration that defines the fleet. Power-cycle the host and the stack returns from the instance directory; the agents return from the repo.
 
-The harness is where model choice lives. Sessions run on pi, and a project can point at a custom OpenAI-compatible endpoint: open the Custom tab, enter a provider id, a name, the base URL and one or more models, and Kortix stores the endpoint in the project ([Read the docs](https://kortix.com/docs/project/models), checked October 2026). A model id is \`<id>/<model>\`, and both harnesses can use its models. Any model provider with your own keys. A self-hosted instance has no managed models, so each project connects its own provider.
+The harness is where model choice lives. Sessions run on pi, and a project can point at a custom OpenAI-compatible endpoint: open the Custom tab, enter a provider id, a name, the base URL and one or more models, and Kortix stores the endpoint in the project ([Read the docs](https://kortix.com/docs/guide#models), checked October 2026). A model id is \`<id>/<model>\`, and both harnesses can use its models. Any model provider with your own keys. A self-hosted instance has no managed models, so each project connects its own provider.
 
 That combination changes the question a buyer asks. With Anthropic's beta, the question is which parts of a hosted system can execute in your network. With an open-source harness, it is which files define the system and who may change them. The second question survives a repricing or a product rename, because the answer is a repo you can clone.
 
@@ -4435,18 +4417,16 @@ The mistake to avoid is treating self-hosting as one decision. It is four: where
           heading: {
             eyebrow: "Harness",
             title: "The harness turns a model into a session",
-            sub: "The harness is the runtime inside a session's sandbox, every new session runs pi, its config lives in the repo under harnesses/pi, and the excerpt shows the extensions an agent enables, pinned in the manifest.",
+            sub: "A session runs the pi runtime, and an extension is a package pinned to an exact version in the manifest, loaded when the runtime starts.",
           },
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: "https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml",
+            source: "https://kortix.com/docs/developers",
             lines: [
-              "# pi packages: an exact npm pin or a repo path. A session loads the",
-              "# extensions its agent enables (`agents.<name>.extensions`).",
-              "# extensions:",
-              "#   web-access:",
-              "#     pi: npm:pi-web-access@0.30.0",
+              "extensions:",
+              "  web-access:",
+              "    pi: npm:pi-web-access@0.30.0",
             ],
           },
         },
@@ -4461,14 +4441,16 @@ The mistake to avoid is treating self-hosting as one decision. It is four: where
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: "https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml",
+            source: "https://kortix.com/docs/developers",
             lines: [
               "agents:",
-              "  kortix:",
-              "    prompt_file: agents/kortix.md",
-              "    connectors: all",
-              "    secrets: all",
-              "    kortix_permissions: all",
+              "  support:",
+              "    prompt_file: agents/support.md",
+              "    subagents: [researcher]",
+              "    commands: all",
+              "    extensions: [web-access]",
+              "    connectors: [helpdesk]",
+              "    secrets: [HELPDESK_TOKEN]",
             ],
           },
         },
@@ -4478,19 +4460,18 @@ The mistake to avoid is treating self-hosting as one decision. It is four: where
           heading: {
             eyebrow: "Compute",
             title: "A template names the machine each session boots",
-            sub: "The template carries the image or Dockerfile and the hardware, and leaving it out means sessions boot on the platform image.",
+            sub: "The reference gives the order: a template can come from the request, the agent, or the project default, and with none of them sessions boot on the platform image.",
           },
           artifact: {
-            file: 'kortix.yaml',
-            lang: 'yaml',
-            source: "https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml",
+            file: 'Sandbox templates',
+            lang: 'text',
+            source: "https://kortix.com/docs/developers",
             lines: [
-              "# sandbox:",
-              "#   templates:",
-              "#     - slug: python",
-              "#       image: python:3.12-slim",
-              "#       cpu: 2",
-              "#       memory: 4",
+              "A session picks its sandbox template in this order:",
+              "1. The template the session request names.",
+              "2. The `sandbox` of the agent the session runs.",
+              "3. `sandbox.default`.",
+              "4. The platform image.",
             ],
           },
         },
@@ -4506,7 +4487,7 @@ A self-hosted AI agent, in the sense that matters here, is those parts placed by
 
 ## The template decides the machine
 
-The [project manifest](https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml), \`kortix.yaml\`, carries a \`sandbox.templates\` list. Each entry has a slug and either an \`image\` or a \`dockerfile\` from the repo, plus \`cpu\` in cores, \`memory\` in GiB and \`disk\` in GiB. A project default is set once with \`sandbox.default\`, and a single agent can point at a different template through \`agents.<name>.sandbox\`. Leave the block out and sessions boot on the platform's default image, which clones the repo into \`/workspace\` at start.
+The [project manifest](https://kortix.com/docs/developers#kortixyaml-reference), \`kortix.yaml\`, carries a \`sandbox.templates\` list. Each entry has a slug and either an \`image\` or a \`dockerfile\` from the repo, plus \`cpu\` in cores, \`memory\` in GiB and \`disk\` in GiB. A project default is set once with \`sandbox.default\`, and a single agent can point at a different template through \`agents.<name>.sandbox\`. Leave the block out and sessions boot on the platform's default image, which clones the repo into \`/workspace\` at start.
 
 An agent that runs a build and an agent that drafts a reply do not need the same memory, and the difference becomes a number in a diff instead of a support request. The template also states a ceiling. A session cannot grow past the box it names, so an agent that runs out of memory is a line to edit.
 
@@ -4520,7 +4501,7 @@ Connector credentials are brokered server-side and never enter the machine. The 
 
 ## Where the session machine comes from
 
-The Compose project on your server runs the web app, the API, the LLM gateway, the database, auth and storage. None of those services executes an agent turn. Each session runs on Platinum, the reference sandbox provider: \`kortix-api\` creates the sandbox with your \`PLATINUM_API_KEY\`, and the sandbox calls back to the instance's public API URL. The [self-hosting docs](https://kortix.com/docs/host) put the split in one line: "Sessions run on Platinum sandboxes, not on the server."
+The Compose project on your server runs the web app, the API, the LLM gateway, the database, auth and storage. None of those services executes an agent turn. Each session runs on Platinum, the reference sandbox provider: \`kortix-api\` creates the sandbox with your \`PLATINUM_API_KEY\`, and the sandbox calls back to the instance's public API URL. The [self-hosting docs](https://kortix.com/docs/developers#self-hosting) put the split in one line: "Sessions run on Platinum sandboxes, not on the server."
 
 The [self-host README](https://github.com/kortix-ai/suna/blob/dev/self-host/README.md) states the consequence without softening it: sandboxes are "managed compute, not part of this box". The same paragraph closes the older options off. Daytona remains only as a legacy fallback, with its removal scheduled and no support guarantee, and E2B support is discontinued (checked 21 October 2026).
 
@@ -4532,9 +4513,9 @@ One isolated sandbox per session. Each session has its own isolated machine and 
 
 ## What setup asks for
 
-The README puts the floor at 2 vCPU and 4 GB of memory, with 4 vCPU and 16 GB or more for real use. The server needs a public IP, DNS records for the domain and its API subdomain, and ports 80 and 443 open, as the [self-hosting docs](https://kortix.com/docs/host) lay out. \`kortix self-host init\` then asks about reachability, an admin email, the deployment shape, the Platinum API key its sandboxes run on, the optional connector catalog, and the update policy.
+The README puts the floor at 2 vCPU and 4 GB of memory, with 4 vCPU and 16 GB or more for real use. The server needs a public IP, DNS records for the domain and its API subdomain, and ports 80 and 443 open, as the [self-hosting docs](https://kortix.com/docs/developers#self-hosting) lay out. \`kortix self-host init\` then asks about reachability, an admin email, the deployment shape, the Platinum API key its sandboxes run on, the optional connector catalog, and the update policy.
 
-No model key appears in that list. A self-hosted instance has no managed models, so the key goes in after the first sign-in, per project ([models docs](https://kortix.com/docs/project/models)). Any model provider with your own keys. A custom OpenAI-compatible endpoint takes the same slot, which is how a local model server joins a self-hosted instance.
+No model key appears in that list. A self-hosted instance has no managed models, so the key goes in after the first sign-in, per project ([models docs](https://kortix.com/docs/guide#models)). Any model provider with your own keys. A custom OpenAI-compatible endpoint takes the same slot, which is how a local model server joins a self-hosted instance.
 
 Do DNS first, because it is the step that fails. A missing wildcard record for previews turns a link that should open into a path proxy that breaks it.
 
@@ -4678,32 +4659,44 @@ Its safety page puts the limit in one line: "Isolation limits where Claude's cod
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            source: 'https://kortix.com/docs/developers',
             lines: [
               'agents:',
-              '  kortix:',
-              '    prompt_file: agents/kortix.md',
-              '    connectors: all',
-              '    secrets: all',
-              '    kortix_permissions: all',
-              '    skills: all',
+              '  support:',
+              '    skills: [refund-policy, kortix-cli]',
+              '    connectors: [helpdesk]',
+              '    secrets: [HELPDESK_TOKEN]',
+              '    kortix_permissions: [project.session.read, project.gitops.push]',
+              '    workspace: { project_repository: true }',
             ],
           },
-          caption: "The manifest registers what exists and what each agent may reach; the agent's own file holds the prompt.",
+          caption: "One agent's block names what it may reach, grant by grant, down to the Kortix permissions and the repository checkout; the agent's own file holds the prompt.",
         },
         {
           type: 'prose',
           body: `## The same settings, as files in a repo
 
-Kortix takes the other route. The environment is a git repo, and the manifest is a file in it that the repository's own header describes as "the one file that defines this project's agents" ([kortix.yaml](https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml)). An \`agents:\` map in that file names what each agent may reach. The prompt lives a directory away, in the agent's own markdown file, which opens with its role:
-
-\`\`\`markdown
-You are a **Kortix general knowledge worker** for **{{projectName}}**.
-
-You are hands-on: you read, edit, run, search, fetch, and ship.
-\`\`\`
-
-The mode, the model and the permission sit in the manifest, in that agent's own block, and the file and the block are read together. Changing what the agent does, or what it is allowed to do, is a diff somebody can read and review before it lands, with the reason written next to it. The starter's own agent file calls that session an ephemeral branch of the repo. Its rule is what makes the arrangement hold: only what you commit and push survives ([agents/kortix.md](https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/agents/kortix.md)).
+Kortix takes the other route. The environment is a git repo, and the manifest sits at its root: "\`kortix.yaml\` is the manifest at the root of a project repository. It defines the project's agents and everything each agent may use." ([the kortix.yaml reference](https://kortix.com/docs/developers#kortixyaml-reference)). An \`agents:\` map in that file names what each agent may reach. The prompt lives a directory away, in the markdown file that agent's block names:
+`,
+        },
+        {
+          type: 'artifact',
+          heading: { title: 'The prompt, in the block or in the file it names' },
+          artifact: {
+            file: 'Agent keys',
+            lang: 'text',
+            source: 'https://kortix.com/docs/developers',
+            lines: [
+              '| Key | Type | Default | Description |',
+              '| --- | --- | --- | --- |',
+              '| `prompt` | string | — | The system prompt. Set `prompt` or `prompt_file`, not both. |',
+              '| `prompt_file` | string | — | A repository path to a `.md` file. The whole file is the system prompt. |',
+            ],
+          },
+        },
+        {
+          type: 'prose',
+          body: `The mode, the model and the permission sit in the manifest, in that agent's own block, and the file and the block are read together. Changing what the agent does, or what it is allowed to do, is a diff somebody can read and review before it lands, with the reason written next to it. The session gets its own checkout on a branch, and the machine it boots is a cloud computer the agent works on and saves to ([Computers](https://kortix.com/docs/guide#computers)). What makes the arrangement hold is that a change the agent makes to the project is not final until a person merges it ([Agents](https://kortix.com/docs/guide#agents)).
 
 Open source is what makes the arrangement checkable. "Open source. Read it, fork it, audit it." You can read the loop, read the permission model, and run the whole thing where you choose: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free."
 
@@ -4751,7 +4744,7 @@ On the open-source side the answer survives the third step: the repo is still yo
       metaDescription:
         'Open-source Claude Cowork projects on GitHub compared by what each repo covers, where the agent runs and when it last changed, plus Kortix.',
       h1: 'Open-source Claude Cowork projects on GitHub, sorted by what each repo keeps',
-      lead: 'Seven open-source Claude Cowork projects turn up in the GitHub results, split three ways: a window over someone else\u0027s agent loop, a launcher for someone else\u0027s CLI, or a whole system with its own runtime. Kortix is the open-source AI Operating System: your agents, their skills, your company memory, and every connector in one git repo you own.',
+      lead: 'Seven open-source Claude Cowork projects turn up in the GitHub results, split three ways: a window over someone else\u0027s agent loop, a launcher for someone else\u0027s CLI, or a whole system with its own runtime. Kortix is the open-source CompanyOS: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers.',
       sections: [
         {
           type: 'comparison',
@@ -4769,7 +4762,7 @@ On the open-source side the answer survives the third step: the repo is still yo
             {
               label: 'What it is',
               cells: [
-                'Open-source AI Operating System, configured by a repo',
+                'The company platform, a CompanyOS, configured by a repo',
                 'Desktop app built on the OpenCode harness',
                 'Desktop chat app on the Claude Agent SDK',
                 'Desktop GUI over Claude Code and other models',
@@ -4819,22 +4812,18 @@ On the open-source side the answer survives the third step: the repo is still yo
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: 'https://kortix.com/docs/project/manifest',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              'kortix_version: 2',
-              'default_agent: kortix',
-              'env:',
-              '  optional: [STRIPE_API_KEY]',
-              'agents:',
-              '  kortix:',
-              '    file: agents/kortix.md',
-              '    connectors: all',
-              '    secrets: all',
-              '    skills: all',
-              '    kortix_permissions: all',
+              '# Registries: what the project has. A registry entry gives nothing to any agent.',
+              'skills:',
+              '  refund-policy: skills/refund-policy',
+              'connectors:',
+              '  - slug: helpdesk',
+              '    provider: http',
+              '    base_url: https://helpdesk.example.com/api',
             ],
           },
-          caption: "The docs' v2 sample: the agents, the file each one runs from, and what each may reach.",
+          caption: 'The docs\' example project, cut to its registries: what the repo declares, before any agent enables it.',
         },
         {
           type: 'prose',
@@ -4917,7 +4906,7 @@ Kortix holds up on those three steps. Any model provider with your own keys. Ses
       metaDescription:
         'The top open source Claude Cowork lists are published by vendors ranking themselves. Reddit threads record what broke after install, and when.',
       h1: 'Why open source Claude Cowork lists and Reddit threads disagree',
-      lead: 'Reddit threads on open source Claude Cowork keep returning to two complaints: a build that works on the maker\u0027s laptop and nowhere else, and terms that change after you depend on them. Kortix is the open-source AI Operating System. The vendor lists that rank well carry neither, and the gap is worth an hour of your time.',
+      lead: 'Reddit threads on open source Claude Cowork keep returning to two complaints: a build that works on the maker\u0027s laptop and nowhere else, and terms that change after you depend on them. Kortix is the open-source CompanyOS. The vendor lists that rank well carry neither, and the gap is worth an hour of your time.',
       sections: [
         {
           type: 'prose',
@@ -5009,23 +4998,21 @@ None of the complaints is about features. Each is about where the thing runs, wh
         },
         {
           type: 'artifact',
-          heading: { title: "The whole of one agent's governance, in a file you can diff" },
+          heading: { title: 'The config is versioned, and a merge is what changes it' },
           artifact: {
-            file: 'kortix.yaml',
-            lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            file: 'Config comes from the base branch',
+            lang: 'text',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              'agents:',
-              '  kortix:',
-              '    prompt_file: agents/kortix.md',
-              '    connectors: all',
-              '    secrets: all',
-              '    kortix_permissions: all',
-              '    skills: all',
-              '    workspace: { project_repository: true }',
+              'A session runs the current config release of its base branch: `kortix.yaml` and the files it registers.',
+              'Those are agent prompts, skills, tools, commands and extensions.',
+              'An edit in `/workspace` or on a session branch takes effect only when it lands on the base branch, through a merge or a push.',
+              'Each commit on the base branch is a new config release.',
+              'A running session converges to it at the start of its next turn.',
+              'A push or a merge also starts the convergence in the background.',
             ],
           },
-          caption: "The starter manifest's first agent, quoted from the Kortix starter template.",
+          caption: 'The reference on config releases: a session runs the manifest and the files it registers, and an edit takes effect only when it lands on the base branch.',
         },
         {
           type: 'prose',
@@ -5084,7 +5071,7 @@ Kortix is the setup these checks point to. The config that governs an agent is a
       metaDescription:
         'Anthropic merged Claude Cowork into Claude on 16 September 2026. What changed, what did not, and the open-source layer you keep.',
       h1: 'What happened to Claude Cowork, and what open source keeps',
-      lead: 'Anthropic merged Claude Cowork into Claude on 16 September 2026, so the Cowork toggle is going away and Claude now decides when a chat becomes a longer job. Kortix is the open-source AI Operating System: your agents, skills, company memory and connectors in one git repo you own. Details checked 29 October 2026.',
+      lead: 'Anthropic merged Claude Cowork into Claude on 16 September 2026, so the Cowork toggle is going away and Claude now decides when a chat becomes a longer job. Kortix is the open-source CompanyOS: your agents, skills, company memory and connectors in one git repo you own. Details checked 29 October 2026.',
       updated: '2026-10-29',
       sections: [
         {
@@ -5114,9 +5101,9 @@ Who runs the job, where the permissions are written and where the record sits al
 
 The merge carried Cowork's chats, projects, artifacts, connectors and skills into Claude, and the separate Cowork surface goes away as the rollout reaches each account. A team that reopens the question "which Cowork-like product do we buy" will reopen it again at the next announcement. The files sit in each member's Claude account, the grants sit in the organization's settings, and the session record comes from the Compliance API on Enterprise, because Anthropic's audit logs do not carry Cowork activity ([Claude Academy](https://academy.claude.com/tutorials/claude-cowork-enterprise-administrator-guide)).
 
-Kortix is built so that layer is a repository. An agent is one \`agents.<name>\` block in \`kortix.yaml\` (behavior and grants) plus the prompt file it names. The file holds the prompt; the block holds the model, the mode, the permission and the connector, secret and skill grants. Nothing about it lives in a dashboard; the pair is the whole agent. The agent file calls the session an ephemeral branch of the repo and says that only what you commit and push survives ([the starter repo](https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/agents/kortix.md)).
+Kortix is built so that layer is a repository. An agent is one \`agents.<name>\` block in \`kortix.yaml\` (behavior and grants) plus the prompt file it names. The file holds the prompt; the block holds the model, the mode, the permission and the connector, secret and skill grants. Nothing about it lives in a dashboard; the pair is the whole agent. Each session works on its own branch, a private copy of the repository. Its work reaches the shared repository only when a person merges its change request ([Computers](https://kortix.com/docs/guide#computers)).
 
-\`kortix.yaml\` registers what exists in the project, and each agent enables what it needs by name. An omitted grant resolves to \`none\`, so a narrow agent starts with nothing ([kortix.yaml](https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml)). Work then lands the way code lands. Session work reaches \`main\` through a change request, and merge is default-deny for agents. An admin can grant \`project.gitops.merge\` to change that.
+\`kortix.yaml\` registers what exists in the project, and each agent enables what it needs by name. An omitted grant resolves to \`none\`, so a narrow agent starts with nothing ([the kortix.yaml reference](https://kortix.com/docs/developers#kortixyaml-reference)). Work then lands the way code lands. Session work reaches \`main\` through a change request, and merge is default-deny for agents. An admin can grant \`project.gitops.merge\` to change that.
 
 The repo is readable and the permission is a diff a colleague reviews. Every action is recorded. Reading, exporting and streaming the audit log depend on the plan. Who may merge is written down too. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free.
 
@@ -5182,17 +5169,23 @@ If you are still working out what the product was, [what Claude Cowork is](/what
         },
         {
           type: 'artifact',
-          heading: { title: "What the agent file actually holds" },
+          heading: { title: 'What one agent block holds' },
           artifact: {
-            file: 'agents/kortix.md',
-            lang: 'text',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/agents/kortix.md',
+            file: 'kortix.yaml',
+            lang: 'yaml',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              'You are a **Kortix general knowledge worker** for **{{projectName}}**.',
-              '## How you work',
+              'kortix_version: 3',
+              'default_agent: assistant',
+              'agents:',
+              '  assistant:',
+              '    description: Answers questions about the project.',
+              '    prompt: You answer questions about this project. Read the files before you answer.',
+              '    skills: all                              # omitted: no skills',
+              '    workspace: { project_repository: true }  # omitted: no repository in /workspace',
             ],
           },
-          caption: "The starter agent's file opens with its role and goes straight into instructions; its mode and grants sit in the agents block of kortix.yaml.",
+          caption: "What the reference calls its smallest useful manifest: a version line, a default agent, and one agent block carrying a description, a prompt, a skills grant and a workspace grant. The block can name a prompt file in place of the prompt, but not both.",
         },
         {
           type: 'faq',
@@ -5253,7 +5246,7 @@ If you are still working out what the product was, [what Claude Cowork is](/what
       metaDescription:
         'Anthropic\u0027s audit logs skip Claude Cowork activity. Open source agents run where permissions are files and a person merges the work.',
       h1: 'Claude Cowork security: an open-source audit trail you own',
-      lead: 'The open-source answer to "can you see what the agent did?" starts with a fact Anthropic publishes: its audit logs do not record Claude Cowork activity, so the record is a transcript feed rather than a log you keep. Kortix is the open-source AI Operating System, and here the record is the place the agent ran. Checked 24 October 2026.',
+      lead: 'The open-source answer to "can you see what the agent did?" starts with a fact Anthropic publishes: its audit logs do not record Claude Cowork activity, so the record is a transcript feed rather than a log you keep. Kortix is the open-source CompanyOS, and here the record is the place the agent ran. Checked 24 October 2026.',
       updated: '2026-10-20',
       sections: [
         {
@@ -5294,9 +5287,9 @@ When the authority for an action is a setting inside the product, the evidence o
 
 ## What an auditable agent looks like instead
 
-An auditable system starts with where the permissions are written. In Kortix an agent is one \`agents.<name>\` block in \`kortix.yaml\`: its prompt or prompt file, its model, mode and permission, and what it may reach. The starter's header says each agent "decides: its prompt, model and permission, and which registered things it enables, by name", and that grants are deny-by-default ([kortix.yaml](https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml)). A permission change is a diff a colleague can read.
+An auditable system starts with where the permissions are written. In Kortix an agent is one \`agents.<name>\` block in \`kortix.yaml\`: its prompt or prompt file, its model, mode and permission, and what it may reach. The reference is blunt about the default: "Omitted means none." ([the kortix.yaml reference](https://kortix.com/docs/developers#kortixyaml-reference)). A permission change is a diff a colleague can read.
 
-Grants fail closed by default. The header states it in the file: "Grants are deny-by-default", so an omitted skills, subagents, commands, extensions, connectors, secrets or kortix_permissions grant is none. Access set in a console is a checkbox somebody ticked. Access written in a repo is a line somebody wrote and somebody else merged.
+Grants fail closed by default. The guide says what that means in practice: "Access is deny-by-default. An agent gets no connector, secret, skill, App or project repository until you grant it." ([the agents guide](https://kortix.com/docs/guide#agents)). Access set in a console is a checkbox somebody ticked. Access written in a repo is a line somebody wrote and somebody else merged.
 
 A two-minute run of Kortix, [agent permissions as files](https://www.youtube.com/watch?v=XAmfUqvQwQE), shows the fail-closed rule at a terminal: \`kortix init northwind\` writes the project, a grant swapped for a permission that does not exist makes \`kortix validate\` fail at the exact path naming it, and the corrected file validates clean.
 
@@ -5395,20 +5388,23 @@ A reviewer can put four questions to any product that runs agents, and each one 
         },
         {
           type: 'artifact',
-          heading: { title: "One agent's block, and what it may reach" },
+          heading: { title: "One agent's permission rules, tool by tool" },
           artifact: {
             file: 'kortix.yaml',
             lang: 'yaml',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/packages/starter/templates/base/kortix.yaml',
+            source: 'https://kortix.com/docs/developers',
             lines: [
-              '    mode: primary',
-              '    prompt_file: agents/kortix.md',
-              '    connectors: all',
-              '    secrets: all',
-              '    kortix_permissions: all',
+              'permission:',
+              '  bash:',
+              '    "*": allow',
+              '    "git push *": ask',
+              '    "rm -rf *": deny',
+              '  edit:',
+              '    "*": allow',
+              '    "secrets/*": deny',
             ],
           },
-          caption: "The starter agent's block: the mode, the prompt file and the grants, in one place.",
+          caption: "One agent's `permission` block: `allow` runs the call, `ask` holds it for a person, `deny` never runs it, and each tool can carry its own answer per glob.",
         },
         {
           type: 'faq',

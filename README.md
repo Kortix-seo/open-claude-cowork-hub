@@ -96,7 +96,7 @@ Text fields accept inline markdown: `**bold**`, `` `code` ``, `[link](url)`.
 ```ts
 { type: 'hero',
   eyebrow: { lead: 'The leading open-source alternative to', rivals: [{ label: 'Claude Cowork', glyph: 'claude' }, { label: 'ChatGPT Work', glyph: 'openai' }] },
-  tagline: 'The open-source AI Operating System',   // one approved line beside the artifact
+  tagline: 'The open-source CompanyOS',   // one approved line beside the artifact
   ctas: [{ label: 'Try Kortix', href: 'https://kortix.com', nofollow: true }, { label: 'Compare', href: '#compare', variant: 'secondary' }],
   artifacts: [{ file: 'kortix.yaml', lang: 'yaml', lines: ['# kortix.yaml', 'agents:', '  …'] }],  // 2+ render as tabs
   proof: 'One proof sentence under the artifact.',
