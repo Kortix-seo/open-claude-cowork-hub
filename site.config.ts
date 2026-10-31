@@ -2939,9 +2939,71 @@ Kortix keeps the endpoint in project configuration rather than device policy. Th
 
 Reachability is where most local setups break before the first request. A private, loopback or link-local base URL is refused, so \`http://localhost:11434/v1\` fails as written. A self-hosted deployment names the host in \`KORTIX_LLM_CUSTOM_PROVIDER_ALLOW_HOSTS\`. The gateway is the caller: every model request goes through it, and it calls \`<base_url>/chat/completions\`. On Kortix Cloud a loopback URL therefore resolves on the gateway host, not on the laptop and not in the session's sandbox. Serve the model on a host the gateway can reach, or self-host and allow-list the host.
 
-Model choice then splits per agent. \`kortix agents model <agent> <model-id>\` pins one agent, \`kortix models default <model-id>\` sets the project default, and a session that names no model walks that chain. A nightly digest can run on the machine in the rack. A research agent can run on a hosted model behind your key. Any model provider with your own keys. Or the ChatGPT plan you already pay for. Or sign in with your OpenCode Console account for OpenCode Zen and Go.
+Model choice then splits per agent. \`kortix agents model <agent> <model-id>\` pins one agent, \`kortix models default <model-id>\` sets the project default, and a session that names no model walks that chain. A nightly digest can run on the machine in the rack. A research agent can run on a hosted model behind your key. Any model provider with your own keys. Or the ChatGPT plan you already pay for. Or sign in with your OpenCode Console account for OpenCode Zen and Go.`,
+        },
+        {
+          type: 'prose',
+          body: `## The local servers that already speak the contract
 
-## What each route asks of you
+Anthropic's gateway page asks one thing of whatever sits in front of Cowork: \`POST /v1/messages\` with streaming and tool use. Three documented servers meet that.
+
+Ollama listens on \`http://localhost:11434\`. Its compatibility page opens by naming the scope: a [subset of the Anthropic Messages API](https://docs.ollama.com/api/anthropic-compatibility). The same page states where the subset stops: "Compatible models support messages, streaming, and function calling. Tool-choice controls, deferred tools, and hosted web search are not fully supported." The key is a placeholder, marked required but ignored: "The local server does not validate API keys." \`ANTHROPIC_BASE_URL\` and \`ANTHROPIC_AUTH_TOKEN\` point a client at it.`,
+        },
+        {
+          type: 'artifact',
+          heading: { title: `Ollama environment variables` },
+          artifact: {
+            file: `docs.ollama.com/api/anthropic-compatibility`,
+            lang: 'sh',
+            source: 'https://docs.ollama.com/api/anthropic-compatibility',
+            lines: [
+              'export ANTHROPIC_AUTH_TOKEN=ollama  # required but ignored',
+              'export ANTHROPIC_BASE_URL=http://localhost:11434',
+            ],
+          },
+        },
+        {
+          type: 'prose',
+          body: `LM Studio serves \`/v1/messages\` on \`http://localhost:1234\`. The same page publishes the client setup: the base URL on that port, \`ANTHROPIC_AUTH_TOKEN\` set to \`lmstudio\`, then \`claude --model openai/gpt-oss-20b\` ([LM Studio's Anthropic compatibility page](https://lmstudio.ai/docs/developer/anthropic-compat), checked October 2026). With Require Authentication on, it accepts either header. The page's words: "LM Studio accepts both \`x-api-key\` and the standard \`Authorization: Bearer <token>\` header."
+
+LiteLLM answers from one layer out. Its gateway serves Anthropic's \`/v1/messages\` endpoint and translates to the providers behind it, which is the proxy job Anthropic's gateway page describes ([LiteLLM's /v1/messages page](https://docs.litellm.ai/docs/anthropic_unified), checked October 2026). Its feature table carries fallbacks and load balancing across the models it fronts. Ollama and LM Studio answer the contract directly on the machine that holds the model. LiteLLM translates: Anthropic Messages arrives at the front, a provider's own protocol leaves at the back, and a fleet that mixes a local model with a hosted one has one address to keep.
+
+## What the hardware has to hold
+
+Memory decides how much model a machine holds. Ollama's FAQ puts the rule plainly: "If your system has sufficient available memory (system memory when using CPU inference, or VRAM for GPU inference) then multiple models can be loaded at the same time." The same section tightens it for cards: "when using GPU inference new models must be able to completely fit in VRAM to allow concurrent model loads" ([Ollama's FAQ](https://docs.ollama.com/faq), checked October 2026).
+
+\`ollama ps\` answers where a model landed. It lists what is loaded with a SIZE column and a PROCESSOR column. The FAQ prints its own sample.`,
+        },
+        {
+          type: 'artifact',
+          heading: { title: `ollama ps sample output` },
+          artifact: {
+            file: `docs.ollama.com/faq`,
+            lang: 'text',
+            source: 'https://docs.ollama.com/faq',
+            lines: [
+              'NAME        ID            SIZE    PROCESSOR   UNTIL',
+              'llama3:70b  bcfb190ca3a7  42 GB   100% GPU    4 minutes from now',
+            ],
+          },
+        },
+        {
+          type: 'prose',
+          body: `\`100% GPU\` means the model sits entirely in the card, and \`100% CPU\` means entirely in system memory. A mixed figure such as \`48%/52% CPU/GPU\` means part of it is in each. That column is the measurement to take before sizing a machine. Load the model you intend to run, read the row, and the size on screen is the one to plan around.
+
+The second default to set is the context window. "By default, Ollama uses a context window size of 4096 tokens", and \`OLLAMA_CONTEXT_LENGTH\` changes it. A job that carries a system prompt, a tool schema and the previous call's output spends that window quickly. An agent makes many calls per task.
+
+## What travels with the model, and what stays above it
+
+Tool calling travels with the model, and it is the part of that layer an agent cannot do without. Ollama's support is qualified by model: compatible models support function calling, with tool-choice controls listed as not fully supported. An agent whose plan depends on \`tool_choice\` meets that limit before it meets anything else.
+
+Everything above the model stays where it was. Skills are files in the repo (\`skills/<name>/SKILL.md\`), loaded by the agent's harness, not a setting in the model. Connector credentials are brokered server-side and never enter the machine. The agents, their permissions and the review that gates finished work live in the same repository ([the Kortix docs](https://kortix.com/docs/guide), checked October 2026).
+
+The third-party route keeps the agent layer inside Anthropic's product and moves only where inference runs. A local model under Kortix changes that same layer and leaves the rest in a checkout you own.`,
+        },
+        {
+          type: 'prose',
+          body: `## What each route asks of you
 
 | | Kortix | Desktop on 3P | Cowork, first-party |
 | --- | --- | --- | --- |
@@ -2986,6 +3048,21 @@ Some teams want the model choice, the agents, the skills and the memory in one s
               id: `sandbox`,
               question: `Does the Cowork sandbox change when inference moves?`,
               answer: `No. In the 3P mode, shell commands still run in the hardened Cowork VM, file access stays scoped to your allowed folders, and web fetches follow the egress allowlist. What changes is where prompts, files and tool output are sent.`,
+            },
+            {
+              id: `local-models`,
+              question: `Which local models can sit behind Claude Cowork's contract?`,
+              answer: `Any model a local server can serve, reached as \`/v1/messages\` on the machine that holds it. Ollama covers a subset of the Anthropic Messages API, LM Studio serves the endpoint directly on \`http://localhost:1234\`, and LiteLLM fronts providers that speak something else. The model still has to fit the machine's memory.`,
+            },
+            {
+              id: `hardware`,
+              question: `What hardware does a local setup need?`,
+              answer: `Enough memory for the model, which is system memory for CPU inference and VRAM for GPU inference. Ollama's FAQ states the floor that way, and \`ollama ps\` reports the memory the model actually landed in.`,
+            },
+            {
+              id: `tools-and-skills`,
+              question: `Do tools and skills work when the model runs locally?`,
+              answer: `Tool calling does, with limits. Compatible models support function calling, and tool-choice controls are listed as not fully supported. Skills are files in the repo and load through the harness. Connector credentials stay server-side. A local model changes which weights answer, not what the agent may do.`,
             },
           ],
         },

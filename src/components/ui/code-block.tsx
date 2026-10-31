@@ -61,6 +61,33 @@ const TOKEN_CLASS: Record<TokClass, string> = {
 const INK = { ink: 'text-ink', cap: 'text-cap' } as const;
 void INK;
 
+/**
+ * A plate whose lines carry internal runs of spaces is a printed table or a file tree: its columns
+ * are the information, so it must not reflow and runs to the plate's own horizontal scroller
+ * (`whitespace-pre`). Every other plate wraps at its spaces — never inside a token, so a long
+ * address stays whole — and any token wider than the plate scrolls.
+ */
+function preservesLines(artifact: Artifact): boolean {
+  /* One line with a double space is ordinary spacing (a shell comment sits two spaces after a
+     command); columns show up as several such lines. */
+  return artifact.lines.filter((line) => /\S {2,}\S/.test(line)).length >= 2;
+}
+
+/**
+ * A plate whose first line is a column header and whose rows all split into that many fields is a
+ * printed table (`NAME / SIZE / PROCESSOR`). At the one-column width its aligned rows cannot fit,
+ * so below 640px the same lines are re-presented as labelled rows: identical characters, planted
+ * label above value, no scroller and no clipped cell.
+ */
+function columnTable(artifact: Artifact): { head: string[]; rows: string[][] } | null {
+  if (artifact.lang !== 'text' || artifact.lines.length < 2) return null;
+  const split = (line: string) => line.trim().split(/ {2,}/);
+  const head = split(artifact.lines[0]!);
+  if (head.length < 3) return null;
+  const rows = artifact.lines.slice(1).map(split);
+  return rows.every((row) => row.length === head.length) ? { head, rows } : null;
+}
+
 function CodeLine({ line, lang }: { line: string; lang: Artifact['lang'] }): ReactNode {
   if (line === '') return ' ';
   if (lang === 'diff') {
@@ -118,6 +145,8 @@ export function CodeBlock({
   className?: string;
   footer?: ReactNode;
 }) {
+  const preserve = preservesLines(artifact);
+  const table = columnTable(artifact);
   return (
     <figure className={cn('border-terminal-row bg-terminal-surface flex min-w-0 flex-col overflow-hidden rounded-lg border', className)}>
       {artifact.file ? (
@@ -126,23 +155,51 @@ export function CodeBlock({
           {artifact.copyText ? <CopyButton text={artifact.copyText} /> : null}
         </figcaption>
       ) : null}
-      <div className={cn('min-h-0 flex-1 overflow-x-auto px-4 py-3.5 sm:px-5 sm:py-4', size === 'hero' && 'sm:py-5')}>
+      <div
+        className={cn(
+          'min-h-0 flex-1 px-4 py-3.5 sm:px-5 sm:py-4',
+          size === 'hero' && 'sm:py-5',
+          table && 'hidden sm:block',
+        )}
+      >
         <pre className={cn('font-mono leading-relaxed', size === 'hero' ? 'text-xs sm:text-sm' : 'text-xs')}>
           <code>
             {artifact.lines.map((line, i) => (
-              <span key={i} className="block whitespace-pre-wrap break-words">
+              <span
+                key={i}
+                className={cn(
+                  'block whitespace-pre-wrap [overflow-wrap:anywhere]',
+                  preserve && 'sm:whitespace-pre sm:[overflow-wrap:normal]',
+                )}
+              >
                 <CodeLine line={line} lang={artifact.lang} />
               </span>
             ))}
           </code>
         </pre>
       </div>
+      {table ? (
+        <div className="min-h-0 flex-1 space-y-3 px-4 py-3.5 sm:hidden">
+          {table.rows.map((row, r) => (
+            <dl key={r} className="grid grid-cols-[minmax(0,auto)_minmax(0,1fr)] gap-x-3 gap-y-0.5">
+              {row.map((value, i) => (
+                <div key={i} className="contents">
+                  <dt className="text-cap text-xs break-words">{table.head[i]}</dt>
+                  <dd className="text-ink min-w-0 font-mono text-xs [overflow-wrap:anywhere]">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          ))}
+        </div>
+      ) : null}
       {footer ??
         (artifact.source ? (
-          <div className="border-terminal-row border-t px-4 text-xs">
-            <a {...linkProps({ href: artifact.source })} className="text-cap hover:text-ink flex min-h-11 min-w-0 flex-wrap items-center gap-1.5">
-              <span>Source:</span>{' '}
-              <span className="min-w-0 font-mono break-all">{artifact.source}</span>
+          /* The address wraps inside the plate's own column: a plate never scrolls sideways,
+             and no character of the source URL is clipped. */
+          <div className="border-terminal-row border-t px-4 py-1 text-xs">
+            <a {...linkProps({ href: artifact.source })} className="text-cap hover:text-ink flex min-h-11 min-w-0 items-center gap-1.5">
+              <span className="shrink-0 whitespace-nowrap">Source:</span>{' '}
+              <span className="font-mono min-w-0 [word-break:break-all]">{artifact.source}</span>
             </a>
           </div>
         ) : null)}

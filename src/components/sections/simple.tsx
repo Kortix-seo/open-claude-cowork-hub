@@ -17,8 +17,52 @@ import { cn } from '@/lib/utils';
 import { HB, HB_MEASURE } from '@/components/hb';
 import { site } from '@/lib/config';
 
-export function ArtifactSection({ section }: { section: ArtifactConfig }) {
-  const headingId = `${section.id ?? 'artifact'}-title`;
+/**
+ * The exhibit plate, in the two places a plate can sit.
+ *  - `plateLabel` off: the plate opens a section, so its label is a section head (SectionHeader,
+ *    h2, thumb-tab and hairline) and the exhibit hangs under it.
+ *  - `plateLabel` on: the plate sits inside a chapter that is already running, between two prose
+ *    blocks. Its label is then plate-level — an h3 at plate-label ink, no tab, no hairline, no
+ *    section padding — so the chapter's own h2 stays the only section head on the outline and the
+ *    prose after the plate still reads as the same section.
+ */
+export function ArtifactSection({
+  section,
+  plateLabel = false,
+  labelId,
+}: {
+  section: ArtifactConfig;
+  plateLabel?: boolean;
+  /** Unique heading id from the page (a page may carry several plates). */
+  labelId?: string;
+}) {
+  const headingId = section.id ? `${section.id}-title` : (labelId ?? 'artifact-title');
+
+  if (plateLabel) {
+    return (
+      <section id={section.id} aria-labelledby={headingId} data-plate="inline">
+        <div className={HB}>
+          <Reveal className="w-full max-w-3xl">
+            <h3 id={headingId} className="text-foreground-weak mb-3 text-sm font-medium text-balance">
+              {section.heading.title}
+            </h3>
+            {section.heading.sub ? (
+              <p className="text-muted-foreground mb-3 max-w-2xl text-sm leading-relaxed text-pretty">
+                <Inline text={section.heading.sub} />
+              </p>
+            ) : null}
+            <CodeBlock artifact={section.artifact} className="kx-shadow-card" />
+            {section.caption ? (
+              <p className="text-muted-foreground mt-4 max-w-2xl text-sm leading-relaxed text-pretty">
+                <Inline text={section.caption} />
+              </p>
+            ) : null}
+          </Reveal>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id={section.id} aria-labelledby={headingId} className="border-border border-b py-10 md:py-14">
       <div className={HB}>

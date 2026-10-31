@@ -19,7 +19,7 @@ import { Inline } from '@/components/ui/rich-text';
 import { site } from '@/lib/config';
 import { HB } from '@/components/hb';
 
-function renderSection(section: Section, page: Page): ReactNode {
+function renderSection(section: Section, page: Page, previous?: Section, index = 0): ReactNode {
   switch (section.type) {
     case 'hero':
       return <Hero section={section} page={page} />;
@@ -40,7 +40,14 @@ function renderSection(section: Section, page: Page): ReactNode {
     case 'prose':
       return <ProseSection section={section} />;
     case 'artifact':
-      return <ArtifactSection section={section} />;
+      /* A plate that follows a prose block sits inside that chapter: its label is plate-level. */
+      return (
+        <ArtifactSection
+          section={section}
+          plateLabel={previous?.type === 'prose'}
+          labelId={`artifact-${page.slug || 'home'}-${index}-title`}
+        />
+      );
     case 'use-cases':
       return <UseCasesSection section={section} />;
     case 'code-panels':
@@ -78,7 +85,7 @@ export function PageView({ page }: { page: Page }) {
       {heroFirst ? null : <PageHeader page={page} />}
       {page.sections.map((section, i) => (
         <div key={`${section.type}-${i}`} data-section={section.type}>
-          {renderSection(section, page)}
+          {renderSection(section, page, i > 0 ? page.sections[i - 1] : undefined, i)}
         </div>
       ))}
     </main>
