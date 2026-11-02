@@ -344,13 +344,81 @@ html:not(.js) [data-kx-panel] {
 
 /* ── Narrow screens: code never clips, and never splits an address ───────
    Inline code inside running copy wraps, because the paragraph around it
-   can take no sideways movement. Plate lines (the exhibit figure) keep
-   `whitespace-pre-wrap` and drop the forced break: a long token such as a
-   base URL runs to the plate's own horizontal scroller, so it stays whole
-   instead of splitting mid-address. Colours and type sizes are untouched. */
+   can take no sideways movement. A plate line wraps at its spaces too and
+   hangs at its own indent; `overflow-wrap:anywhere` only fires for a token
+   wider than the column, such as a schema URL with no space in it.
+   Colours and type sizes are untouched. */
 @media (max-width: 639.98px) {
   code:not(pre code) {
     white-space: pre-wrap;
     overflow-wrap: anywhere;
+  }
+}
+
+/* ── Exhibits: a plate line hangs at its own indent ──────────────────────
+   Each line of a plate carries `--plate-hang`, its count of leading spaces
+   in `ch`. The line's text starts at that column and, when it wraps, every
+   continuation starts there too — so a continuation of an indented line
+   never falls back to column 0 and reads as a new top-level entry. */
+.kx-plate-line {
+  margin-inline-start: var(--plate-hang, 0);
+}
+
+/* ── Exhibits: aligned plates on a wide screen ───────────────────────────
+   A file tree or a printed table keeps its aligned columns from 640px up
+   (below that it is re-presented as stacked rows, so a phone never drags a
+   plate sideways). This scroller is that wide-screen safety only; its
+   scrollbar is thin and speaks in the plate's own inks. */
+.kx-plate-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-cap) var(--terminal-caption);
+}
+.kx-plate-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.kx-plate-scroll::-webkit-scrollbar-track {
+  background: var(--terminal-caption);
+}
+.kx-plate-scroll::-webkit-scrollbar-thumb {
+  background: var(--terminal-cap);
+  border-radius: 999px;
+}
+.kx-plate-scroll:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+
+/* ── Consent, as a bar ───────────────────────────────────────────────────
+   The starter's consent card is styled inline in layout.tsx (plumbing this
+   site cannot change) and injected at runtime under id `kx-consent` whenever
+   the fleet's GA4 id is present — so this rule has an element to act on in
+   production, even though a local build with no GA4 id shows none. On a phone
+   it collapses to a bottom bar: full width, no side margin, message on its
+   own line, two thumb-sized buttons under it, so it stops covering the hero
+   figure while staying readable and legal. */
+@media (max-width: 639.98px) {
+  #kx-consent {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    gap: 6px 10px !important;
+    border-radius: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+  }
+  #kx-consent > span {
+    flex: 1 1 100% !important;
+  }
+  #kx-consent > button {
+    flex: 1 1 0 !important;
+    min-height: 40px !important;
+    padding: 4px 12px !important;
+    font-size: 12px !important;
   }
 }

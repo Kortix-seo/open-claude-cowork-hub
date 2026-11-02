@@ -8,7 +8,7 @@
  * ink, diff rows take the two earned status hues.
  */
 import { CheckIcon, CopyIcon } from '@phosphor-icons/react/dist/ssr';
-import { useCallback, useState, type ReactNode } from 'react';
+import { useCallback, useState, type CSSProperties, type ReactNode } from 'react';
 import type { Artifact } from '@/config/types';
 import { cn, linkProps } from '@/lib/utils';
 
@@ -62,30 +62,59 @@ const INK = { ink: 'text-ink', cap: 'text-cap' } as const;
 void INK;
 
 /**
- * A plate whose lines carry internal runs of spaces is a printed table or a file tree: its columns
- * are the information, so it must not reflow and runs to the plate's own horizontal scroller
- * (`whitespace-pre`). Every other plate wraps at its spaces — never inside a token, so a long
- * address stays whole — and any token wider than the plate scrolls.
+ * How a plate's lines are laid out. A plate never scrolls sideways at a phone width: the reader
+ * gets every character in the one column.
+ *  - `flow`: prose-like lines (a manifest, a shell transcript, a paragraph). Each line wraps at its
+ *    spaces and hangs at its own indent, so a continuation of an indented line never falls back to
+ *    column 0 and reads as a new top-level entry.
+ *  - `tree`: a directory listing whose entries carry an aligned description. Its columns cannot
+ *    survive a 390px column, so below 640px each entry is re-presented as a path row and a
+ *    description row, the same way the comparison bands stack.
+ *  - `table`: a printed table (`NAME / SIZE / PROCESSOR`). Below 640px its rows become labelled
+ *    label-above-value pairs.
  */
-function preservesLines(artifact: Artifact): boolean {
-  /* One line with a double space is ordinary spacing (a shell comment sits two spaces after a
-     command); columns show up as several such lines. */
-  return artifact.lines.filter((line) => /\S {2,}\S/.test(line)).length >= 2;
+type Presentation =
+  | { kind: 'flow' }
+  | { kind: 'tree'; rows: { path: string; desc: string }[] }
+  | { kind: 'table'; head: string[]; rows: string[][] };
+
+/** A line's fields, split on the runs of spaces that draw a column gap. */
+function fields(line: string): string[] {
+  return line.trim().split(/ {2,}/);
 }
 
-/**
- * A plate whose first line is a column header and whose rows all split into that many fields is a
- * printed table (`NAME / SIZE / PROCESSOR`). At the one-column width its aligned rows cannot fit,
- * so below 640px the same lines are re-presented as labelled rows: identical characters, planted
- * label above value, no scroller and no clipped cell.
- */
-function columnTable(artifact: Artifact): { head: string[]; rows: string[][] } | null {
-  if (artifact.lang !== 'text' || artifact.lines.length < 2) return null;
-  const split = (line: string) => line.trim().split(/ {2,}/);
-  const head = split(artifact.lines[0]!);
-  if (head.length < 3) return null;
-  const rows = artifact.lines.slice(1).map(split);
-  return rows.every((row) => row.length === head.length) ? { head, rows } : null;
+/** The line's leading spaces, counted in characters (the plate sets the hang in `ch`). */
+function leadingSpaces(line: string): number {
+  return /^ */.exec(line)![0].length;
+}
+
+function presentationOf(artifact: Artifact): Presentation {
+  if (artifact.lang !== 'text' || artifact.lines.length < 2) return { kind: 'flow' };
+  const [first, ...rest] = artifact.lines as [string, ...string[]];
+  const trimmed = first.trim();
+
+  /* A file tree: a root line ending in `/` and every entry split into path + description. */
+  if (trimmed.endsWith('/') && fields(trimmed).length === 1) {
+    const entries = rest.map(fields);
+    if (entries.every((row) => row.length === 2 && row[0] !== '' && row[1] !== '')) {
+      return {
+        kind: 'tree',
+        rows: [
+          { path: trimmed, desc: '' },
+          ...entries.map(([path, desc]) => ({ path: path!, desc: desc! })),
+        ],
+      };
+    }
+  }
+
+  /* A printed table: a header row of three or more fields that every row repeats. */
+  const head = fields(first);
+  if (head.length >= 3) {
+    const rows = rest.map(fields);
+    if (rows.every((row) => row.length === head.length)) return { kind: 'table', head, rows };
+  }
+
+  return { kind: 'flow' };
 }
 
 function CodeLine({ line, lang }: { line: string; lang: Artifact['lang'] }): ReactNode {
@@ -145,8 +174,10 @@ export function CodeBlock({
   className?: string;
   footer?: ReactNode;
 }) {
-  const preserve = preservesLines(artifact);
-  const table = columnTable(artifact);
+  const view = presentationOf(artifact);
+  const table = view.kind === 'table' ? view : null;
+  const tree = view.kind === 'tree' ? view : null;
+  const columns = view.kind !== 'flow';
   return (
     <figure className={cn('border-terminal-row bg-terminal-surface flex min-w-0 flex-col overflow-hidden rounded-lg border', className)}>
       {artifact.file ? (
@@ -159,25 +190,55 @@ export function CodeBlock({
         className={cn(
           'min-h-0 flex-1 px-4 py-3.5 sm:px-5 sm:py-4',
           size === 'hero' && 'sm:py-5',
-          table && 'hidden sm:block',
+          /* A tree or a table keeps its aligned columns on a wide screen only. Below 640px it is
+             re-presented as stacked rows (next block), never as a sideways scroller. */
+          columns && 'hidden sm:block',
+          columns && 'kx-plate-scroll overflow-x-auto',
         )}
+        tabIndex={columns ? 0 : undefined}
       >
         <pre className={cn('font-mono leading-relaxed', size === 'hero' ? 'text-xs sm:text-sm' : 'text-xs')}>
           <code>
-            {artifact.lines.map((line, i) => (
-              <span
-                key={i}
-                className={cn(
-                  'block whitespace-pre-wrap [overflow-wrap:anywhere]',
-                  preserve && 'sm:whitespace-pre sm:[overflow-wrap:normal]',
-                )}
-              >
-                <CodeLine line={line} lang={artifact.lang} />
-              </span>
-            ))}
+            {artifact.lines.map((line, i) => {
+              const hang = leadingSpaces(line);
+              /* The indent becomes the line's own margin, so it starts in the same column and a
+                 wrap continues there. Trailing spaces would hang past the edge at a soft wrap and
+                 are invisible anyway; the plate keeps no whitespace it cannot show. */
+              const text = line.slice(hang).replace(/[ \t]+$/, '');
+              return (
+                <span
+                  key={i}
+                  className={cn(
+                    'kx-plate-line block whitespace-pre-wrap [overflow-wrap:anywhere]',
+                    /* Aligned plates on a wide screen: the columns are the information. */
+                    columns && 'w-max min-w-full whitespace-pre [overflow-wrap:normal]',
+                  )}
+                  /* A wrapped line hangs at the indent it started from, so its continuation can
+                     never sit at column 0 and read as a new top-level entry. */
+                  style={{ '--plate-hang': `${hang}ch` } as CSSProperties}
+                >
+                  <CodeLine line={text} lang={artifact.lang} />
+                </span>
+              );
+            })}
           </code>
         </pre>
       </div>
+      {tree ? (
+        /* Path row, then description row, per entry: the comparison band's stack, in the plate. */
+        <ol className="divide-terminal-row sm:hidden divide-y">
+          {tree.rows.map((row, r) => (
+            <li key={r} className="px-4 py-2 first:pt-3.5 last:pb-3.5">
+              <span className="text-ink block font-mono text-xs [overflow-wrap:anywhere]">{row.path}</span>
+              {row.desc ? (
+                <span className="text-cap mt-0.5 block text-xs leading-relaxed [overflow-wrap:anywhere]">
+                  {row.desc}
+                </span>
+              ) : null}
+            </li>
+          ))}
+        </ol>
+      ) : null}
       {table ? (
         <div className="min-h-0 flex-1 space-y-3 px-4 py-3.5 sm:hidden">
           {table.rows.map((row, r) => (
@@ -194,12 +255,18 @@ export function CodeBlock({
       ) : null}
       {footer ??
         (artifact.source ? (
-          /* The address wraps inside the plate's own column: a plate never scrolls sideways,
-             and no character of the source URL is clipped. */
+          /* The address wraps inside the plate's own column: on a phone the label takes its own
+             row and the whole URL sits under it as one block, broken at a slash when it must be
+             broken, never scrolled and never clipped. */
           <div className="border-terminal-row border-t px-4 py-1 text-xs">
-            <a {...linkProps({ href: artifact.source })} className="text-cap hover:text-ink flex min-h-11 min-w-0 items-center gap-1.5">
+            <a
+              {...linkProps({ href: artifact.source })}
+              className="text-cap hover:text-ink flex min-h-11 min-w-0 items-center gap-1.5 max-sm:flex-col max-sm:items-start max-sm:gap-0 max-sm:py-1"
+            >
               <span className="shrink-0 whitespace-nowrap">Source:</span>{' '}
-              <span className="font-mono min-w-0 [word-break:break-all]">{artifact.source}</span>
+              <span className="font-mono min-w-0 [overflow-wrap:anywhere] [word-break:normal] max-sm:w-full">
+                {artifact.source}
+              </span>
             </a>
           </div>
         ) : null)}
