@@ -8,8 +8,8 @@
     "updated": "2026-11-02"
   },
   "claude-cowork-alternative-free": {
-    "hash": "79021f86b6b97ea8",
-    "updated": "2026-11-02"
+    "hash": "90584221e35bd6ec",
+    "updated": "2026-11-03"
   },
   "claude-cowork-alternative-google": {
     "hash": "79c1620fa08ff22b",
@@ -48,8 +48,8 @@
     "updated": "2026-10-31"
   },
   "claude-cowork-memory": {
-    "hash": "1650b20cd21af03e",
-    "updated": "2026-11-02"
+    "hash": "e31947d0c3d3c508",
+    "updated": "2026-11-03"
   },
   "claude-cowork-plugins": {
     "hash": "47a3ad463f3d05d3",
@@ -92,8 +92,8 @@
     "updated": "2026-11-02"
   },
   "is-claude-cowork-open-source": {
-    "hash": "7db99fc2faaf7e3c",
-    "updated": "2026-11-02"
+    "hash": "9f5fb182d794a912",
+    "updated": "2026-11-03"
   },
   "migrate-from-claude-cowork": {
     "hash": "a970e6b2ec490a5f",
@@ -132,7 +132,7 @@
     "updated": "2026-11-02"
   },
   "what-is-claude-cowork": {
-    "hash": "87cb8326f799866e",
-    "updated": "2026-11-02"
+    "hash": "ec8847c553697472",
+    "updated": "2026-11-03"
   }
 }

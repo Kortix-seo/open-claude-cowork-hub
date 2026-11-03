@@ -773,7 +773,7 @@ In Kortix, memory is a folder. The [Kortix docs](https://kortix.com/docs) descri
 
 Because memory is a file, a change to it arrives the way every other change does. "Session work reaches \`main\` through a change request. Merge is default-deny for agents." A person reads the diff before it lands, and that review is where a wrong lesson gets caught before it becomes policy. Who can read the folder is an ordinary permission question: "Per-resource permissions for people and agents. Roles, groups, and an audit trail." [The security and approvals page](/claude-cowork-security-and-approvals) takes the gate apart.
 
-Placement stays a choice. "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free." And the property that matters when a vendor renames a product, merges it, or changes its plan: "Open source. Read it, fork it, audit it." What that covers is set out on [the page about whether Claude Cowork is open source](/is-claude-cowork-open-source).
+Placement stays a choice. "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free." And the property that matters when a vendor renames a product, merges it, or changes its plan: "Open source: read it, fork it, audit it." What that covers is set out on [the page about whether Claude Cowork is open source](/is-claude-cowork-open-source).
 
 Removing a person is then a permissions change, and their notes stay in the repo with every earlier version of each memory file. An account setting keeps no such record: it holds a switch position, not a history a reviewer can read.
 
@@ -1956,22 +1956,20 @@ Notion AI works inside pages, docs, tasks and databases in Notion's own workspac
       sections: [
         {
           type: 'artifact',
-          heading: { title: 'The comparison rows, in the README anyone can open' },
+          heading: { title: 'What the Kortix README says about open source, self-hosting and models' },
           artifact: {
             file: 'README.md',
             lang: 'text',
             source: 'https://github.com/kortix-ai/suna/blob/dev/README.md',
             lines: [
-              'How it compares',
-              'Claude Cowork, ChatGPT Work, Kortix CompanyOS',
-              'Source — Closed, Closed, Open source: read it, fork it, audit it.',
-              'Models — Anthropic only, OpenAI only, Any provider, your own API keys.',
-              'Where it runs — Anthropic\'s cloud or its cloud partners, no self-host, OpenAI\'s cloud, no self-host, Our cloud, your VPC, or your own on-prem network.',
-              'Your configuration — In their product, In their product, Files in a git repo you own.',
-              'Competitor rows reflect publicly documented behavior as of July 2026.',
+              'The open-source CompanyOS: the cloud-native agent harness for companies.',
+              'Open source, any model, on your infrastructure or ours.',
+              'Kortix Cloud, your VPC or your own on-prem network, from the same images.',
+              'Open source: read it, fork it, audit it. Self-host in your VPC or on-prem. Any model provider with your own keys.',
+              'Kortix CompanyOS is self-hosting native: one Docker Compose stack in your cloud account, your VPC or on your own servers, from the same images the managed cloud runs.',
             ],
           },
-          caption: 'Kortix prints this contrast in its own repository, where a visitor can check it line by line.',
+          caption: 'Every line is copied from the public Kortix README, where a visitor can open the file and check it line by line.',
         },
         {
           type: 'prose',
@@ -1991,7 +1989,7 @@ The answer was no before the merge; the merge removed the single codebase that c
 
 Open source has two parts a buyer can check: source anyone can open, so you can see what the agent does before it touches real work, and a stack that installs on hardware you control, built from that same source. Claude Cowork offers neither, and after the merge it cannot, because there is no Cowork codebase to publish.
 
-Kortix is built the other way. It is the open-source CompanyOS, and its README carries the one-liner: "Open source. Read it, fork it, audit it." The [Kortix docs](https://kortix.com/docs) define a project as a git repo with kortix.yaml at its root. The agents, skills, memory, tools, triggers and connectors are files in it. Hosting stays a choice: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free."
+Kortix is built the other way. It is the open-source CompanyOS, and its README carries the one-liner: "Open source: read it, fork it, audit it." The [Kortix docs](https://kortix.com/docs) define a project as a git repo with kortix.yaml at its root. The agents, skills, memory, tools, triggers and connectors are files in it. Hosting stays a choice: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free."
 
 The next question is what to move to. The [migration guide](https://opensourceclaudecowork.com/migrate-from-claude-cowork) on this site gives the order of steps that avoids rework. The [Kortix vs Claude Cowork](https://kortix.com/blog/kortix-vs-claude-cowork) post on the Kortix blog covers the trade in more depth. For the definition itself, [what Claude Cowork is](/what-is-claude-cowork) starts from Anthropic's own pages, and [the projects on GitHub](/claude-cowork-github-projects) sort the open rebuilds by what each repo keeps.`,
         },
@@ -4271,7 +4269,7 @@ The download gives one person a working agent for nothing, on one machine and th
 
 ## The free software: Kortix, free because you host it
 
-Kortix is the open-source CompanyOS, and its configuration is a git repo the company owns. Its README puts the terms in one line: "Open source. Read it, fork it, audit it." Where it runs is your choice: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free." Hardware you already own never sees an invoice from the platform.
+Kortix is the open-source CompanyOS, and its configuration is a git repo the company owns. Its README puts the terms in one line: "Open source: read it, fork it, audit it." Where it runs is your choice: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free." Hardware you already own never sees an invoice from the platform.
 
 The install docs' own Requirements section lists what a self-hosted instance needs, and three items on that list cost money somewhere: the server, the sandbox provider, the model provider. None of them bills through Kortix: the sandbox key goes to the provider that supplies each session's cloud computer, and that provider is Platinum. "Sessions run on Platinum sandboxes, not on the server," [the docs](https://kortix.com/docs/developers#self-hosting) say. The list is explicit: "A Platinum API key (\`PLATINUM_API_KEY\`). Without it, sessions do not start."
 
@@ -4787,7 +4785,7 @@ Kortix takes the other route. The environment is a git repo, and the manifest si
           type: 'prose',
           body: `The mode, the model and the permission sit in the manifest, in that agent's own block, and the file and the block are read together. Changing what the agent does, or what it is allowed to do, is a diff somebody can read and review before it lands, with the reason written next to it. The session gets its own checkout on a branch, and the machine it boots is a cloud computer the agent works on and saves to ([Computers](https://kortix.com/docs/guide#computers)). What makes the arrangement hold is that a change the agent makes to the project is not final until a person merges it ([Agents](https://kortix.com/docs/guide#agents)).
 
-Open source is what makes the arrangement checkable. "Open source. Read it, fork it, audit it." You can read the loop, read the permission model, and run the whole thing where you choose: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free."
+Open source is what makes the arrangement checkable. "Open source: read it, fork it, audit it." You can read the loop, read the permission model, and run the whole thing where you choose: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free."
 
 ## The test that settles the choice
 
