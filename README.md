@@ -103,7 +103,7 @@ Text fields accept inline markdown: `**bold**`, `` `code` ``, `[link](url)`.
   trust: 'Open source · Any model, your keys · Self-host, VPC, or on-prem',
   layout: 'subject' }   // 'subject' (split, default) | 'texture' (centered, wide artifact below) | 'field' (artifact pane bleeding to the edge)
 ```
-The three `layout` values are the three artifact states of kortix-brand `magic_trick.md`. On a keyword site use the state the site registered (`site_design_register artifact_state`), so sibling sites don't share one hero.
+The three `layout` values are the three artifact states of brand `magic_trick.md`. On a keyword site use the state the site registered (`site_design_register artifact_state`), so sibling sites don't share one hero.
 
 **`logo-strip`**: monochrome marks in labelled rows. Ported from `logo-strip.tsx`. Glyph ids: `claude openai gemini github gmail linear teams notion slack`.
 ```ts
@@ -145,7 +145,7 @@ The three `layout` values are the three artifact states of kortix-brand `magic_t
 **`open-source`**: a large star count with a count-up and a stylised curve. Ported from `open-source-section.tsx`, `star-count.tsx` and `star-chart.tsx`. The number is static, from config.
 ```ts
 { type: 'open-source', stars: { value: 20000, suffix: '+', caption: 'GitHub stars' }, title: 'Open source. Read it, fork it, audit it.',
-  links: [{ label: 'Read the source', href: 'https://github.com/kortix-ai/suna', nofollow: true }] }
+  links: [{ label: 'Read the source', href: 'https://github.com/kortix-ai/CompanyOS', nofollow: true }] }
 ```
 
 **`faq`**: an accordion plus FAQPage JSON-LD. Ported from `faq-section.tsx`.

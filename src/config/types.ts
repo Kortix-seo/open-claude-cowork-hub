@@ -65,7 +65,7 @@ export type HeroSection = {
   /** Mono small print under everything. */
   trust?: string;
   /**
-   * How the hero sets its artifact: the three states of kortix-brand magic_trick.md. Each keyword
+   * How the hero sets its artifact: the three states of brand magic_trick.md. Each keyword
    * site registers one (site_design_register artifact_state) and its hero uses that layout, so
    * sibling sites don't share one hero.
    * - `subject` (default): headline and copy on the left, the artifact framed on the right.

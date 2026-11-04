@@ -10,7 +10,7 @@ import type { Cta, Link, SiteConfig } from './src/config/types';
 /* ── shared kit links ────────────────────────────────────────────────────── */
 
 const TRY_KORTIX: Cta = { label: 'Try Kortix', href: 'https://kortix.com', nofollow: true, variant: 'primary' };
-const KORTIX_GITHUB: Link = { label: 'Kortix on GitHub', href: 'https://github.com/kortix-ai/suna', nofollow: true };
+const KORTIX_GITHUB: Link = { label: 'Kortix on GitHub', href: 'https://github.com/kortix-ai/CompanyOS', nofollow: true };
 const KORTIX_DOCS: Link = { label: 'Read the docs', href: 'https://kortix.com/docs', nofollow: true };
 
 const cta = (label: string, href: string): Cta => ({ label, href, nofollow: /^https?:\/\/kortix\.com/.test(href), variant: 'secondary' });
@@ -164,11 +164,12 @@ const site: SiteConfig = {
               lang: 'text',
               source: 'https://kortix.com/docs/guide',
               lines: [
-                'Your company\'s agents, skills and settings live in one shared repository. Kortix keeps it safe from unreviewed changes:',
+                'Your agents, skills and settings live in the project’s shared repository. Kortix keeps it safe from unreviewed changes:',
                 'Each session works on its own branch, a private copy of the repository.',
-                'When the agent finishes, it opens a change request. A change request asks to merge that branch into the shared one.',
+                'When the agent finishes, it opens a change request: a request to merge that branch into the shared one.',
+                'The change request appears on the Review page.',
                 'A person reads the changes and approves, closes, or asks for changes.',
-                'An agent can merge its own change request only with the merge permission.',
+                'An agent can merge its own change request only when it holds the merge permission.',
               ],
             },
           ],
@@ -354,7 +355,7 @@ Self-hosting Kortix is one Docker Compose stack on a Linux box you control. The 
 
 ## What you can review
 
-The five lines in the hero artifact are the whole gate, read top to bottom. A session works in its own sandbox on a branch of its own, and the agent commits there before opening a change request against the default branch. A person with the merge permission reads it and merges it. Nothing merges itself: work reaches \`main\` through a change request a person approves, unless an admin granted the merge capability. That capability is the \`project.gitops.merge\` grant, and an admin is the one who grants it. Without that grant, the merge waits for a person. Anthropic's side of that gate depends on the plan. Auto is the default on Pro, Max, Ultra and Team, where Claude keeps working and automated safety checks run before each action. Manual is the default on Enterprise, where it asks before each action and the person allows each one ([the Claude Help Center](https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude)). The difference is where the gate sits: here it is the repo's own merge path, on hardware you hold.
+The six lines in the hero artifact are the whole gate, read top to bottom. A session works in its own sandbox on a branch of its own, and the agent commits there before opening a change request against the default branch. A person with the merge permission reads it and merges it. Nothing merges itself: work reaches \`main\` through a change request a person approves, unless an admin granted the merge capability. That capability is the \`project.gitops.merge\` grant, and an admin is the one who grants it. Without that grant, the merge waits for a person. Anthropic's side of that gate depends on the plan. Auto is the default on Pro, Max, Ultra and Team, where Claude keeps working and automated safety checks run before each action. Manual is the default on Enterprise, where it asks before each action and the person allows each one ([the Claude Help Center](https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude)). The difference is where the gate sits: here it is the repo's own merge path, on hardware you hold.
 
 ## Where the choice stands
 
@@ -728,10 +729,14 @@ If the appeal is working on your own files rather than on a system that runs ser
             lang: 'text',
             source: 'https://kortix.com/docs/guide',
             lines: [
-              'Memory in Company, every project member.',
-              'Memory in your own folder, only you. Each agent keeps its notes in its own subfolder.',
-              'Memory in a channel\'s folder, the channel\'s members. Only when the Channels feature is on.',
-              'The project repository can hold memory too: a memory/ folder with MEMORY.md as its index. Agents edit it with their file tools, and every edit lands through a change request.',
+              'Memory folder Who reads it',
+              'Memory in My files Only you and your sessions.',
+              'Each agent keeps its notes about you in its own subfolder.',
+              'Memory in a channel’s folder The channel’s members.',
+              'Channels are experimental and off by default.',
+              'The project repository can hold memory too:',
+              'a memory/ folder with MEMORY.md as its index, for what the project is and how it works.',
+              'Agents edit it with their file tools, and every edit lands through a change request.',
             ],
           },
           caption:
@@ -1071,10 +1076,12 @@ The kind decides which projects belong on the shortlist. Agent steps inside an a
             source: 'https://kortix.com/docs/developers',
             lines: [
               'my-agent/',
-              '├── kortix.yaml        the manifest: one agent and its grants',
-              '├── agents/            the agent\'s prompt: worker.md',
-              '├── skills/            11 skills, one folder each, with a SKILL.md',
-              '├── memory/MEMORY.md   the project memory',
+              '├── kortix.yaml the manifest: the agent `worker` and its grants',
+              '├── agents/ the agent\'s prompt: worker.md',
+              '├── skills/ 11 skills, one folder each, with a SKILL.md',
+              '├── memory/MEMORY.md the project memory',
+              '├── README.md',
+              '└── .gitignore',
             ],
           },
         },
@@ -1144,8 +1151,8 @@ The sessions themselves never sit on your server. Every session runs on Platinum
 The self-hosting docs keep the setup short. You need a Linux server with a public IP, DNS pointed at it, ports 80 and 443 open, and a Platinum API key (\`PLATINUM_API_KEY\`). Setup asks for a domain, an admin email and that key. It does not ask for a model key. You connect your model provider in the app after the first sign-in: any model provider with your own keys. On a bare box, one bootstrap script installs Docker, the CLI and the stack together:
 
 \`\`\`sh
-curl -fsSL https://github.com/kortix-ai/suna/raw/dev/scripts/kortix-selfhost-up.sh \\
-  | bash -s -- --domain kortix.example.com --email ops@example.com
+curl -fsSL https://raw.githubusercontent.com/kortix-ai/CompanyOS/dev/scripts/kortix-selfhost-up.sh \\
+  | bash -s -- --domain kortix.example.com --email ops@example.com --platinum-key <platinum_api_key>
 \`\`\`
 
 A first trial needs no DNS at all. The docs' tunnel mode runs the stack on your own machine and publishes only the API through a Cloudflare tunnel. That is enough to judge the system before you point a production domain at it. Where everything runs stays your choice afterwards: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free." Whichever you pick, the repo is the part that survives, so keep it on storage you control and back up the instance directory beside it. The [self-hosting walkthrough](/self-hosting) on this site takes each step with its flags, and the [getting-started walkthrough](https://kortix.com/blog/getting-started-with-kortix) covers the first project and first session.`,
@@ -1277,12 +1284,13 @@ A first trial needs no DNS at all. The docs' tunnel mode runs the stack on your 
             lang: 'text',
             source: 'https://kortix.com/docs/guide',
             lines: [
-              '/workspace holds this session\'s files, kept for the life of the session.',
-              '/drives (Drive) holds your files and the company\'s files, shared across sessions and kept until deleted.',
-              'Anything else (home directory, /tmp, installed packages) can be gone when the session reopens. Put tools in a sandbox template.',
+              '/workspace holds the session’s files for the life of the session.',
+              '/drives holds your Drive files, shared across sessions and kept until you delete them.',
+              'Anything else (the home directory, /tmp , installed packages) can be gone when the session wakes.',
+              'Put tools in a sandbox template.',
             ],
           },
-          caption: 'The guide\'s own account: the session\'s files last the session, Drive lasts until deleted, and anything else can be gone when it reopens.',
+          caption: 'The guide\'s own account: the session\'s files last the session, Drive lasts until deleted, and anything else can be gone when the session wakes.',
         },
         {
           type: 'prose',
@@ -1314,7 +1322,7 @@ Kortix, the open-source CompanyOS, is built for the hybrid, and the same wiring 
 
 ## The tooling layer is the workspace
 
-Kortix keeps that second layer in one git repo: agents, their skills, company memory, connector rules and triggers sit there as files you can read, diff and back up. A session is one agent run. One isolated sandbox per session. Each session has its own isolated machine and branch. The guide states what a session keeps: \`/workspace\` holds this session's files, kept for the life of the session, and anything else can be gone when the session reopens. The reference adds the branch: a session with \`workspace.project_repository: true\` checks out the repository in \`/workspace\`, on its own session branch. A chat interface has no equivalent contract, because it has nothing to commit into.
+Kortix keeps that second layer in one git repo: agents, their skills, company memory, connector rules and triggers sit there as files you can read, diff and back up. A session is one agent run. One isolated sandbox per session. Each session has its own isolated machine and branch. The guide states what a session keeps: \`/workspace\` holds this session's files, kept for the life of the session, and anything else can be gone when the session wakes. The reference adds the branch: a session with \`workspace.project_repository: true\` checks out the repository in \`/workspace\`, on its own session branch. A chat interface has no equivalent contract, because it has nothing to commit into.
 
 ## How the work gets approved
 
@@ -1769,8 +1777,9 @@ If the work can live in the vendor's app, pick the chat product you already pay 
             lang: 'text',
             source: 'https://kortix.com/docs/guide',
             lines: [
-              'A model is the AI an agent runs on. Use Kortix-managed models, your own provider keys, a ChatGPT subscription, or a Claude subscription.',
-              'Set a project default, a model per agent, or a model for one session.',
+              'A model is the AI an agent runs on.',
+              'You can use Kortix-managed models, your own provider keys, a ChatGPT subscription or a Claude subscription.',
+              'Set a default for the project, pin a model to an agent, or pick one for a single session.',
               'Every model request goes through the Kortix LLM gateway, which applies budgets, access rules and cost reports.',
               'When a request runs on your own key or subscription, your provider bills it. Every plan, Free included, can use your own key or a ChatGPT subscription.',
             ],
@@ -1960,13 +1969,12 @@ Notion AI works inside pages, docs, tasks and databases in Notion's own workspac
           artifact: {
             file: 'README.md',
             lang: 'text',
-            source: 'https://github.com/kortix-ai/suna/blob/dev/README.md',
+            source: 'https://github.com/kortix-ai/CompanyOS/blob/dev/README.md',
             lines: [
               'The open-source CompanyOS: the cloud-native agent harness for companies.',
               'Open source, any model, on your infrastructure or ours.',
               'Kortix Cloud, your VPC or your own on-prem network, from the same images.',
               'Open source: read it, fork it, audit it. Self-host in your VPC or on-prem. Any model provider with your own keys.',
-              'Kortix CompanyOS is self-hosting native: one Docker Compose stack in your cloud account, your VPC or on your own servers, from the same images the managed cloud runs.',
             ],
           },
           caption: 'Every line is copied from the public Kortix README, where a visitor can open the file and check it line by line.',
@@ -2127,7 +2135,7 @@ A rebuilt job runs as a session. One isolated sandbox per session. Each session 
 
 ## An order that loses no work
 
-The starter agent file every Kortix session boots from states the constraint in one line: "Only what you commit + push survives." The file, agents/worker.md, ships in [Kortix on GitHub](https://github.com/kortix-ai/suna). Uncommitted work disappears when a session ends. Whatever exists only inside the Claude account is the material most at risk, so this order writes it down and commits it before anything is rebuilt.
+The starter agent file every Kortix session boots from states the constraint in one line: "Only what you commit + push survives." The file, agents/worker.md, ships in [Kortix on GitHub](https://github.com/kortix-ai/CompanyOS). Uncommitted work disappears when a session ends. Whatever exists only inside the Claude account is the material most at risk, so this order writes it down and commits it before anything is rebuilt.
 
 1. Capture what no export reproduces. For each Cowork project, write out its instructions, the connector it calls and the cadence it runs on, and copy the memory Claude holds into a file with the memory export. The merge took the deadline off this step, since the work carries over inside Claude. It stays first anyway: it is the only material that arrives as prose somebody has to write.
 2. Commit the capture before building. Create the repo, save the inventory as a markdown file, and push. Every later step rebuilds from a file on your own disks instead of from what someone remembers.
@@ -2918,14 +2926,15 @@ Run the decision as three questions instead of a feature count. A team that live
             lang: 'text',
             source: 'https://kortix.com/docs/guide',
             lines: [
-              'A model is the AI an agent runs on. Use Kortix-managed models, your own provider keys, a ChatGPT subscription, or a Claude subscription.',
-              'Set a project default, a model per agent, or a model for one session.',
+              'A model is the AI an agent runs on.',
+              'You can use Kortix-managed models, your own provider keys, a ChatGPT subscription or a Claude subscription.',
+              'Set a default for the project, pin a model to an agent, or pick one for a single session.',
               'Every model request goes through the Kortix LLM gateway, which applies budgets, access rules and cost reports.',
               'A self-hosted Kortix has no managed models. Connect your own providers there.',
               'A provider key belongs to the whole project.',
             ],
           },
-          caption: 'Five lines from the Models section of the Kortix docs, quoted as they read.',
+          caption: 'Six lines from the Models section of the Kortix docs, quoted as they read.',
         },
         {
           type: 'prose',
@@ -3113,10 +3122,9 @@ Some teams want the model choice, the agents, the skills and the memory in one s
             lang: 'text',
             source: `https://kortix.com/docs/guide`,
             lines: [
-              `Every session starts its own isolated machine, called a sandbox.`,
-              `The agent works there on its own branch of the project's repository.`,
-              `By default, a session can push only to its own branch.`,
-              `Its work reaches the shared repository only when a person merges its change request.`,
+              `Every session starts its own isolated cloud computer, called a sandbox.`,
+              `The agent works there on its own branch of the project’s repository.`,
+              `By default, a session can push only to its own branch, and its work reaches the shared repository only when a person merges its change request.`,
             ],
           },
           caption: `The guide's security section on a session's own machine: it takes its own branch, can push only there, and a person's merge is what reaches the shared repository.`,
@@ -3296,7 +3304,7 @@ Kortix is the open-source CompanyOS. Agents, skills, memory, and connectors live
 
 Who can read what gets a structural answer. Connector credentials are brokered server-side and never enter the machine. Secrets are encrypted at rest with a key per project. Every action is recorded. Reading, exporting and streaming the audit log depend on the plan. The docs put numbers on the retention: 90 days of audit events live, up to 365 days in the archive.
 
-The code is public on [Kortix on GitHub](https://github.com/kortix-ai/suna), and the configuration is files in that repo, so the mechanism behind each answer can be checked instead of trusted. For the connector layer specifically, [how to give agents tool access safely](https://kortix.com/blog/secure-ai-agent-tool-access) on the Kortix blog walks the policy mechanics. When you are ready to run it, [self-hosting Kortix](https://opensourceclaudecowork.com/self-hosting) starts the install. [The teams page](https://opensourceclaudecowork.com/claude-cowork-for-teams) covers who approves and who can read once a shared account is involved.`,
+The code is public on [Kortix on GitHub](https://github.com/kortix-ai/CompanyOS), and the configuration is files in that repo, so the mechanism behind each answer can be checked instead of trusted. For the connector layer specifically, [how to give agents tool access safely](https://kortix.com/blog/secure-ai-agent-tool-access) on the Kortix blog walks the policy mechanics. When you are ready to run it, [self-hosting Kortix](https://opensourceclaudecowork.com/self-hosting) starts the install. [The teams page](https://opensourceclaudecowork.com/claude-cowork-for-teams) covers who approves and who can read once a shared account is involved.`,
         },
         {
           type: 'faq',
@@ -3569,7 +3577,7 @@ Anthropic's connector controls are set per connector and per organization. Owner
 
 Kortix treats the same problem as a file and a service boundary. Its connector layer reaches "3,000+ apps in a click, plus MCP, OpenAPI, Postman, GraphQL and raw HTTP", so an internal API connects through the same layer as a marketplace app. Connector credentials are brokered server-side and never enter the machine. That broker is part of the stack you run: "Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free." Where the credential sits becomes a deployment decision, and a self-hosted instance keeps it inside your own network.
 
-The second half is per-agent. Grants live in \`kortix.yaml\` beside the code. An omitted connectors grant resolves to none, so a scoped agent starts locked down. One agent can hold the full catalog while another holds none. The file a reviewer reads is the file the agent runs from. Per-resource permissions for people and agents. Roles, groups, and an audit trail. That record is what lets a reviewer trace which agent held which credential. The docs excerpt shows the rule: Kortix stores the login, and the login never enters the agent's computer. [Securing AI agent tool access](https://kortix.com/blog/secure-ai-agent-tool-access) takes the policy question further, the [self-hosting guide](/self-hosting) covers the install, and the source is public at [Kortix on GitHub](https://github.com/kortix-ai/suna).`,
+The second half is per-agent. Grants live in \`kortix.yaml\` beside the code. An omitted connectors grant resolves to none, so a scoped agent starts locked down. One agent can hold the full catalog while another holds none. The file a reviewer reads is the file the agent runs from. Per-resource permissions for people and agents. Roles, groups, and an audit trail. That record is what lets a reviewer trace which agent held which credential. The docs excerpt shows the rule: Kortix stores the login, and the login never enters the agent's computer. [Securing AI agent tool access](https://kortix.com/blog/secure-ai-agent-tool-access) takes the policy question further, the [self-hosting guide](/self-hosting) covers the install, and the source is public at [Kortix on GitHub](https://github.com/kortix-ai/CompanyOS).`,
         },
         {
           type: 'faq',
@@ -3671,12 +3679,14 @@ The second half is per-agent. Grants live in \`kortix.yaml\` beside the code. An
             lang: 'text',
             source: 'https://kortix.com/docs/guide',
             lines: [
-              'Behavior — its instructions, its model, and its rules for which tools it may use freely, use after asking, or never use.',
-              'Access — the connectors, secrets, skills, Apps, Kortix permissions and project repository it may use.',
-              'Access is deny-by-default. An agent gets no connector, secret, skill, App or project repository until you grant it.',
+              'An agent has two halves:',
+              'Behavior. Its instructions, its model, and its rules for which tools it may use freely, use after asking, or never use.',
+              'Access. The connectors, secrets, skills, Apps, Kortix permissions and project repository it may use.',
+              'Access is denied by default.',
+              'An agent gets no connector, secret, skill, App or project repository until you grant it.',
             ],
           },
-          caption: 'The guide splits an agent into behavior and access, then states the default: access is deny-by-default, so a grant the file never names is a grant the agent does not get.',
+          caption: 'The guide splits an agent into behavior and access, then states the default: access is denied by default, and an agent gets nothing until a grant names it.',
         },
         {
           type: 'prose',
@@ -4239,13 +4249,13 @@ Staying inside Anthropic on a paid plan keeps Claude Cowork, which since Septemb
             lang: 'text',
             source: "https://kortix.com/docs/developers#self-hosting",
             lines: [
-              'A self-hosted instance is the full Kortix platform on a server you control: one Docker Compose stack that the kortix self-host CLI installs, configures and updates.',
-              'Sessions run on Platinum sandboxes, not on the server.',
-              'Requirements',
+              'A self-hosted instance is the full Kortix platform on a server you control.',
+              'One Docker Compose stack holds it, and the kortix self-host command installs, configures and updates that stack.',
+              'Sessions run on Platinum sandboxes, not on the server, so the instance must be reachable from the internet for those sandboxes to call back.',
               'A Linux server with a public IP. The bootstrap installs Docker Engine and the Compose plugin.',
-              'DNS. A or AAAA records for <domain> and api.<domain>, both pointed at the server, before the first start.',
+              'DNS. A or AAAA records for <domain> and api.<domain> , both pointed at the server, before the first start.',
               'Ports 80 and 443 open inbound.',
-              'A Platinum API key (PLATINUM_API_KEY). Without it, sessions do not start and projects have no Drive.',
+              'A Platinum API key ( PLATINUM_API_KEY ). Without it, sessions do not start and projects have no Drive.',
               'A model provider key. You add it in the web app after the first sign-in.',
             ],
           },
@@ -4437,7 +4447,7 @@ Kortix takes the other end of the split. The repo is the unit of ownership. Open
 
 A project is a git repo with \`kortix.yaml\` at its root, and the manifest holds the pieces that decide how sessions run: sandbox templates, tool lists, agent grants and triggers ([Read the docs](https://kortix.com/docs)). The block holds behavior and grants; the markdown file holds the prompt. Change a grant and the change is a diff someone can review.
 
-Sessions do not run on the box that hosts the stack. The self-host README says: "Agent sessions still run on Platinum, a cloud sandbox provider set with \`PLATINUM_API_KEY\`." It adds that sandboxes are "managed compute, not part of this box". The [README](https://github.com/kortix-ai/suna/blob/dev/self-host/README.md) puts the split in its opening paragraph and names Platinum as the provider the sessions run on (checked 1 November 2026). What stays on your disks is the stack and the instance directory: the database, the stored files and the secrets. What stays in your git is the configuration that defines the fleet. Power-cycle the host and the stack returns from the instance directory; the agents return from the repo.
+Sessions do not run on the box that hosts the stack. The self-host README says: "Agent sessions still run on Platinum, a cloud sandbox provider set with \`PLATINUM_API_KEY\`." It adds that sandboxes are "managed compute, not part of this box". The [README](https://github.com/kortix-ai/CompanyOS/blob/dev/self-host/README.md) puts the split in its opening paragraph and names Platinum as the provider the sessions run on (checked 1 November 2026). What stays on your disks is the stack and the instance directory: the database, the stored files and the secrets. What stays in your git is the configuration that defines the fleet. Power-cycle the host and the stack returns from the instance directory; the agents return from the repo.
 
 The harness is where model choice lives. Sessions run on pi, and a project can point at a custom OpenAI-compatible endpoint: open the Custom tab, enter a provider id, a name, the base URL and one or more models, and Kortix stores the endpoint in the project ([Read the docs](https://kortix.com/docs/guide#models), checked October 2026). A model id is \`<id>/<model>\`, and both harnesses can use its models. Any model provider with your own keys. A self-hosted instance has no managed models, so each project connects its own provider.
 
@@ -4592,7 +4602,7 @@ Connector credentials are brokered server-side and never enter the machine. The 
 
 The Compose project on your server runs the web app, the API, the LLM gateway, the database, auth and storage. None of those services executes an agent turn. Each session runs on Platinum, the reference sandbox provider: \`kortix-api\` creates the sandbox with your \`PLATINUM_API_KEY\`, and the sandbox calls back to the instance's public API URL. The [self-hosting docs](https://kortix.com/docs/developers#self-hosting) put the split in one line: "Sessions run on Platinum sandboxes, not on the server."
 
-The [self-host README](https://github.com/kortix-ai/suna/blob/dev/self-host/README.md) states the consequence without softening it: sandboxes are "managed compute, not part of this box". Platinum is the provider its opening paragraph names, and \`PLATINUM_API_KEY\` is the setting the sandboxes run on (checked 1 November 2026).
+The [self-host README](https://github.com/kortix-ai/CompanyOS/blob/dev/self-host/README.md) states the consequence without softening it: sandboxes are "managed compute, not part of this box". Platinum is the provider its opening paragraph names, and \`PLATINUM_API_KEY\` is the setting the sandboxes run on (checked 1 November 2026).
 
 You hold the file, the review and the stack. You rent the machine, per session, on Platinum, with a key that is yours. A security reviewer will ask both questions, and they have different answers.
 
@@ -4695,7 +4705,7 @@ Its safety page puts the limit in one line: "Isolation limits where Claude's cod
           type: 'comparison',
           heading: { title: 'Where the setup lives, and who keeps it', sub: "When a person leaves, what their work stays attached to decides the rest." },
           columns: [
-            { id: 'kortix', label: 'Kortix', highlight: true, href: 'https://github.com/kortix-ai/suna', nofollow: true },
+            { id: 'kortix', label: 'Kortix', highlight: true, href: 'https://github.com/kortix-ai/CompanyOS', nofollow: true },
             { id: 'claude-cowork', label: 'Claude Cowork', href: 'https://claude.com/product/cowork' },
             { id: 'openwork', label: 'OpenWork', href: 'https://github.com/different-ai/openwork' },
           ],
@@ -4840,7 +4850,7 @@ On the open-source side the answer survives the third step: the repo is still yo
             sub: "Each repo is read by the keys it asks for and where the skills are kept.",
           },
           columns: [
-            { id: 'kortix', label: 'Kortix', highlight: true, href: 'https://github.com/kortix-ai/suna', nofollow: true },
+            { id: 'kortix', label: 'Kortix', highlight: true, href: 'https://github.com/kortix-ai/CompanyOS', nofollow: true },
             { id: 'openwork', label: 'OpenWork', href: 'https://github.com/different-ai/openwork' },
             { id: 'open-claude-cowork', label: 'Open Claude Cowork', href: 'https://github.com/composio-community/open-claude-cowork' },
             { id: 'open-cowork', label: 'Open Cowork', href: 'https://github.com/OpenCoworkAI/open-cowork' },
@@ -5028,7 +5038,7 @@ None of the complaints is about features. Each is about where the thing runs, wh
             sub: "Three ways to arrive at the same shortlist, and who is answerable for each.",
           },
           columns: [
-            { id: 'kortix', label: 'Kortix', highlight: true, href: 'https://github.com/kortix-ai/suna', nofollow: true },
+            { id: 'kortix', label: 'Kortix', highlight: true, href: 'https://github.com/kortix-ai/CompanyOS', nofollow: true },
             { id: 'desktop-app', label: 'A desktop app named in a thread' },
             { id: 'vendor-list', label: 'The first entry on a vendor list' },
           ],
@@ -5375,7 +5385,7 @@ When the authority for an action is a setting inside the product, the evidence o
 
 An auditable system starts with where the permissions are written. In Kortix an agent is one \`agents.<name>\` block in \`kortix.yaml\`: its prompt or prompt file, its model, mode and permission, and what it may reach. The reference is blunt about the default: "Omitted means none." ([the kortix.yaml reference](https://kortix.com/docs/developers#kortixyaml-reference)). A permission change is a diff a colleague can read.
 
-Grants fail closed by default. The guide says what that means in practice: "Access is deny-by-default. An agent gets no connector, secret, skill, App or project repository until you grant it." ([the agents guide](https://kortix.com/docs/guide#agents)). Access set in a console is a checkbox somebody ticked. Access written in a repo is a line somebody wrote and somebody else merged.
+Grants fail closed by default. The guide says what that means in practice: "Access is denied by default. An agent gets no connector, secret, skill, App or project repository until you grant it." ([the agents guide](https://kortix.com/docs/guide#agents)). Access set in a console is a checkbox somebody ticked. Access written in a repo is a line somebody wrote and somebody else merged.
 
 A two-minute run of Kortix, [agent permissions as files](https://www.youtube.com/watch?v=XAmfUqvQwQE), shows the fail-closed rule at a terminal: \`kortix init northwind\` writes the project, a grant swapped for a permission that does not exist makes \`kortix validate\` fail at the exact path naming it, and the corrected file validates clean.
 

@@ -1,27 +1,27 @@
 {
   "": {
-    "hash": "d938b69bccf96033",
-    "updated": "2026-11-02"
+    "hash": "c592232cb9c5e919",
+    "updated": "2026-11-04"
   },
   "ai-agent-orchestration": {
     "hash": "44804904f307a525",
     "updated": "2026-11-02"
   },
   "claude-cowork-alternative-free": {
-    "hash": "90584221e35bd6ec",
-    "updated": "2026-11-03"
+    "hash": "de1f5c097a1de738",
+    "updated": "2026-11-04"
   },
   "claude-cowork-alternative-google": {
     "hash": "79c1620fa08ff22b",
     "updated": "2026-11-02"
   },
   "claude-cowork-alternatives": {
-    "hash": "ba4a763411b1f244",
-    "updated": "2026-11-02"
+    "hash": "5e30e80a4d8a8072",
+    "updated": "2026-11-04"
   },
   "claude-cowork-data-privacy": {
-    "hash": "657ba03483e896c5",
-    "updated": "2026-11-02"
+    "hash": "47369fe08be42588",
+    "updated": "2026-11-04"
   },
   "claude-cowork-for-mac": {
     "hash": "fc7044b797bb4bca",
@@ -32,24 +32,24 @@
     "updated": "2026-11-02"
   },
   "claude-cowork-for-windows": {
-    "hash": "2ae8ebdf1999dd4f",
-    "updated": "2026-11-02"
+    "hash": "9cdea1ef2397de17",
+    "updated": "2026-11-04"
   },
   "claude-cowork-github-projects": {
-    "hash": "275c9c18a8caf9e4",
-    "updated": "2026-10-30"
+    "hash": "f32c585c8b7d9343",
+    "updated": "2026-11-04"
   },
   "claude-cowork-integrations": {
-    "hash": "2b72070a137772e0",
-    "updated": "2026-11-02"
+    "hash": "179538f5d9b07221",
+    "updated": "2026-11-04"
   },
   "claude-cowork-local-llm": {
-    "hash": "c2644a5e9da037b4",
-    "updated": "2026-10-31"
+    "hash": "537835e352575bf2",
+    "updated": "2026-11-04"
   },
   "claude-cowork-memory": {
-    "hash": "e31947d0c3d3c508",
-    "updated": "2026-11-03"
+    "hash": "f0b3a50fe5455070",
+    "updated": "2026-11-04"
   },
   "claude-cowork-plugins": {
     "hash": "47a3ad463f3d05d3",
@@ -76,8 +76,8 @@
     "updated": "2026-11-02"
   },
   "claude-cowork-vs-openclaw": {
-    "hash": "51a00c87380b8601",
-    "updated": "2026-11-02"
+    "hash": "1faf3c0c68900a09",
+    "updated": "2026-11-04"
   },
   "claude-cowork-vs-openwork": {
     "hash": "95554f559463d06f",
@@ -92,8 +92,8 @@
     "updated": "2026-11-02"
   },
   "is-claude-cowork-open-source": {
-    "hash": "9f5fb182d794a912",
-    "updated": "2026-11-03"
+    "hash": "fb2096841104a603",
+    "updated": "2026-11-04"
   },
   "migrate-from-claude-cowork": {
     "hash": "a970e6b2ec490a5f",
@@ -104,24 +104,24 @@
     "updated": "2026-11-02"
   },
   "open-source-claude-cowork-reddit": {
-    "hash": "9a2e38054f826f23",
-    "updated": "2026-10-30"
+    "hash": "4d8a777e4db4b193",
+    "updated": "2026-11-04"
   },
   "self-hosted-ai-agent": {
-    "hash": "5e50eee4144a6443",
-    "updated": "2026-11-02"
+    "hash": "74125c302263f38f",
+    "updated": "2026-11-04"
   },
   "self-hosted-ai-agent-platform": {
-    "hash": "353c99fc10c67767",
-    "updated": "2026-11-02"
+    "hash": "df298241020c8949",
+    "updated": "2026-11-04"
   },
   "self-hosted-ai-workspace": {
-    "hash": "6dad31ee8ca35991",
-    "updated": "2026-11-02"
+    "hash": "28913ad1dbdae2c6",
+    "updated": "2026-11-04"
   },
   "self-hosted-claude-code": {
-    "hash": "ae5af122a728ff7e",
-    "updated": "2026-11-02"
+    "hash": "a42a824c80e3c247",
+    "updated": "2026-11-04"
   },
   "self-hosting": {
     "hash": "ed37056cc6fbd2dd",
@@ -132,7 +132,7 @@
     "updated": "2026-11-02"
   },
   "what-is-claude-cowork": {
-    "hash": "ec8847c553697472",
-    "updated": "2026-11-03"
+    "hash": "804adec8c98b7e50",
+    "updated": "2026-11-04"
   }
 }

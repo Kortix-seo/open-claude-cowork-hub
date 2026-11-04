@@ -54,7 +54,7 @@ const site: SiteConfig = {
               file: 'kortix.yaml',
               lang: 'yaml',
               lines: ['# kortix.yaml', 'triggers:', '  - slug: daily-digest', '    type: cron', "    cron: '0 0 9 * * 1-5'"],
-              source: 'README.md in https://github.com/kortix-ai/suna',
+              source: 'README.md in https://github.com/kortix-ai/CompanyOS',
             },
             {
               file: 'terminal',

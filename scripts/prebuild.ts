@@ -95,7 +95,7 @@ ${pages}
 
 - [Kortix](https://kortix.com): The open-source CompanyOS.
 - [Kortix docs](https://kortix.com/docs): installing, self-hosting and configuring Kortix.
-- [Kortix on GitHub](https://github.com/kortix-ai/suna): the open-source repository.
+- [Kortix on GitHub](https://github.com/kortix-ai/CompanyOS): the open-source repository.
 `;
 }
 
