@@ -19,7 +19,7 @@ const site: SiteConfig = {
   domain: 'opensourceclaudecowork.com',
   siteName: 'Open Source Claude Cowork',
   description:
-    'An independent handbook of open-source alternatives to Claude Cowork: what you can read, what you can host, and what you can review. It recommends Kortix, the open-source CompanyOS.',
+    "Kortix is my pick for an open-source Claude Cowork alternative you can read, self-host and review; I work at Kortix, so weigh that accordingly.",
   updated: '2026-10-25',
   lang: 'en',
   accent: '#1e3a8a',
@@ -68,7 +68,7 @@ const site: SiteConfig = {
   ],
   footer: {
     blurb:
-      'The self-hosting handbook: an independent guide to open-source alternatives to Claude Cowork, built around three checks, what you can read, what you can host, and what you can review. Our recommendation is Kortix, the open-source CompanyOS.',
+      "The self-hosting handbook: a guide to open-source alternatives to Claude Cowork, built around three checks, what you can read, what you can host, and what you can review. Kortix, the open-source CompanyOS, is my pick, and I work at Kortix, so weigh that accordingly.",
     columns: [
       {
         title: 'Start here',
@@ -150,7 +150,7 @@ const site: SiteConfig = {
       metaDescription:
         'Kortix is the open-source alternative to Claude Cowork you can read, self-host on your own hardware, and review through a change request.',
       h1: "An open-source CompanyOS that you host yourself",
-      lead: "Claude Cowork became part of Claude on September 16, 2026, and the question that remains is where the work runs. Kortix is the open-source CompanyOS: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers.",
+      lead: "Claude Cowork became part of Claude on September 16, 2026, and the question is where the work runs. Kortix is the open-source CompanyOS: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers, and it is my pick; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'hero',
@@ -414,7 +414,7 @@ Reaching the capability got easier on September 16: open Claude and hand it a ta
       metaDescription:
         'There is no self-hosted Claude Cowork. The open source stack that runs instead makes the install the easy half of the move.',
       h1: 'Self-hosting a Claude Cowork replacement: open source covers the easy half',
-      lead: 'No. Anthropic publishes no build of Claude Cowork you can host. On a Claude plan it runs in a Claude account or in your own Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry account, and its third-party deployment mode moves inference and billing to a provider the organization configures rather than a service the team operates. Anthropic folded the name into Claude on September 16, 2026, and Kortix, the open-source CompanyOS, is the stack to run instead.',
+      lead: "No: Anthropic publishes no build of Claude Cowork you can host. On a Claude plan it runs in a Claude account or in your own Amazon Bedrock, Gemini Enterprise Agent Platform or Microsoft Foundry account, and its third-party deployment mode moves inference and billing to a provider the organization configures rather than a service the team operates. Anthropic folded the name into Claude on September 16, 2026, and Kortix, the open-source CompanyOS, is the stack I would run instead; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -596,7 +596,7 @@ Two routes stay outside this install. One is staying on Claude, which keeps chat
       metaDescription:
         'Claude Cowork plugins are forkable files inside a product you do not host. Kortix, the open-source CompanyOS, keeps those parts in your repo.',
       h1: 'Claude Cowork plugins are open source; the runtime is not',
-      lead: 'A Claude Cowork plugin is a folder of markdown and JSON that tells Claude how a role gets done: skills, slash commands, connectors, and sub-agents in one package. Kortix, the open-source CompanyOS, keeps the same four things as files in a git repo you own.',
+      lead: "A Claude Cowork plugin is a folder of markdown and JSON that tells Claude how a role gets done: skills, slash commands, connectors, and sub-agents in one package. Kortix, the open-source CompanyOS, is my pick and keeps the same four things as files in a git repo you own; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'artifact',
@@ -719,7 +719,7 @@ If the appeal is working on your own files rather than on a system that runs ser
       metaDescription:
         "Cowork memory works in cloud sessions and not in local ones, per Anthropic's help center. Open source Kortix keeps project memory in a repo you own.",
       h1: 'Where Claude Cowork memory lives, and what open source keeps instead',
-      lead: "Yes, Claude Cowork has memory, but only when the session runs in the cloud: Anthropic's help center says sessions that run locally on your computer don't use memory. Kortix is the open-source CompanyOS, where project memory is files in a repository you own.",
+      lead: "Yes, Claude Cowork has memory, but only when the session runs in the cloud: Anthropic's help center says sessions that run locally on your computer don't use memory. Kortix is the open-source CompanyOS, my pick, where project memory is files in a repository you own; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'artifact',
@@ -837,7 +837,7 @@ The calculation changes with the second person. Two members, each starting with 
       metaDescription:
         'Open source agent platforms come in three kinds: a company platform, a framework, an autonomous agent. Kortix is the first, and its manifest is a file.',
       h1: 'Three kinds of open-source AI agent platform, one to own',
-      lead: 'The phrase open-source AI agent platform names three different kinds of software. A company platform, a framework, and an autonomous agent share the search results, and only one is built for a team to own and govern. Kortix is that one: open source, free to self-host, with the operating layer in a repo you own.',
+      lead: "The phrase open-source AI agent platform names three different kinds of software. A company platform, a framework, and an autonomous agent share the search results, and only one is built for a team to own and govern. Kortix is that one and my pick: open source, free to self-host, with the operating layer in a repo you own; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -1004,7 +1004,7 @@ The kind decides which projects belong on the shortlist. Agent steps inside an a
       metaDescription:
         'Judge a self-hosted AI agent platform by what survives a restart: the open-source Kortix keeps agents, memory and connector rules as repo files.',
       h1: 'The restart test for an open-source self-hosted AI agent platform',
-      lead: "Reboot the box and count what comes back: a self-hosted AI agent platform is judged by what survives. Kortix, the open-source CompanyOS, keeps one git repo: agents, skills, memory and connector rules as files, with kortix.yaml at the root. Three projects take the same test.",
+      lead: "Reboot the box and count what comes back: a self-hosted AI agent platform is judged by what survives. Kortix, the open-source CompanyOS, is my pick and keeps one git repo: agents, skills, memory and connector rules as files, with kortix.yaml at the root; I work at Kortix, so weigh that accordingly. Three projects take the same test.",
       sections: [
         {
           type: 'comparison',
@@ -1222,7 +1222,7 @@ A first trial needs no DNS at all. The docs' tunnel mode runs the stack on your 
       metaDescription:
         'A self-hosted AI workspace is two layers, model and tooling; here is what each costs to host and how the open-source Kortix stack covers both.',
       h1: 'A self-hosted AI workspace is two layers, one open source',
-      lead: 'A self-hosted AI workspace is two products wearing one name: the model that reasons, and the agent tooling that turns it into finished work. Most tools ship only the model. Kortix is open source and ships both: agents, memory and connectors in one git repo, self-hosted on your own server, with the model layer attached by key.',
+      lead: "A self-hosted AI workspace is two products wearing one name: the model that reasons, and the agent tooling that turns it into finished work. Most tools ship only the model. Kortix is open source and my pick, shipping both: agents, memory and connectors in one git repo, self-hosted on your own server, with the model layer attached by key; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -1377,7 +1377,7 @@ Start with the tooling layer, because the tooling is what the team owns and revi
       metaDescription:
         'Open-source AI agent orchestration where the review gate decides: triggers start sessions on their own branches, and merge is default-deny for agents.',
       h1: 'Open-source AI agent orchestration where the review gate decides',
-      lead: 'AI agent orchestration is coordination with a stop: triggers start sessions on their own branches, and merge is default-deny for agents. Kortix is open source, so the whole fleet is files in a repo you own, and the gate is a change request a person merges.',
+      lead: "AI agent orchestration is coordination with a stop: triggers start sessions on their own branches, and merge is default-deny for agents. Kortix is open source and my pick, so the whole fleet is files in a repo you own, and the gate is a change request a person merges; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -1567,7 +1567,7 @@ Orchestration is not always the answer. One agent in one session covers a lookup
       metaDescription:
         'Claude Cowork and ChatGPT Work record the work in different places. Compare who reviews it, who can audit it, and what an open source system changes.',
       h1: 'Claude Cowork vs ChatGPT Work: open source makes the audit yours',
-      lead: 'Claude Cowork and ChatGPT Work both became features of their makers\u0027 chat products in 2026. What separates them now is the audit: who sees what the agent did, and who can check the system it ran on. Kortix is the open-source alternative, its whole system in one git repo you own.',
+      lead: "Claude Cowork and ChatGPT Work both became features of their makers' chat products in 2026. What separates them now is the audit: who sees what the agent did, and who can check the system it ran on. Kortix is the open-source alternative and my pick, its whole system in one git repo you own; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -1712,7 +1712,7 @@ If the work can live in the vendor's app, pick the chat product you already pay 
       metaDescription:
         'After the September 2026 merge, choosing a Claude Cowork alternative means choosing where the capability runs; these are the open-source options.',
       h1: 'Open-source Claude Cowork alternatives, sorted by where they run',
-      lead: 'Claude Cowork merged into Claude on September 16, 2026, so the alternatives you compare now differ by where the capability runs. Three placements cover the open field: your desktop, your own infrastructure, and the vendor\u0027s cloud. Kortix is the open-source option for the second placement, a whole-company system in a git repo you own.',
+      lead: "Claude Cowork merged into Claude on September 16, 2026, so the alternatives you compare now differ by where the capability runs. Three placements cover the open field: your desktop, your own infrastructure, and the vendor's cloud. Kortix is the open-source option for the second placement and my pick, a whole-company system in a git repo you own; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -1961,7 +1961,7 @@ Notion AI works inside pages, docs, tasks and databases in Notion's own workspac
       metaDescription:
         'Claude Cowork is not open source: since the September 2026 merge the capability lives inside the closed Claude app, with no repo to read or host.',
       h1: 'Claude Cowork is not open source. What you can host instead',
-      lead: 'Claude Cowork is closed source. Since September 16, 2026 the capability lives inside the Claude app itself, so there is no repo to read and nothing to host on your own machine. Kortix is the open-source alternative, and its repository is public.',
+      lead: "Claude Cowork is closed source. Since September 16, 2026 the capability lives inside the Claude app itself, so there is no repo to read and nothing to host on your own machine. Kortix is the open-source alternative, my pick, and its repository is public; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'artifact',
@@ -2048,7 +2048,7 @@ The next question is what to move to. The [migration guide](https://opensourcecl
       metaDescription:
         'Claude exports chats and memory but not a project\u0027s setup in importable form, so the move is a rebuild as files in a repo you own, with open-source Kortix.',
       h1: 'Migrate from Claude Cowork: no importable export, an open-source rebuild',
-      lead: 'Claude hands back your chats as a bulk account export, your memory as a copyable file, and Enterprise session transcripts through the Compliance API. What no export carries is a project\u0027s instructions, connectors, skills and schedules in a form another platform can import. Kortix is open source. Rebuild that setup as files in a repo you own, one job at a time, in an order that loses nothing.',
+      lead: "Claude hands back your chats as a bulk account export, your memory as a copyable file, and Enterprise session transcripts through the Compliance API. What no export carries is a project's instructions, connectors, skills and schedules in a form another platform can import. Kortix is open source and my pick: rebuild that setup as files in a repo you own, one job at a time, in an order that loses nothing; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'code-panels',
@@ -2203,7 +2203,7 @@ After the first job merges, the rest of the setup follows the same path, one pro
       title: 'Claude Cowork has no price of its own; open source sells credits',
       metaDescription: 'Claude Cowork has no price of its own and rides Claude plans from $17 a month, while open source Kortix prices credits instead of seats.',
       h1: 'What Claude Cowork costs, and the open source route priced in credits',
-      lead: "Claude Cowork has no price of its own: you buy a Claude plan, and Cowork rides inside it from Pro at $17 a month. Kortix, the open-source alternative, prices credits rather than seats, so the bill tracks the work. The calculator runs the plan math.",
+      lead: "Claude Cowork has no price of its own: you buy a Claude plan, and Cowork rides inside it from Pro at $17 a month. Kortix, the open-source alternative, is my pick and prices credits rather than seats, so the bill tracks the work; I work at Kortix, so weigh that accordingly. The calculator runs the plan math.",
       sections: [
         {
           type: 'widget',
@@ -2354,7 +2354,7 @@ Self-hosting moves the question off the invoice. "Run it on Kortix Cloud, in you
       metaDescription:
         'OpenWork runs agent work on your desktop and Claude Cowork runs inside Claude. Kortix runs it server-side, reviews it before it lands, and is open source.',
       h1: 'Claude Cowork vs OpenWork: the open-source system with the review gate',
-      lead: 'OpenWork is a free, open-source desktop app for work on your own files, and Claude Cowork has been a capability of Claude since September 16, 2026. The choice between them is where the work runs and who reviews it. Kortix is the open-source option that runs the work server-side, behind a change request a person approves.',
+      lead: "OpenWork is a free, open-source desktop app for work on your own files, and Claude Cowork has been a capability of Claude since September 16, 2026. The choice between them is where the work runs and who reviews it. Kortix is the open-source option that runs the work server-side, behind a change request a person approves, and it is my pick; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -2501,7 +2501,7 @@ The [self-hosting guide](/self-hosting) walks the install, and the [alternatives
       metaDescription:
         'Both hosted workers run in a vendor\u0027s cloud; this open-source comparison of Claude Cowork and Perplexity Computer asks what you keep.',
       h1: 'Claude Cowork vs Perplexity Computer: the open source exit keeps your setup',
-      lead: 'Claude Cowork and Perplexity Computer hand a goal to an agent in the vendor\u0027s cloud and return polished deliverables. The comparison that decides anything is what each leaves you holding: your configuration, your history, your connector setup. Kortix is the open-source third option, and it keeps all three in one git repo you own.',
+      lead: "Claude Cowork and Perplexity Computer hand a goal to an agent in the vendor's cloud and return polished deliverables. The comparison that decides anything is what each leaves you holding: your configuration, your history, your connector setup. Kortix is the open-source third option, my pick, and it keeps all three in one git repo you own; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -2654,7 +2654,7 @@ Two deeper reads live on the Kortix blog. [Kortix vs Perplexity Computer](https:
       metaDescription:
         'Team plans get merged Cowork in beta behind an owner\u0027s switch. Open source governance covers who approves, who reads the record, and where it runs.',
       h1: 'Open-source governance for teams: who approves, who can read, where it runs',
-      lead: 'The Claude Team plan lists Claude Cowork today, and the merged experience reaches Team seats in beta, behind a switch an owner turns on. A team buying seats has to answer three things: who approves the work, who can read the record, and where it runs. Kortix is the open-source CompanyOS, built to answer all three.',
+      lead: "The Claude Team plan lists Claude Cowork today, and the merged experience reaches Team seats in beta, behind a switch an owner turns on. A team buying seats has to answer three things: who approves the work, who can read the record, and where it runs. Kortix is the open-source CompanyOS, my pick, built to answer all three; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -2775,7 +2775,7 @@ The merge made Cowork easier to reach. It changed nothing about who holds the ga
       metaDescription:
         'Compare Claude Cowork and Microsoft Copilot from the admin seat: who sets agent access, where the audit trail lives, and the open-source exit path.',
       h1: "Claude Cowork vs Microsoft Copilot: the admin's open-source comparison",
-      lead: "Claude Cowork and Microsoft Copilot both ride inside a vendor's suite: Cowork inside Claude, Copilot inside Microsoft 365. Read from the admin seat, they differ on who sets agent access, where the audit trail lands, and what you can take when you leave. Kortix is the open-source third option, and its answer is a repo you own.",
+      lead: "Claude Cowork and Microsoft Copilot both ride inside a vendor's suite: Cowork inside Claude, Copilot inside Microsoft 365. Read from the admin seat, they differ on who sets agent access, where the audit trail lands, and what you can take when you leave. Kortix is the open-source third option, my pick, and its answer is a repo you own; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -2916,7 +2916,7 @@ Run the decision as three questions instead of a feature count. A team that live
       title: `Claude Cowork with a local LLM: open source makes it a setting`,
       metaDescription: `Cowork can reach a model behind a gateway your organization runs, and Kortix is the open source stack where the endpoint is a project setting.`,
       h1: `Claude Cowork with a local LLM: open source owns the endpoint`,
-      lead: `Claude Cowork can reach a model your organization serves, through a managed deployment rather than a user setting. A third-party build points at a gateway you operate. Kortix is the open-source CompanyOS: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers.`,
+      lead: "Claude Cowork can reach a model your organization serves, through a managed deployment rather than a user setting. A third-party build points at a gateway you operate. Kortix is the open-source CompanyOS: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers, and it is my pick; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'artifact',
@@ -3112,7 +3112,7 @@ Some teams want the model choice, the agents, the skills and the memory in one s
       title: `Claude Cowork on Windows bills an admin install per PC to reach local folders; open source bills a browser`,
       metaDescription: `Claude Cowork on Windows needs admin rights and a per-PC install to reach local folders; open-source Kortix runs the session in a browser.`,
       h1: `Claude Cowork on Windows installs for local folders; Kortix is open source`,
-      lead: `Claude Cowork on Windows runs in a browser with nothing installed. A laptop that has to reach its own folders needs one download. The bill arrives when a team repeats that install across ten machines, each needing administrator rights and a Windows hypervisor feature. Kortix is the open-source CompanyOS, and the session runs on a cloud computer cloned from the repo rather than on the desk.`,
+      lead: "Claude Cowork on Windows runs in a browser with nothing installed, and a laptop that has to reach its own folders needs one download. The bill arrives when a team repeats that install across ten machines, each needing administrator rights and a Windows hypervisor feature. Kortix is the open-source CompanyOS, my pick, and the session runs on a cloud computer cloned from the repo rather than on the desk; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'artifact',
@@ -3258,7 +3258,7 @@ One person, one PC, files on that PC: Claude Cowork still fits, because the down
       metaDescription:
         'Claude Cowork keeps the session and its record inside Anthropic; open-source Kortix runs each session in a sandbox and keeps the review in your repo.',
       h1: 'Claude Cowork data privacy on open source infrastructure',
-      lead: 'Whether Claude Cowork is safe comes down to two questions: where the work executes, and who can read the record. Anthropic answers both inside its own service. Kortix is the open source system that answers them on infrastructure you own.',
+      lead: "Whether Claude Cowork is safe comes down to two questions: where the work executes, and who can read the record. Anthropic answers both inside its own service. Kortix is the open source system that answers them on infrastructure you own, and it is my pick; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'artifact',
@@ -3359,7 +3359,7 @@ The code is public on [Kortix on GitHub](https://github.com/kortix-ai/CompanyOS)
       metaDescription:
         'How to use Claude Cowork after the September 2026 merge: the setup steps, and the open-source way to decide what the agent may touch.',
       h1: 'How to use Claude Cowork, and the open-source way to set limits',
-      lead: 'Using Claude Cowork takes a paid plan and, for anything on your own machine, the desktop app open and connected; four steps start a task. The decision those steps never mention comes earlier: what the agent may touch. Kortix is open source, and it holds that same decision in files you own.',
+      lead: "Using Claude Cowork takes a paid plan and, for anything on your own machine, the desktop app open and connected; four steps start a task. The decision those steps never mention comes earlier: what the agent may touch. Kortix is open source, my pick, and it holds that same decision in files you own; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'code-panels',
@@ -3501,7 +3501,7 @@ Kortix runs that way, and where it runs is your call: Run it on Kortix Cloud, in
       metaDescription:
         'Claude Cowork connects through a connector directory and custom MCP; see how the open-source alternative keeps credentials server-side.',
       h1: 'Claude Cowork integrations: who holds the token, and what open source changes',
-      lead: "Claude Cowork reaches your tools through a Connectors Directory and custom MCP connectors, and each person signs in with their own account. Kortix, the open-source alternative, reaches 3,000+ apps plus raw HTTP with connector credentials brokered server-side. Reach and the holder of the credential are where the two differ.",
+      lead: "Claude Cowork reaches your tools through a Connectors Directory and custom MCP connectors, and each person signs in with their own account. Kortix, the open-source alternative, is my pick and reaches 3,000+ apps plus raw HTTP with connector credentials brokered server-side; I work at Kortix, so weigh that accordingly. Reach and the holder of the credential are where the two differ.",
       sections: [
         {
           type: 'comparison',
@@ -3632,7 +3632,7 @@ The second half is per-agent. Grants live in \`kortix.yaml\` beside the code. An
       metaDescription:
         'OpenClaw is a personal assistant on your own machine and Claude Cowork now lives inside Claude. Kortix puts a team\u0027s agents in an open source repo.',
       h1: "Claude Cowork vs OpenClaw: an open-source repo against one person's machine",
-      lead: "Claude Cowork and OpenClaw answer different questions: Cowork is Anthropic's hosted agent for knowledge work, and OpenClaw is an open-source personal assistant that runs on your own computer. Cowork as a standalone product ended on 16 September 2026, and the capability stayed inside Claude. For the company version of the question, Kortix is the open-source system a team owns and governs.",
+      lead: "Claude Cowork and OpenClaw answer different questions: Cowork is Anthropic's hosted agent for knowledge work, and OpenClaw is an open-source personal assistant that runs on your own computer. Cowork as a standalone product ended on 16 September 2026, and the capability stayed inside Claude. For the company version of the question, Kortix is the open-source system a team owns and governs, and it is my pick; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -3777,7 +3777,7 @@ For the wider argument, [Kortix vs OpenClaw](https://kortix.com/blog/kortix-vs-o
       metaDescription:
         'Claude Cowork and Claude Code are two jobs inside one Anthropic product. Kortix runs both from one repo, and its source is open.',
       h1: 'Claude Cowork vs Claude Code: two jobs, one open-source system',
-      lead: 'Claude Cowork and Claude Code have been two jobs inside one Anthropic product since the September 2026 merge: knowledge work, and code. Kortix is the open-source system a team owns that runs either job, in one git repo, self-hosted or on Kortix Cloud.',
+      lead: "Claude Cowork and Claude Code have been two jobs inside one Anthropic product since the September 2026 merge: knowledge work, and code. Kortix is the open-source system a team owns that runs either job, in one git repo, self-hosted or on Kortix Cloud, and it is my pick; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -3942,7 +3942,7 @@ The job decides first. If the work is code and the team lives in terminals, Clau
       metaDescription:
         'Claude Cowork on a Mac is the Claude Desktop app, and it stops at that machine. Kortix keeps the setup in a repo you own, open source and portable.',
       h1: "The Claude Cowork Mac app's reach ends where the open-source repo starts",
-      lead: "Claude Cowork's Mac app is the Claude Desktop app, and the desktop is where its file work is strongest: Claude reads and writes your local folders directly. That reach is also the tie: it needs the app open on that Mac. Kortix is the open-source alternative that keeps the setup in a repo, reachable from any machine.",
+      lead: "Claude Cowork's Mac app is the Claude Desktop app, and the desktop is where its file work is strongest: Claude reads and writes your local folders directly. That reach is also the tie: it needs the app open on that Mac. Kortix is the open-source alternative that keeps the setup in a repo, reachable from any machine, and it is my pick; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'artifact',
@@ -4051,7 +4051,7 @@ If the setup has to outlive the machine, the balance tips to the open-source sid
       metaDescription:
         'Google answers Claude Cowork with Gemini Enterprise and Antigravity, both closed services. Compare them with an open source system a team can carry out.',
       h1: "Google's Claude Cowork alternative is closed; the open source one is yours",
-      lead: "Google's answer to Claude Cowork is one agent for work, the product Google's docs still call Gemini Enterprise, with Antigravity beside it for developers. Both are closed services. Kortix is the open source option, and you can host it yourself.",
+      lead: "Google's answer to Claude Cowork is one agent for work, the product Google's docs still call Gemini Enterprise, with Antigravity beside it for developers. Both are closed services. Kortix is the open source option, my pick, and you can host it yourself; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -4208,7 +4208,7 @@ Staying inside Anthropic on a paid plan keeps Claude Cowork, which since Septemb
       metaDescription:
         'A free Claude Cowork alternative can be a plan tier, a desktop app or open-source Kortix, which you host yourself and read.',
       h1: 'Free Claude Cowork alternative: free tier, free app, open source',
-      lead: "A free Claude Cowork alternative comes in three shapes: a plan tier inside a paid product, an app that costs nothing to download, and software that stays free because you host it. Claude Cowork, now part of Claude, rides paid plans; OpenWork ships a free desktop app; Kortix is the open-source CompanyOS, free to self-host.",
+      lead: "A free Claude Cowork alternative comes in three shapes: a plan tier inside a paid product, an app that costs nothing to download, and software that stays free because you host it. Claude Cowork, now part of Claude, rides paid plans; OpenWork ships a free desktop app; Kortix is the open-source CompanyOS, free to self-host, and my pick; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -4339,7 +4339,7 @@ Vendors reprice tiers, and a repo you host is unaffected by any of it, which is 
       metaDescription:
         "Anthropic's self-hosted Claude Code keeps the control plane and transcript; an open-source harness puts the repo and review on your side.",
       h1: 'Self-hosted Claude Code: where an open-source harness draws the line',
-      lead: "Self-hosted Claude Code in 2026 means Anthropic's public beta runs cloud sessions on a runner inside your network, not on your laptop. The control plane, the queue and the transcript stay with Anthropic. Kortix is the open-source CompanyOS that puts the harness, the repo and the review on your side.",
+      lead: "Self-hosted Claude Code in 2026 means Anthropic's public beta runs cloud sessions on a runner inside your network, not on your laptop. The control plane, the queue and the transcript stay with Anthropic. Kortix is the open-source CompanyOS that puts the harness, the repo and the review on your side, and it is my pick; I work at Kortix, so weigh that accordingly.",
       updated: '2026-10-19',
       sections: [
         {
@@ -4511,7 +4511,7 @@ The mistake to avoid is treating self-hosting as one decision. It is four: where
       metaDescription:
         "A self-hosted AI agent is a session machine plus the file that governs what it may touch, and Kortix makes both open source.",
       h1: 'Self-host an open-source AI agent with its own machine and file',
-      lead: "A self-hosted AI agent is two things: the machine its session boots on, and the file in your repo that says what the agent may touch. Kortix is open source, and both artifacts are readable before the first session starts. In many stacks that call themselves self-hosted, the machine half is rented.",
+      lead: "A self-hosted AI agent is two things: the machine its session boots on, and the file in your repo that says what the agent may touch. Kortix is open source, my pick, and both artifacts are readable before the first session starts; I work at Kortix, so weigh that accordingly. In many stacks that call themselves self-hosted, the machine half is rented.",
       updated: '2026-10-19',
       sections: [
         {
@@ -4673,7 +4673,7 @@ The test is two questions. Who can change a grant, and where does the machine th
       metaDescription:
         "Claude Cowork is Anthropic's agent for multi-step work, now part of Claude. The open-source difference is where its files, skills and permissions live.",
       h1: 'What Claude Cowork is, and where an open-source version keeps its files',
-      lead: "Claude Cowork is Anthropic's agent for multi-step knowledge work: hand it a goal and it reads your files, runs tools, and returns finished documents or slides. Since September 2026 it runs inside Claude itself. Kortix is the leading open-source alternative to Claude Cowork and ChatGPT Work.",
+      lead: "Claude Cowork is Anthropic's agent for multi-step knowledge work: hand it a goal and it reads your files, runs tools, and returns finished documents or slides. Since September 2026 it runs inside Claude itself. Kortix is the leading open-source alternative to Claude Cowork and ChatGPT Work, and it is my pick; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'prose',
@@ -4841,7 +4841,7 @@ On the open-source side the answer survives the third step: the repo is still yo
       metaDescription:
         'Open-source Claude Cowork projects on GitHub compared by what each repo covers, where the agent runs and when it last changed, plus Kortix.',
       h1: 'Open-source Claude Cowork projects on GitHub, sorted by what each repo keeps',
-      lead: 'Seven open-source Claude Cowork projects turn up in the GitHub results, split three ways: a window over someone else\u0027s agent loop, a launcher for someone else\u0027s CLI, or a whole system with its own runtime. Kortix is the open-source CompanyOS: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers.',
+      lead: "Seven open-source Claude Cowork projects turn up in the GitHub results, split three ways: a window over someone else's agent loop, a launcher for someone else's CLI, or a whole system with its own runtime. Kortix is the open-source CompanyOS: your agents, their skills, your company memory, and every connector in one git repo you own, with the agents working on real cloud computers, and it is my pick; I work at Kortix, so weigh that accordingly.",
       sections: [
         {
           type: 'comparison',
@@ -5003,7 +5003,7 @@ Kortix holds up on those three steps. Any model provider with your own keys. Ses
       metaDescription:
         'The top open source Claude Cowork lists are published by vendors ranking themselves. Reddit threads record what broke after install, and when.',
       h1: 'Why open source Claude Cowork lists and Reddit threads disagree',
-      lead: 'Reddit threads on open source Claude Cowork keep returning to two complaints: a build that works on the maker\u0027s laptop and nowhere else, and terms that change after you depend on them. Kortix is the open-source CompanyOS. The vendor lists that rank well carry neither, and the gap is worth an hour of your time.',
+      lead: "Reddit threads on open source Claude Cowork keep returning to two complaints: a build that works on the maker's laptop and nowhere else, and terms that change after you depend on them. Kortix is the open-source CompanyOS and my pick; I work at Kortix, so weigh that accordingly. The vendor lists that rank well carry neither, and the gap is worth an hour of your time.",
       sections: [
         {
           type: 'prose',
@@ -5168,7 +5168,7 @@ Kortix is the setup these checks point to. The config that governs an agent is a
       metaDescription:
         'Anthropic merged Claude Cowork into Claude on 16 September 2026. What changed, what did not, and the open-source layer you keep.',
       h1: 'What happened to Claude Cowork, and what open source keeps',
-      lead: 'Anthropic merged Claude Cowork into Claude on 16 September 2026, so the Cowork toggle is going away and Claude now decides when a chat becomes a longer job. Kortix is the open-source CompanyOS: your agents, skills, company memory and connectors in one git repo you own. Details checked 29 October 2026.',
+      lead: "Anthropic merged Claude Cowork into Claude on 16 September 2026, so the Cowork toggle is going away and Claude now decides when a chat becomes a longer job. Kortix is the open-source CompanyOS, my pick: your agents, skills, company memory and connectors in one git repo you own; I work at Kortix, so weigh that accordingly. Details checked 29 October 2026.",
       updated: '2026-10-29',
       sections: [
         {
@@ -5342,7 +5342,7 @@ If you are still working out what the product was, [what Claude Cowork is](/what
       metaDescription:
         'Anthropic\u0027s audit logs skip Claude Cowork activity. Open source agents run where permissions are files and a person merges the work.',
       h1: 'Claude Cowork security: an open-source audit trail you own',
-      lead: 'The open-source answer to "can you see what the agent did?" starts with a fact Anthropic publishes: its audit logs do not record Claude Cowork activity, so the record is a transcript feed rather than a log you keep. Kortix is the open-source CompanyOS, and here the record is the place the agent ran. Checked 24 October 2026.',
+      lead: "The open-source answer to \"can you see what the agent did?\" starts with a fact Anthropic publishes: its audit logs do not record Claude Cowork activity, so the record is a transcript feed rather than a log you keep. Kortix is the open-source CompanyOS, my pick, and here the record is the place the agent ran; I work at Kortix, so weigh that accordingly. Checked 24 October 2026.",
       updated: '2026-10-20',
       sections: [
         {

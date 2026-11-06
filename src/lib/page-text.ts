@@ -11,8 +11,11 @@ import { pageUrl } from './site';
 const fence = (a: Artifact) => {
   // An artifact with no lines (the real-screenshot exhibit) has nothing to quote: it emits no
   // fence and no Source: line, so the twin never carries an empty fenced block vouched for by a
-  // source. Its HTML rendering (the figure and caption) is untouched.
-  if (a.lines.every((l) => l.trim() === '')) return '';
+  // source. Its `file` is the figure's caption and the image's alt text in the HTML, so the twin
+  // emits that caption as plain text: every string the page renders belongs in the .md twin and
+  // llms-full.txt, and a screenshot hero's caption was the one string neither carried (2026-11-04,
+  // design review of agentruntimesguide.com: "captions … absent from /index.md").
+  if (a.lines.every((l) => l.trim() === '')) return a.file.trim();
   const lang = a.lang === 'text' ? '' : a.lang;
   const src = a.source ? `\n\nSource: ${a.source}` : '';
   return `\`${a.file}\`\n\n\`\`\`${lang}\n${a.lines.join('\n')}\n\`\`\`${src}`;
@@ -113,7 +116,7 @@ function section(s: Section, site: SiteConfig): string {
         heading(s.heading),
         ...s.cards.map(
           (c) =>
-            `### ${c.tag}: ${c.headline}\n\n${c.body}\n\n${s.artifactLabel}: \`${c.artifact.file}\`\n\n${useCaseArtifact(c.artifact)}\n\n${c.artifact.footer}`,
+            `**${c.tag}**\n\n### ${c.headline}\n\n${c.body}\n\n${s.artifactLabel}: \`${c.artifact.file}\`\n\n${useCaseArtifact(c.artifact)}\n\n${c.artifact.footer}`,
         ),
       ].join('\n\n');
     case 'code-panels':
@@ -129,6 +132,20 @@ function section(s: Section, site: SiteConfig): string {
   }
 }
 
+/** The footer's visible strings. The colophon is rendered from `site.footer` by
+ *  shell/site-footer.tsx, not from a section, so the twin has to emit it here:
+ *  every sentence and date a reader sees belongs to the page's text (the
+ *  design gate's claims_traceable, and a reader of the .md twin). */
+const colophon = (site: SiteConfig): string =>
+  [
+    site.footer.blurb,
+    `Revised ${site.updated}`,
+    site.footer.legal,
+    `© ${site.updated.slice(0, 4)} ${site.domain}`,
+  ]
+    .filter((t) => t.trim() !== '')
+    .join('\n\n');
+
 export function pageMarkdown(site: SiteConfig, page: Page): string {
   const body = page.sections.map((s) => section(s, site)).filter((t) => t.trim() !== '');
   return [
@@ -136,6 +153,8 @@ export function pageMarkdown(site: SiteConfig, page: Page): string {
     `> ${inlineToPlain(page.lead)}`,
     `URL: ${pageUrl(site, page)}`,
     ...body,
+    '---',
+    colophon(site),
   ].join('\n\n') + '\n';
 }
 
