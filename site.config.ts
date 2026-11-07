@@ -138,7 +138,7 @@ const site: SiteConfig = {
       },
     ],
     legal:
-      'Not affiliated with Anthropic, OpenAI, Google or Microsoft. Claude, Claude Cowork, Claude Code, ChatGPT, Gemini, Copilot and the product names on this site belong to their owners. This site names them only to compare.',
+      'I write this site and work at Kortix, so weigh that accordingly. Claude, Claude Cowork, Claude Code, ChatGPT, Gemini, Copilot and the product names on this site belong to their owners, and this site names them only to compare.',
   },
 
   pages: [
@@ -506,9 +506,9 @@ Both lists cover the same items. Prompts, permissions, skills and cadences are t
 
 ## Three things the server has to carry
 
-The first is the rules. \`kortix.yaml\` sits at the root of the project repository, and its agents map declares each agent: its prompt file, model, mode and permission, plus the connectors, secrets and skills it may use. The reference states the default once: an omitted grant is none. \`skills\`, \`subagents\`, \`commands\`, \`extensions\`, \`connectors\`, \`secrets\`, \`apps\` and \`kortix_permissions\` all follow that rule.
+The first is the rules. \`kortix.yaml\` sits at the root of the project repository, and its agents map declares each agent: its prompt file, model, mode and permission, plus the connectors, secrets and skills it may use. The reference states the default once: an omitted \`skills\`, \`subagents\`, \`commands\`, \`extensions\`, \`connectors\`, \`secrets\`, \`apps\` or \`kortix_permissions\` grant is none. Three keys are open by default: \`tools\` is \`"*"\` (\`kortix validate\` warns when an agent omits it), \`permission\` is \`allow\`, and \`codemode\` is \`on\`.
 
-The second is the review. Merge is default-deny for agents. The agent commits to a branch of its own and opens a change request, which proposes to merge that branch into the default branch ([Read the docs](https://kortix.com/docs/developers#quickstart), checked October 2026). It stops there. Someone reads the diff first. The grant decides the rest. The starter agent carries \`kortix_permissions: all\`, which lets the API merge what it opened. The managed skill that Kortix adds to every session tells it to stop there, and to hand the change request up instead.
+The second is the review. Merge is default-deny for agents. The agent commits to a branch of its own and opens a change request, which proposes to merge that branch into the default branch ([Read the docs](https://kortix.com/docs/developers#quickstart), checked October 2026). It stops there. Someone reads the diff first. The grant decides the rest. The starter agent carries \`kortix_permissions: "*"\`, which lets the API merge what it opened. The managed skill that Kortix adds to every session tells it to stop there, and to hand the change request up instead.
 
 The third is the keys. Your provider accounts, one per project, billed by the provider that serves them. Nothing about that bill is ours to change, and the configuration line that names it sits in \`.env\` and in the project, in files a reviewer can read.
 
@@ -547,7 +547,7 @@ Two routes stay outside this install. One is staying on Claude, which keeps chat
             ],
           },
           caption:
-            "Eight lines from a reference manifest: the agent's mode and prompt file, and the skills, connector and secret names it enables, while every grant it omits stays none.",
+            "Eight lines from a reference manifest: the agent's mode and prompt file, and the skills, connector and secret names it enables, while the skills, connector and secret grants it omits stay none.",
         },
         {
           type: 'faq',
@@ -655,8 +655,8 @@ Kortix is the open-source CompanyOS, and a Kortix project is a git repo. The doc
 
 - the plugin's skill becomes \`skills/<name>/SKILL.md\`, which a reviewer reads in a change request like any other file;
 - its sub-agents become \`agents/<name>.md\`, one markdown file each;
-- its connectors become connector grants in \`kortix.yaml\`, and the manifest is deny-by-default, so an omitted grant resolves to none and a scoped agent starts locked down;
-- its commands become skills and tools the agent can call, listed under \`tools:\` for every agent of the project.
+- its connectors become connector grants in \`kortix.yaml\`, and a registered connector reaches no agent until an agent's \`connectors\` grant names it, so a scoped agent starts locked down;
+- its commands become \`commands:\` entries in \`kortix.yaml\`, and an agent runs one only when its \`commands\` grant names it;
 
 \`kortix.yaml\` holds the agent's file pointer, its connector grant, its skills grant, and the repo checkout a session gets in \`/workspace\`. Open source. Read it, fork it, audit it. Session work reaches \`main\` through a change request. Merge is default-deny for agents. [Read the docs](https://kortix.com/docs) for the manifest fields and the self-host install.
 
@@ -906,15 +906,17 @@ The calculation changes with the second person. Two members, each starting with 
             lines: [
               '# yaml-language-server: $schema=https://kortix.com/schema/kortix.schema.json',
               'default_agent: assistant',
+              '',
               'agents:',
               '  assistant:',
+              '    description: Answers questions about the project.',
               '    prompt: You answer questions about this project. Read the files before you answer.',
-              '    tools: all                               # omitted: all, with a warning',
-              '    skills: all                              # omitted: no skills',
+              '    tools: "*"                               # every tool; omitted: every tool, with a warning',
+              '    skills: "*"                              # every skill; omitted: no skills',
               '    workspace: { project_repository: true }  # omitted: no repository in /workspace',
             ],
           },
-          caption: 'The smallest useful manifest the reference prints: a schema line, a default agent, and one agent with its prompt and three grants, each comment stating what leaving that key out gives.',
+          caption: 'The smallest useful manifest the reference prints: a schema line, a default agent, and one agent with its description, prompt and three grants, each comment stating what leaving that key out gives.',
         },
         {
           type: 'prose',
@@ -926,7 +928,7 @@ A framework leaves you owning code you wrote around someone else's library. An a
 
 ## The company platform: the surroundings ship in the repo
 
-Kortix is the open-source CompanyOS, and the company platform among the four. The reference makes the claim in one line: \`kortix.yaml\` is the manifest at the root of a project repository, and it defines the project's agents and everything each agent may use. Core folders carry the substance: \`agents/\` holds one markdown file per agent, \`skills/\` holds how the company does a job, \`memory/\` is the project brain, and \`tools/\` is code every agent may call. Behavior and grants live in the same manifest. An \`agents:\` map grants connectors, secrets, permissions and skills per agent. An omitted grant resolves to none, in the reference's own words: "Omitted means none."
+Kortix is the open-source CompanyOS, and the company platform among the four. The reference makes the claim in one line: \`kortix.yaml\` is the manifest at the root of a project repository, and it defines the project's agents and everything each agent may use. Core folders carry the substance: \`agents/\` holds one markdown file per agent, \`skills/\` holds how the company does a job, \`memory/\` is the project brain, and \`tools/\` is code every agent may call. Behavior and grants live in the same manifest. An \`agents:\` map grants connectors, secrets, permissions and skills per agent. An omitted \`skills\`, \`subagents\`, \`commands\`, \`extensions\`, \`connectors\`, \`secrets\`, \`apps\` or \`kortix_permissions\` grant is none, in the reference's own words: "Omitted means none." \`tools\` is the exception: it defaults to \`"*"\`, with a \`kortix validate\` warning, and \`permission\` and \`codemode\` default to \`allow\` and \`on\`.
 
 The openness runs underneath the interface. A harness is the agent runtime inside a session's sandbox: it runs the model loop, calls tools and writes the transcript. Every new session runs pi; OpenCode is deprecated. Both read the same \`agents/\`, \`skills/\`, root \`AGENTS.md\` and \`kortix.yaml\`. A team can therefore read the thing that actually runs its sessions, in the same repo that holds what those sessions work from.
 
@@ -1093,9 +1095,9 @@ The kind decides which projects belong on the shortlist. Agent steps inside an a
             lang: 'text',
             source: 'https://kortix.com/docs/developers',
             lines: [
-              'A grant is all (or *), none (or ""), or a list of names. A list that contains * means all.',
+              'A grant is "*" (every name), none (or ""), or a list of names. Quote the *: a bare * is a YAML alias, and kortix validate prints the quoted line. all is the accepted alias of "*", and a list that contains "*" is every name too.',
               'Omitted means none. An omitted skills, subagents, commands, extensions, connectors, secrets, apps or kortix_permissions grants nothing.',
-              'Three keys are open by default: tools is all (kortix validate warns when an agent omits it), permission is allow, and codemode is on.',
+              'Three keys are open by default: tools is "*" (kortix validate warns when an agent omits it), permission is allow, and codemode is on.',
             ],
           },
         },
@@ -1130,7 +1132,7 @@ A vendor account is not a build you can put on your own machine. It buys a seat 
 
 Three things share the name self-hosted: the harness that runs an agent, the rules that govern what it may reach, and the machine its sessions run on. Two of the three are files in a repository. A Kortix project is a git repo with \`kortix.yaml\` at its root, and the platform can host that repo or you can connect your own on GitHub. Agents are markdown files under \`agents/\`. Skills are folders with a \`SKILL.md\`. Memory is a directory the sessions read and write. Triggers are entries in the manifest. Most of a project's setup lives in those files, which is what makes it reviewable.
 
-The agents map in the same file declares each agent, its behaviour and what it may use: connectors, secrets, permissions and skills. The reference says it outright: an omitted grant is none, so an agent with no grant starts with none. An agent's own block names it, sets its mode and its prompt, and lists its grants: tools, skills, commands, extensions, connectors, secrets and workspace. The markdown file is the system prompt, and both harnesses read it. Model, mode and permission sit in the \`agents.<name>\` block: one line there changes an agent's reach, one line of prompt changes its behavior.
+The agents map in the same file declares each agent, its behaviour and what it may use: connectors, secrets, permissions and skills. The reference says it outright: an omitted \`skills\`, \`subagents\`, \`commands\`, \`extensions\`, \`connectors\`, \`secrets\`, \`apps\` or \`kortix_permissions\` grant is none, while \`tools\` defaults to \`"*"\` with a \`kortix validate\` warning, \`permission\` to \`allow\`, and \`codemode\` to \`on\`. An agent's own block names it, sets its mode and its prompt, and lists its grants: tools, skills, commands, extensions, connectors, secrets and workspace. The markdown file is the system prompt, and both harnesses read it. Model, mode and permission sit in the \`agents.<name>\` block: one line there changes an agent's reach, one line of prompt changes its behavior.
 
 Sessions keep the same shape. Each boots in its own sandbox, clones the repo and works on its own branch, so the files are also the material agents edit. When the server restarts, the stack returns from the instance directory and the fleet returns from the repo.
 
@@ -2563,7 +2565,7 @@ The [self-hosting guide](/self-hosting) walks the install, and the [alternatives
               'agents:',
               '  assistant:',
               '    prompt: You answer questions about this project. Read the files before you answer.',
-              '    skills: all                              # omitted: no skills',
+              '    skills: "*"                              # every skill; omitted: no skills',
               '    workspace: { project_repository: true }  # omitted: no repository in /workspace',
             ],
           },
@@ -3529,7 +3531,7 @@ Kortix runs that way, and where it runs is your call: Run it on Kortix Cloud, in
             {
               label: 'Who authorizes an app',
               cells: [
-                'Per agent in kortix.yaml; an omitted grant resolves to none',
+                'Per agent in kortix.yaml; an omitted connectors grant is none',
                 'Owners enable it on Team and Enterprise; members still sign in',
               ],
             },
@@ -3686,7 +3688,7 @@ The second half is per-agent. Grants live in \`kortix.yaml\` beside the code. An
               'An agent gets no connector, secret, skill, App or project repository until you grant it.',
             ],
           },
-          caption: 'The guide splits an agent into behavior and access, then states the default: access is denied by default, and an agent gets nothing until a grant names it.',
+          caption: 'The guide splits an agent into behavior and access, then states the default: access is denied by default, and an agent gets no connector, secret, skill, App or project repository until a grant names it.',
         },
         {
           type: 'prose',
@@ -4539,7 +4541,7 @@ The mistake to avoid is treating self-hosting as one decision. It is four: where
           heading: {
             eyebrow: "Governance",
             title: "The manifest says what an agent may touch",
-            sub: "Grants live in the agents map, and a grant you leave out resolves to none.",
+            sub: "Grants live in the agents map: an omitted skills, subagents, commands, extensions, connectors, secrets, apps or kortix_permissions grant is none, while tools defaults to every tool with a warning.",
           },
           artifact: {
             file: 'kortix.yaml',
@@ -4550,7 +4552,7 @@ The mistake to avoid is treating self-hosting as one decision. It is four: where
               "  support:",
               "    prompt_file: agents/support.md",
               "    subagents: [researcher]",
-              "    commands: all",
+              "    commands: \"*\"",
               "    extensions: [web-access]",
               "    connectors: [helpdesk]",
               "    secrets: [HELPDESK_TOKEN]",
@@ -4592,7 +4594,7 @@ An agent that runs a build and an agent that drafts a reply do not need the same
 
 ## The file says what an agent may touch
 
-The \`agents.<name>\` block carries behavior and grants: prompt file, model, mode and permission, plus connectors, secrets, skills and permissions. The prompt lives in the agent's markdown file, which any editor opens. Grants are deny-by-default, so a grant you leave out resolves to none.
+The \`agents.<name>\` block carries behavior and grants: prompt file, model, mode and permission, plus connectors, secrets, skills and permissions. The prompt lives in the agent's markdown file, which any editor opens. A grant you leave out resolves to none for \`skills\`, \`subagents\`, \`commands\`, \`extensions\`, \`connectors\`, \`secrets\`, \`apps\` and \`kortix_permissions\`. \`tools\` is the exception: it defaults to \`"*"\`, and \`kortix validate\` warns when an agent omits it.
 
 The permission model is a file your review already covers. Grant a connector and the agent can call it. Grant a secret by name and the value stays out of the repo, in the project's secrets, so the file records what is allowed without holding what it unlocks. One line decides what a session can change before it starts. \`workspace.project_repository: true\` gives each session a checkout on its own branch, and \`false\` gives the session no repository access at all.
 
@@ -5200,7 +5202,7 @@ The merge carried Cowork's chats, projects, artifacts, connectors and skills int
 
 Kortix is built so that layer is a repository. An agent is one \`agents.<name>\` block in \`kortix.yaml\` (behavior and grants) plus the prompt file it names. The file holds the prompt; the block holds the model, the mode, the permission and the connector, secret and skill grants. Nothing about it lives in a dashboard; the pair is the whole agent. Each session works on its own branch, a private copy of the repository. Its work reaches the shared repository only when a person merges its change request ([Computers](https://kortix.com/docs/guide#computers)).
 
-\`kortix.yaml\` registers what exists in the project, and each agent enables what it needs by name. An omitted grant resolves to \`none\`, so a narrow agent starts with nothing ([the kortix.yaml reference](https://kortix.com/docs/developers#kortixyaml-reference)). Work then lands the way code lands. Session work reaches \`main\` through a change request, and merge is default-deny for agents. An admin can grant \`project.gitops.merge\` to change that.
+\`kortix.yaml\` registers what exists in the project, and each agent enables what it needs by name. An omitted \`skills\`, \`subagents\`, \`commands\`, \`extensions\`, \`connectors\`, \`secrets\`, \`apps\` or \`kortix_permissions\` grant resolves to \`none\`, while \`tools\` defaults to \`"*"\` with a \`kortix validate\` warning, \`permission\` to \`allow\`, and \`codemode\` to \`on\` ([the kortix.yaml reference](https://kortix.com/docs/developers#kortixyaml-reference)). Work then lands the way code lands. Session work reaches \`main\` through a change request, and merge is default-deny for agents. An admin can grant \`project.gitops.merge\` to change that.
 
 The repo is readable and the permission is a diff a colleague reviews. Every action is recorded. Reading, exporting and streaming the audit log depend on the plan. Who may merge is written down too. Run it on Kortix Cloud, in your VPC, or on your own on-prem network. Self-host is free.
 
@@ -5277,7 +5279,7 @@ If you are still working out what the product was, [what Claude Cowork is](/what
               '  assistant:',
               '    description: Answers questions about the project.',
               '    prompt: You answer questions about this project. Read the files before you answer.',
-              '    skills: all                              # omitted: no skills',
+              '    skills: "*"                              # every skill; omitted: no skills',
               '    workspace: { project_repository: true }  # omitted: no repository in /workspace',
             ],
           },
@@ -5383,9 +5385,9 @@ When the authority for an action is a setting inside the product, the evidence o
 
 ## What an auditable agent looks like instead
 
-An auditable system starts with where the permissions are written. In Kortix an agent is one \`agents.<name>\` block in \`kortix.yaml\`: its prompt or prompt file, its model, mode and permission, and what it may reach. The reference is blunt about the default: "Omitted means none." ([the kortix.yaml reference](https://kortix.com/docs/developers#kortixyaml-reference)). A permission change is a diff a colleague can read.
+An auditable system starts with where the permissions are written. In Kortix an agent is one \`agents.<name>\` block in \`kortix.yaml\`: its prompt or prompt file, its model, mode and permission, and what it may reach. The reference is blunt about the default: "Omitted means none." That covers \`skills\`, \`subagents\`, \`commands\`, \`extensions\`, \`connectors\`, \`secrets\`, \`apps\` and \`kortix_permissions\`; \`tools\` defaults to \`"*"\` with a \`kortix validate\` warning, \`permission\` to \`allow\`, and \`codemode\` to \`on\` ([the kortix.yaml reference](https://kortix.com/docs/developers#kortixyaml-reference)). A permission change is a diff a colleague can read.
 
-Grants fail closed by default. The guide says what that means in practice: "Access is denied by default. An agent gets no connector, secret, skill, App or project repository until you grant it." ([the agents guide](https://kortix.com/docs/guide#agents)). Access set in a console is a checkbox somebody ticked. Access written in a repo is a line somebody wrote and somebody else merged.
+Access fails closed by default. The guide says what that means in practice: "Access is denied by default. An agent gets no connector, secret, skill, App or project repository until you grant it." ([the agents guide](https://kortix.com/docs/guide#agents)). Access set in a console is a checkbox somebody ticked. Access written in a repo is a line somebody wrote and somebody else merged.
 
 A two-minute run of Kortix, [agent permissions as files](https://www.youtube.com/watch?v=XAmfUqvQwQE), shows the fail-closed rule at a terminal: \`kortix init northwind\` writes the project, a grant swapped for a permission that does not exist makes \`kortix validate\` fail at the exact path naming it, and the corrected file validates clean.
 

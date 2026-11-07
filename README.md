@@ -111,7 +111,7 @@ The three `layout` values are the three artifact states of brand `magic_trick.md
   rows: [{ label: 'Any model, your keys', glyphs: ['claude', 'openai', 'gemini'] }] }
 ```
 
-**`stack`**: "how it works". One Kortix layer per row with its artifact, a rail, and the accent on the row in view. Rebuilt.
+**`stack`**: "how it works". One layer per row with its artifact, a rail, and the accent on the row in view. Rebuilt.
 ```ts
 { type: 'stack', id: 'how-it-works', heading: { eyebrow: 'How Kortix works', title: '…', sub: '…' },
   layers: [{ id: 'repo', label: 'Repo', title: 'One git repo', body: '…', artifact: { file: 'kortix.yaml', lang: 'yaml', lines: [ … ] } }] }
